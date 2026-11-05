@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlayerPublicView } from '../../../server/src/engine/types.js';
-import { Skull, Crown, ScrollText, User, Users } from 'lucide-react';
+import { Skull, Crown, ScrollText, User, Users, Bot, CheckCircle } from 'lucide-react';
 
 interface SeatingTableProps {
   players: PlayerPublicView[];
@@ -11,6 +11,7 @@ interface SeatingTableProps {
   lastElectedPresidentId: string | null;
   lastElectedChancellorId: string | null;
   myPlayerId: string | null;
+  votedPlayerIds?: string[];
   onSelectPlayer?: (playerId: string) => void;
   selectedPlayerId?: string | null;
   isSelectable?: (playerId: string) => boolean;
@@ -26,6 +27,7 @@ export const SeatingTable: React.FC<SeatingTableProps> = ({
   lastElectedPresidentId,
   lastElectedChancellorId,
   myPlayerId,
+  votedPlayerIds = [],
   onSelectPlayer,
   selectedPlayerId,
   isSelectable,
@@ -37,18 +39,20 @@ export const SeatingTable: React.FC<SeatingTableProps> = ({
   players.forEach((p) => playerMap.set(p.id, p));
 
   return (
-    <div className="w-full select-none my-2">
-      <div className="flex items-center justify-between px-1 mb-2">
-        <div className="flex items-center gap-1.5 text-xs font-serif font-bold text-stone-400 uppercase tracking-wider">
-          <Users className="w-4 h-4 text-amber-500" />
-          <span>{isFa ? 'میز هیئت دولت (ترتیب نشستن)' : 'Council Table (Seating Order)'}</span>
+    <div className="w-full select-none my-3">
+      {/* Header */}
+      <div className="flex items-center justify-between px-1 mb-2.5">
+        <div className="flex items-center gap-2 text-xs font-serif font-black text-[#c49b5a] uppercase tracking-wider">
+          <Users className="w-4 h-4 text-[#c49b5a]" aria-hidden="true" />
+          <span>{isFa ? 'میز هیئت دولت (ترتیب نشستن نمایندگان)' : 'Council Table (Parliament Seating)'}</span>
         </div>
-        <span className="text-[11px] font-mono text-stone-500 bg-stone-900/60 px-2 py-0.5 rounded border border-stone-800">
-          {players.filter((p) => p.isAlive).length} / {players.length} {isFa ? 'نفر زنده' : 'alive'}
+        <span className="text-[11px] font-mono text-[#8a7664] bg-[#1a0e08] px-2.5 py-0.5 rounded-md border border-[#3d2516]">
+          {players.filter((p) => p.isAlive).length} / {players.length} {isFa ? 'زنده' : 'alive'}
         </span>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+      {/* Seats Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
         {seatingOrder.map((id, index) => {
           const player = playerMap.get(id);
           if (!player) return null;
@@ -60,6 +64,8 @@ export const SeatingTable: React.FC<SeatingTableProps> = ({
           const isLastChan = lastElectedChancellorId === id;
           const canSelect = isSelectable ? isSelectable(id) : false;
           const isSelected = selectedPlayerId === id;
+          const isBot = player.id.startsWith('bot_');
+          const hasVoted = votedPlayerIds.includes(id);
 
           return (
             <div
@@ -69,78 +75,100 @@ export const SeatingTable: React.FC<SeatingTableProps> = ({
                   onSelectPlayer(id);
                 }
               }}
-              className={`relative flex flex-col p-2.5 rounded-2xl border transition-all ${
+              className={`relative flex flex-col p-3 rounded-2xl border-2 transition-all ${
                 isSelected
-                  ? 'border-amber-400 bg-amber-950/70 shadow-[0_0_15px_rgba(251,191,36,0.5)] scale-[1.02]'
+                  ? 'border-amber-400 bg-[#3b2212] shadow-[0_0_20px_rgba(212,175,55,0.4)] scale-[1.02]'
                   : isPres
-                  ? 'border-amber-500/70 bg-gradient-to-b from-amber-950/40 to-stone-900/90 ring-2 ring-amber-400/40 shadow-[0_0_15px_rgba(201,169,107,0.25)]'
+                  ? 'border-[#c49b5a] bg-gradient-to-b from-[#2b190f] to-[#1a0e08] ring-2 ring-[#c49b5a]/40 shadow-[0_8px_16px_rgba(0,0,0,0.5)]'
                   : isChan
-                  ? 'border-stone-400/60 bg-gradient-to-b from-stone-850 to-stone-900/90 ring-2 ring-stone-300/30 shadow-[0_0_12px_rgba(241,232,213,0.15)]'
+                  ? 'border-stone-400/80 bg-gradient-to-b from-[#241c16] to-[#14100d] ring-2 ring-stone-300/30 shadow-[0_8px_16px_rgba(0,0,0,0.5)]'
                   : canSelect
-                  ? 'border-amber-600/70 bg-stone-900 hover:bg-stone-850 cursor-pointer animate-pulse'
-                  : 'border-stone-800 bg-stone-900/60'
-              } ${!player.isAlive ? 'opacity-40 grayscale' : ''}`}
+                  ? 'border-amber-500/80 bg-[#29170e] hover:bg-[#382013] cursor-pointer animate-pulse'
+                  : 'border-[#3d2516] bg-[#1a0f09]/90'
+              } ${!player.isAlive ? 'opacity-40 grayscale border-red-900/60 bg-[#1f0b0a]' : ''}`}
             >
-              {/* Order number & connection status */}
-              <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-                <span className="w-4 h-4 rounded-full bg-stone-800 text-stone-400 flex items-center justify-center">
+              {/* Order number & Status Badges */}
+              <div className="flex items-center justify-between text-[10px] font-mono mb-1.5">
+                <span className="w-5 h-5 rounded-full bg-[#29170e] text-[#c49b5a] font-bold flex items-center justify-center border border-[#4d2f1b]">
                   {index + 1}
                 </span>
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    player.isConnected ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.8)]' : 'bg-stone-600'
-                  }`}
-                  title={player.isConnected ? 'Online' : 'Offline'}
-                />
+
+                <div className="flex items-center gap-1">
+                  {/* Bot indicator */}
+                  {isBot && (
+                    <span className="text-[9px] font-mono bg-stone-800 text-stone-400 px-1 py-0.2 rounded border border-stone-700 flex items-center gap-0.5" title="Automated Bot">
+                      <Bot className="w-2.5 h-2.5" aria-hidden="true" />
+                      <span>BOT</span>
+                    </span>
+                  )}
+
+                  {/* Has voted badge */}
+                  {hasVoted && (
+                    <span className="text-[9px] font-mono bg-emerald-950 text-emerald-400 px-1 py-0.2 rounded border border-emerald-800 flex items-center gap-0.5" title="Ballot Sealed">
+                      <CheckCircle className="w-2.5 h-2.5" aria-hidden="true" />
+                      <span>{isFa ? 'رأی داد' : 'VOTED'}</span>
+                    </span>
+                  )}
+
+                  {/* Connection indicator for online players */}
+                  {!isBot && (
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        player.isConnected ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.8)]' : 'bg-stone-600'
+                      }`}
+                      title={player.isConnected ? 'Connected' : 'Disconnected'}
+                    />
+                  )}
+                </div>
               </div>
 
-              {/* Name & Vector Avatar */}
-              <div className="flex items-center gap-1.5 my-1">
-                <span className="p-1 rounded-lg bg-stone-800/80 border border-stone-700/60">
+              {/* Delegate Name & Role Icon */}
+              <div className="flex items-center gap-2 my-1">
+                <span className="p-1 rounded-lg bg-[#2b180e] border border-[#4d2f1b] shrink-0">
                   {!player.isAlive ? (
-                    <Skull className="w-3.5 h-3.5 text-red-500" />
+                    <Skull className="w-3.5 h-3.5 text-red-500" aria-hidden="true" />
                   ) : isPres ? (
-                    <Crown className="w-3.5 h-3.5 text-amber-400" />
+                    <Crown className="w-3.5 h-3.5 text-[#e6c687]" aria-hidden="true" />
                   ) : isChan ? (
-                    <ScrollText className="w-3.5 h-3.5 text-stone-200" />
+                    <ScrollText className="w-3.5 h-3.5 text-stone-200" aria-hidden="true" />
                   ) : (
-                    <User className="w-3.5 h-3.5 text-stone-400" />
+                    <User className="w-3.5 h-3.5 text-[#8a725f]" aria-hidden="true" />
                   )}
                 </span>
-                <span className="font-serif font-bold text-stone-200 text-xs truncate max-w-[85px]">
+                <span className="font-serif font-black text-[#f7e8ce] text-xs truncate max-w-[95px]">
                   {player.name}
                 </span>
                 {isMe && (
-                  <span className="text-[9px] bg-amber-600 text-stone-950 font-bold px-1 rounded">
-                    {isFa ? 'شما' : 'You'}
+                  <span className="text-[9px] bg-[#c49b5a] text-[#1c100a] font-mono font-black px-1 rounded shrink-0">
+                    {isFa ? 'شما' : 'YOU'}
                   </span>
                 )}
               </div>
 
-              {/* Badges / Roles in Government */}
-              <div className="flex flex-wrap gap-1 mt-auto pt-1">
+              {/* Status Ribbon / Badges */}
+              <div className="flex flex-wrap gap-1 mt-auto pt-1.5">
                 {isPres && (
-                  <span className="text-[9px] font-serif font-black bg-amber-500 text-stone-950 px-1.5 py-0.5 rounded shadow">
+                  <span className="text-[9px] font-serif font-black bg-[#c49b5a] text-[#1c100a] px-1.5 py-0.5 rounded shadow">
                     {isFa ? 'رئیس‌جمهور' : 'President'}
                   </span>
                 )}
                 {isChan && (
-                  <span className="text-[9px] font-serif font-black bg-stone-200 text-stone-900 px-1.5 py-0.5 rounded shadow">
+                  <span className="text-[9px] font-serif font-black bg-stone-300 text-stone-950 px-1.5 py-0.5 rounded shadow">
                     {isFa ? 'صدراعظم' : 'Chancellor'}
                   </span>
                 )}
                 {isLastPres && !isPres && (
-                  <span className="text-[8px] font-mono text-stone-400 bg-stone-800 px-1 rounded">
-                    {isFa ? 'رئیس پیشین' : 'Prev Pres'}
+                  <span className="text-[8px] font-mono text-[#a89280] bg-[#29170e] px-1 py-0.2 rounded border border-[#422718]">
+                    {isFa ? 'رئیس سابق' : 'Ex-Pres'}
                   </span>
                 )}
                 {isLastChan && !isChan && (
-                  <span className="text-[8px] font-mono text-stone-400 bg-stone-800 px-1 rounded">
-                    {isFa ? 'صدراعظم پیشین' : 'Prev Chan'}
+                  <span className="text-[8px] font-mono text-[#a89280] bg-[#29170e] px-1 py-0.2 rounded border border-[#422718]">
+                    {isFa ? 'صدراعظم سابق' : 'Ex-Chan'}
                   </span>
                 )}
                 {!player.isAlive && (
-                  <span className="text-[9px] font-bold text-red-500 bg-red-950/80 px-1 rounded">
+                  <span className="text-[9px] font-bold text-red-400 bg-red-950/80 px-1.5 py-0.5 rounded border border-red-800">
                     {isFa ? 'اعدام‌شده' : 'Dead'}
                   </span>
                 )}

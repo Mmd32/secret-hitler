@@ -914,8 +914,8 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
               : 'Election Failed!'}
           </h3>
 
-          <div className="text-xs font-mono text-[#c49b5a] mb-4">
-            {lastRec?.jaVotes || 0} JA — {lastRec?.neinVotes || 0} NEIN
+          <div className="text-xs font-mono font-bold text-[#c49b5a] mb-4 bg-[#180e08] px-3 py-1 rounded-full border border-[#3d2516]">
+            {lastRec?.jaCount || 0} JA — {lastRec?.neinCount || 0} NEIN
           </div>
 
           {/* Reveal each player's ballot */}

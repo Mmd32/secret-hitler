@@ -12,6 +12,8 @@ import { ExecutivePowerModal } from './components/ExecutivePowerModal.js';
 import { VictoryScreen } from './components/VictoryScreen.js';
 import { GovernmentPlacards } from './components/GovernmentPlacards.js';
 import { PassAndPlayGame } from './components/PassAndPlayGame.js';
+import { RulesAssistantModal } from './components/RulesAssistantModal.js';
+import { DeckPiles } from './components/DeckPiles.js';
 import {
   Landmark,
   FolderLock,
@@ -54,6 +56,7 @@ export const App: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showDossierModal, setShowDossierModal] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showRulesModal, setShowRulesModal] = useState(false);
   const [nominatedTargetId, setNominatedTargetId] = useState<string | null>(null);
   const [isPassAndPlayMode, setIsPassAndPlayMode] = useState(false);
 
@@ -291,6 +294,17 @@ export const App: React.FC = () => {
             {isMuted ? <VolumeX className="w-4 h-4 text-stone-500" /> : <Volume2 className="w-4 h-4 text-amber-400" />}
           </button>
 
+          {/* Rules Assistant Button */}
+          <button
+            onClick={() => setShowRulesModal(true)}
+            aria-label={isFa ? 'راهنمای قوانین' : 'Rules Guide'}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#241710] border border-[#5c3a21] text-xs font-serif font-bold text-[#e6c687] hover:bg-[#361e12] transition-all shadow"
+            title={isFa ? 'راهنمای قوانین' : 'Rules Guide'}
+          >
+            <BookOpen className="w-3.5 h-3.5 text-[#c49b5a]" aria-hidden="true" />
+            <span className="hidden sm:inline">{isFa ? 'قوانین' : 'Rules'}</span>
+          </button>
+
           {/* Language Toggle */}
           <button
             onClick={toggleLanguage}
@@ -326,7 +340,7 @@ export const App: React.FC = () => {
       )}
 
       {/* --- MAIN VIEW CONTENT --- */}
-      <main className="flex-1 w-full max-w-4xl mx-auto px-3 sm:px-6 py-4 flex flex-col justify-start items-center">
+      <main className="flex-1 w-full max-w-6xl mx-auto px-3 sm:px-6 py-4 flex flex-col justify-start items-center">
         {/* PASS & PLAY OFFLINE MODE */}
         {isPassAndPlayMode && (
           <PassAndPlayGame
@@ -564,27 +578,37 @@ export const App: React.FC = () => {
         {/* SCREEN 4: ACTIVE PLAYING BOARD & ACTIONS */}
         {publicState && phase !== 'LOBBY' && phase !== 'ROLE_REVEAL' && (
           <div className="w-full flex flex-col gap-4 animate-fadeIn">
-            {/* Government Placards */}
-            <GovernmentPlacards
-              presidentName={
-                publicState.players.find((p) => p.id === publicState.presidentId)?.name || null
-              }
-              chancellorName={
-                publicState.players.find(
-                  (p) => p.id === (publicState.chancellorId || publicState.nominatedChancellorId)
-                )?.name || null
-              }
-              isNominated={phase === 'ELECTION_NOMINATION' || phase === 'ELECTION_VOTING'}
-              termLimitInfo={{
-                lastPresidentName: publicState.lastElectedPresidentId
-                  ? publicState.players.find((p) => p.id === publicState.lastElectedPresidentId)?.name
-                  : null,
-                lastChancellorName: publicState.lastElectedChancellorId
-                  ? publicState.players.find((p) => p.id === publicState.lastElectedChancellorId)?.name
-                  : null,
-              }}
-              lang={lang}
-            />
+            {/* Government Placards & Deck Piles */}
+            <div className="w-full flex flex-col md:flex-row items-center justify-between gap-3">
+              <div className="flex-1 w-full">
+                <GovernmentPlacards
+                  presidentName={
+                    publicState.players.find((p) => p.id === publicState.presidentId)?.name || null
+                  }
+                  chancellorName={
+                    publicState.players.find(
+                      (p) => p.id === (publicState.chancellorId || publicState.nominatedChancellorId)
+                    )?.name || null
+                  }
+                  isNominated={phase === 'ELECTION_NOMINATION' || phase === 'ELECTION_VOTING'}
+                  termLimitInfo={{
+                    lastPresidentName: publicState.lastElectedPresidentId
+                      ? publicState.players.find((p) => p.id === publicState.lastElectedPresidentId)?.name
+                      : null,
+                    lastChancellorName: publicState.lastElectedChancellorId
+                      ? publicState.players.find((p) => p.id === publicState.lastElectedChancellorId)?.name
+                      : null,
+                  }}
+                  lang={lang}
+                />
+              </div>
+
+              <DeckPiles
+                drawPileCount={publicState.drawPileCount}
+                discardPileCount={publicState.discardPileCount}
+                lang={lang}
+              />
+            </div>
 
             {/* Top Boards */}
             <BoardTracks
@@ -605,6 +629,7 @@ export const App: React.FC = () => {
               lastElectedPresidentId={publicState.lastElectedPresidentId}
               lastElectedChancellorId={publicState.lastElectedChancellorId}
               myPlayerId={playerId}
+              votedPlayerIds={publicState.votedPlayerIds}
               lang={lang}
               selectedPlayerId={nominatedTargetId}
               onSelectPlayer={(id) => setNominatedTargetId(id)}
@@ -841,6 +866,14 @@ export const App: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Contextual Rules Assistant Modal */}
+      <RulesAssistantModal
+        phase={phase || 'LOBBY'}
+        isOpen={showRulesModal}
+        onClose={() => setShowRulesModal(false)}
+        lang={lang}
+      />
 
       {/* --- FOOTER --- */}
       <footer className="w-full text-center py-2 text-[10px] font-mono text-stone-600 border-t border-stone-900">
