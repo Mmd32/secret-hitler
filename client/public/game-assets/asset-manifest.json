@@ -1,0 +1,745 @@
+{
+  "name": "Secret Hitler Tabletop Asset Kit",
+  "version": "1.0.0",
+  "license_note": "Original newly-drawn SVG assets provided for use in this project; Secret Hitler source IP and approved role-card portraits need their own license/rights review. CC BY-NC-SA 4.0 original game restrictions may apply.",
+  "localization": "English is intentionally used for print artwork. Render Persian instructions, dynamic player names and numbers in HTML/CSS with RTL support instead of baking them into images.",
+  "roleCards": "Keep original role cards exactly as approved.",
+  "boards": {
+    "liberal_desktop": {
+      "asset": "boards/liberal_desktop.svg",
+      "naturalSize": {
+        "width": 1740,
+        "height": 670
+      },
+      "slots": [
+        {
+          "index": 1,
+          "x": 162,
+          "y": 239,
+          "width": 268,
+          "height": 345,
+          "power": null
+        },
+        {
+          "index": 2,
+          "x": 449,
+          "y": 239,
+          "width": 268,
+          "height": 345,
+          "power": null
+        },
+        {
+          "index": 3,
+          "x": 736,
+          "y": 239,
+          "width": 268,
+          "height": 345,
+          "power": null
+        },
+        {
+          "index": 4,
+          "x": 1023,
+          "y": 239,
+          "width": 268,
+          "height": 345,
+          "power": null
+        },
+        {
+          "index": 5,
+          "x": 1310,
+          "y": 239,
+          "width": 268,
+          "height": 345,
+          "power": "WIN"
+        }
+      ]
+    },
+    "liberal_mobile": {
+      "asset": "boards/liberal_mobile.svg",
+      "naturalSize": {
+        "width": 800,
+        "height": 1550
+      },
+      "slots": [
+        {
+          "index": 1,
+          "x": 139,
+          "y": 248,
+          "width": 246,
+          "height": 378,
+          "power": null
+        },
+        {
+          "index": 2,
+          "x": 415,
+          "y": 248,
+          "width": 246,
+          "height": 378,
+          "power": null
+        },
+        {
+          "index": 3,
+          "x": 139,
+          "y": 671,
+          "width": 246,
+          "height": 378,
+          "power": null
+        },
+        {
+          "index": 4,
+          "x": 415,
+          "y": 671,
+          "width": 246,
+          "height": 378,
+          "power": null
+        },
+        {
+          "index": 5,
+          "x": 277,
+          "y": 1094,
+          "width": 246,
+          "height": 378,
+          "power": "WIN"
+        }
+      ]
+    },
+    "fascist_5_6_desktop": {
+      "asset": "boards/fascist_5_6_desktop.svg",
+      "naturalSize": {
+        "width": 1740,
+        "height": 670
+      },
+      "slots": [
+        {
+          "index": 1,
+          "x": 144,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": null
+        },
+        {
+          "index": 2,
+          "x": 389,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": null
+        },
+        {
+          "index": 3,
+          "x": 634,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "PEEK"
+        },
+        {
+          "index": 4,
+          "x": 879,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 5,
+          "x": 1124,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 6,
+          "x": 1369,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "WIN"
+        }
+      ]
+    },
+    "fascist_5_6_mobile": {
+      "asset": "boards/fascist_5_6_mobile.svg",
+      "naturalSize": {
+        "width": 800,
+        "height": 1550
+      },
+      "slots": [
+        {
+          "index": 1,
+          "x": 139,
+          "y": 248,
+          "width": 246,
+          "height": 378,
+          "power": null
+        },
+        {
+          "index": 2,
+          "x": 415,
+          "y": 248,
+          "width": 246,
+          "height": 378,
+          "power": null
+        },
+        {
+          "index": 3,
+          "x": 139,
+          "y": 671,
+          "width": 246,
+          "height": 378,
+          "power": "PEEK"
+        },
+        {
+          "index": 4,
+          "x": 415,
+          "y": 671,
+          "width": 246,
+          "height": 378,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 5,
+          "x": 139,
+          "y": 1094,
+          "width": 246,
+          "height": 378,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 6,
+          "x": 415,
+          "y": 1094,
+          "width": 246,
+          "height": 378,
+          "power": "WIN"
+        }
+      ]
+    },
+    "fascist_7_8_desktop": {
+      "asset": "boards/fascist_7_8_desktop.svg",
+      "naturalSize": {
+        "width": 1740,
+        "height": 670
+      },
+      "slots": [
+        {
+          "index": 1,
+          "x": 144,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": null
+        },
+        {
+          "index": 2,
+          "x": 389,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "INVESTIGATE"
+        },
+        {
+          "index": 3,
+          "x": 634,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "SPECIAL"
+        },
+        {
+          "index": 4,
+          "x": 879,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 5,
+          "x": 1124,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 6,
+          "x": 1369,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "WIN"
+        }
+      ]
+    },
+    "fascist_7_8_mobile": {
+      "asset": "boards/fascist_7_8_mobile.svg",
+      "naturalSize": {
+        "width": 800,
+        "height": 1550
+      },
+      "slots": [
+        {
+          "index": 1,
+          "x": 139,
+          "y": 248,
+          "width": 246,
+          "height": 378,
+          "power": null
+        },
+        {
+          "index": 2,
+          "x": 415,
+          "y": 248,
+          "width": 246,
+          "height": 378,
+          "power": "INVESTIGATE"
+        },
+        {
+          "index": 3,
+          "x": 139,
+          "y": 671,
+          "width": 246,
+          "height": 378,
+          "power": "SPECIAL"
+        },
+        {
+          "index": 4,
+          "x": 415,
+          "y": 671,
+          "width": 246,
+          "height": 378,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 5,
+          "x": 139,
+          "y": 1094,
+          "width": 246,
+          "height": 378,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 6,
+          "x": 415,
+          "y": 1094,
+          "width": 246,
+          "height": 378,
+          "power": "WIN"
+        }
+      ]
+    },
+    "fascist_9_10_desktop": {
+      "asset": "boards/fascist_9_10_desktop.svg",
+      "naturalSize": {
+        "width": 1740,
+        "height": 670
+      },
+      "slots": [
+        {
+          "index": 1,
+          "x": 144,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "INVESTIGATE"
+        },
+        {
+          "index": 2,
+          "x": 389,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "INVESTIGATE"
+        },
+        {
+          "index": 3,
+          "x": 634,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "SPECIAL"
+        },
+        {
+          "index": 4,
+          "x": 879,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 5,
+          "x": 1124,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 6,
+          "x": 1369,
+          "y": 239,
+          "width": 226,
+          "height": 345,
+          "power": "WIN"
+        }
+      ]
+    },
+    "fascist_9_10_mobile": {
+      "asset": "boards/fascist_9_10_mobile.svg",
+      "naturalSize": {
+        "width": 800,
+        "height": 1550
+      },
+      "slots": [
+        {
+          "index": 1,
+          "x": 139,
+          "y": 248,
+          "width": 246,
+          "height": 378,
+          "power": "INVESTIGATE"
+        },
+        {
+          "index": 2,
+          "x": 415,
+          "y": 248,
+          "width": 246,
+          "height": 378,
+          "power": "INVESTIGATE"
+        },
+        {
+          "index": 3,
+          "x": 139,
+          "y": 671,
+          "width": 246,
+          "height": 378,
+          "power": "SPECIAL"
+        },
+        {
+          "index": 4,
+          "x": 415,
+          "y": 671,
+          "width": 246,
+          "height": 378,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 5,
+          "x": 139,
+          "y": 1094,
+          "width": 246,
+          "height": 378,
+          "power": "EXECUTION"
+        },
+        {
+          "index": 6,
+          "x": 415,
+          "y": 1094,
+          "width": 246,
+          "height": 378,
+          "power": "WIN"
+        }
+      ]
+    }
+  },
+  "assets": [
+    {
+      "id": "policy_liberal_policy",
+      "svg": "policy/liberal_policy.svg",
+      "png": "policy/liberal_policy.png",
+      "width": 600,
+      "height": 940,
+      "category": "policy",
+      "description": "Liberal enacted policy"
+    },
+    {
+      "id": "policy_fascist_policy",
+      "svg": "policy/fascist_policy.svg",
+      "png": "policy/fascist_policy.png",
+      "width": 600,
+      "height": 940,
+      "category": "policy",
+      "description": "Fascist enacted policy"
+    },
+    {
+      "id": "membership_liberal_membership",
+      "svg": "membership/liberal_membership.svg",
+      "png": "membership/liberal_membership.png",
+      "width": 600,
+      "height": 940,
+      "category": "membership",
+      "description": "Liberal party membership"
+    },
+    {
+      "id": "membership_fascist_membership",
+      "svg": "membership/fascist_membership.svg",
+      "png": "membership/fascist_membership.png",
+      "width": 600,
+      "height": 940,
+      "category": "membership",
+      "description": "Fascist party membership"
+    },
+    {
+      "id": "vote_ja",
+      "svg": "vote/ja.svg",
+      "png": "vote/ja.png",
+      "width": 600,
+      "height": 940,
+      "category": "vote",
+      "description": "JA ballot"
+    },
+    {
+      "id": "vote_nein",
+      "svg": "vote/nein.svg",
+      "png": "vote/nein.png",
+      "width": 600,
+      "height": 940,
+      "category": "vote",
+      "description": "NEIN ballot"
+    },
+    {
+      "id": "backs_role_back",
+      "svg": "backs/role_back.svg",
+      "png": "backs/role_back.png",
+      "width": 600,
+      "height": 940,
+      "category": "back",
+      "description": "role_back"
+    },
+    {
+      "id": "backs_policy_back",
+      "svg": "backs/policy_back.svg",
+      "png": "backs/policy_back.png",
+      "width": 600,
+      "height": 940,
+      "category": "back",
+      "description": "policy_back"
+    },
+    {
+      "id": "backs_membership_back",
+      "svg": "backs/membership_back.svg",
+      "png": "backs/membership_back.png",
+      "width": 600,
+      "height": 940,
+      "category": "back",
+      "description": "membership_back"
+    },
+    {
+      "id": "backs_ballot_back",
+      "svg": "backs/ballot_back.svg",
+      "png": "backs/ballot_back.png",
+      "width": 600,
+      "height": 940,
+      "category": "back",
+      "description": "ballot_back"
+    },
+    {
+      "id": "placards_president",
+      "svg": "placards/president.svg",
+      "png": "placards/president.png",
+      "width": 960,
+      "height": 340,
+      "category": "placard",
+      "description": "PRESIDENT placard; overlay player names separately"
+    },
+    {
+      "id": "placards_chancellor",
+      "svg": "placards/chancellor.svg",
+      "png": "placards/chancellor.png",
+      "width": 960,
+      "height": 340,
+      "category": "placard",
+      "description": "CHANCELLOR placard; overlay player names separately"
+    },
+    {
+      "id": "boards_liberal_desktop",
+      "svg": "boards/liberal_desktop.svg",
+      "png": "boards/liberal_desktop.png",
+      "width": 1740,
+      "height": 670,
+      "category": "board",
+      "description": "liberal desktop empty policy board"
+    },
+    {
+      "id": "boards_liberal_mobile",
+      "svg": "boards/liberal_mobile.svg",
+      "png": "boards/liberal_mobile.png",
+      "width": 800,
+      "height": 1550,
+      "category": "board",
+      "description": "liberal mobile empty policy board"
+    },
+    {
+      "id": "boards_fascist_5_6_desktop",
+      "svg": "boards/fascist_5_6_desktop.svg",
+      "png": "boards/fascist_5_6_desktop.png",
+      "width": 1740,
+      "height": 670,
+      "category": "board",
+      "description": "fascist_5_6 desktop empty policy board"
+    },
+    {
+      "id": "boards_fascist_5_6_mobile",
+      "svg": "boards/fascist_5_6_mobile.svg",
+      "png": "boards/fascist_5_6_mobile.png",
+      "width": 800,
+      "height": 1550,
+      "category": "board",
+      "description": "fascist_5_6 mobile empty policy board"
+    },
+    {
+      "id": "boards_fascist_7_8_desktop",
+      "svg": "boards/fascist_7_8_desktop.svg",
+      "png": "boards/fascist_7_8_desktop.png",
+      "width": 1740,
+      "height": 670,
+      "category": "board",
+      "description": "fascist_7_8 desktop empty policy board"
+    },
+    {
+      "id": "boards_fascist_7_8_mobile",
+      "svg": "boards/fascist_7_8_mobile.svg",
+      "png": "boards/fascist_7_8_mobile.png",
+      "width": 800,
+      "height": 1550,
+      "category": "board",
+      "description": "fascist_7_8 mobile empty policy board"
+    },
+    {
+      "id": "boards_fascist_9_10_desktop",
+      "svg": "boards/fascist_9_10_desktop.svg",
+      "png": "boards/fascist_9_10_desktop.png",
+      "width": 1740,
+      "height": 670,
+      "category": "board",
+      "description": "fascist_9_10 desktop empty policy board"
+    },
+    {
+      "id": "boards_fascist_9_10_mobile",
+      "svg": "boards/fascist_9_10_mobile.svg",
+      "png": "boards/fascist_9_10_mobile.png",
+      "width": 800,
+      "height": 1550,
+      "category": "board",
+      "description": "fascist_9_10 mobile empty policy board"
+    },
+    {
+      "id": "markers_investigate",
+      "svg": "markers/investigate.svg",
+      "png": "markers/investigate.png",
+      "width": 460,
+      "height": 460,
+      "category": "marker",
+      "description": "investigate"
+    },
+    {
+      "id": "markers_policy_peek",
+      "svg": "markers/policy_peek.svg",
+      "png": "markers/policy_peek.png",
+      "width": 460,
+      "height": 460,
+      "category": "marker",
+      "description": "policy_peek"
+    },
+    {
+      "id": "markers_special_election",
+      "svg": "markers/special_election.svg",
+      "png": "markers/special_election.png",
+      "width": 460,
+      "height": 460,
+      "category": "marker",
+      "description": "special_election"
+    },
+    {
+      "id": "markers_execution",
+      "svg": "markers/execution.svg",
+      "png": "markers/execution.png",
+      "width": 460,
+      "height": 460,
+      "category": "marker",
+      "description": "execution"
+    },
+    {
+      "id": "markers_veto",
+      "svg": "markers/veto.svg",
+      "png": "markers/veto.png",
+      "width": 460,
+      "height": 460,
+      "category": "marker",
+      "description": "veto"
+    },
+    {
+      "id": "markers_draw_pile",
+      "svg": "markers/draw_pile.svg",
+      "png": "markers/draw_pile.png",
+      "width": 460,
+      "height": 460,
+      "category": "marker",
+      "description": "draw_pile"
+    },
+    {
+      "id": "markers_discard_pile",
+      "svg": "markers/discard_pile.svg",
+      "png": "markers/discard_pile.png",
+      "width": 460,
+      "height": 460,
+      "category": "marker",
+      "description": "discard_pile"
+    },
+    {
+      "id": "markers_election_marker",
+      "svg": "markers/election_marker.svg",
+      "png": "markers/election_marker.png",
+      "width": 460,
+      "height": 460,
+      "category": "marker",
+      "description": "election_marker"
+    },
+    {
+      "id": "markers_election_tracker",
+      "svg": "markers/election_tracker.svg",
+      "png": "markers/election_tracker.png",
+      "width": 900,
+      "height": 250,
+      "category": "tracker",
+      "description": "Three failed elections tracker"
+    },
+    {
+      "id": "markers_veto_unlocked",
+      "svg": "markers/veto_unlocked.svg",
+      "png": "markers/veto_unlocked.png",
+      "width": 860,
+      "height": 260,
+      "category": "marker",
+      "description": "Veto unlocked"
+    },
+    {
+      "id": "liberal_role",
+      "png": "role/liberal_role.png",
+      "width": 512,
+      "height": 852,
+      "category": "role",
+      "description": "Previously approved historical role card (unchanged)"
+    },
+    {
+      "id": "fascist_role",
+      "png": "role/fascist_role.png",
+      "width": 523,
+      "height": 847,
+      "category": "role",
+      "description": "Previously approved historical role card (unchanged)"
+    },
+    {
+      "id": "hitler_role",
+      "png": "role/hitler_role.png",
+      "width": 505,
+      "height": 847,
+      "category": "role",
+      "description": "Previously approved historical role card (unchanged)"
+    }
+  ]
+}

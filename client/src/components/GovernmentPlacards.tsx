@@ -26,40 +26,20 @@ export const GovernmentPlacards: React.FC<GovernmentPlacardsProps> = ({
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-2xl">
         
         {/* ========================================================= */}
-        {/* 1. PRESIDENT PLACARD (DER REICHSPRÄSIDENT)                */}
+        {/* 1. PRESIDENT PLACARD                                      */}
         {/* ========================================================= */}
         <div className="flex flex-col rounded-2xl overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.6)] border-2 border-[#5c3a21] bg-[#1a0f08] transition-all">
-          {/* LAYER 1: Physical Wooden Office Placard (Fixed Title) */}
-          <div className="relative aspect-[10/3.2] w-full overflow-hidden bg-gradient-to-b from-[#2a170c] via-[#1e1008] to-[#140a05] flex flex-col items-center justify-center px-4 py-2 border-b-2 border-[#3d2314]">
-            {/* Subtle Woodgrain & Gold Inlaid Edge */}
-            <div className="absolute inset-1.5 rounded-xl border border-[#c49b5a]/40 pointer-events-none" />
-            <div className="absolute inset-2 rounded-lg border border-[#c49b5a]/20 border-dashed pointer-events-none" />
-            
-            {/* Corner Brass Rivets */}
-            <div className="absolute top-2.5 left-2.5 w-1.5 h-1.5 rounded-full bg-[#e6c687] shadow-sm" />
-            <div className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-[#e6c687] shadow-sm" />
-            <div className="absolute bottom-2.5 left-2.5 w-1.5 h-1.5 rounded-full bg-[#e6c687] shadow-sm" />
-            <div className="absolute bottom-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-[#e6c687] shadow-sm" />
-
-            {/* Official Title Subtext */}
-            <span className="text-[10px] sm:text-[11px] font-serif font-bold text-[#c49b5a] tracking-[0.25em] uppercase text-center">
-              DER REICHSPRÄSIDENT
-            </span>
-
-            {/* Main Historic Title */}
-            <h4 className="text-xl sm:text-2xl font-serif font-black tracking-[0.2em] text-[#f4ecd8] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] my-0.5 uppercase">
-              PRESIDENT
-            </h4>
-
-            {/* Persian Localization Tag */}
-            {isFa && (
-              <span className="text-[11px] font-serif font-bold text-[#b8956b] tracking-wider">
-                رئیس‌جمهور جمهوری وایمار
-              </span>
-            )}
+          {/* LAYER 1: Official SVG Placard (Fixed Title Artwork) */}
+          <div className="relative aspect-[960/340] w-full overflow-hidden bg-[#1e1008] border-b-2 border-[#3d2314]">
+            <img
+              src="/game-assets/placards/president.svg"
+              alt="President Placard"
+              className="w-full h-full object-cover pointer-events-none"
+              draggable={false}
+            />
           </div>
 
-          {/* LAYER 2: Dedicated Brass Nameplate Holder (Player Delegate) */}
+          {/* LAYER 2: Separate Semantic Delegate Nameplate Layer */}
           <div className="px-3.5 py-2.5 bg-[#120a05] flex items-center justify-between gap-2 border-t border-[#422513]">
             <div className="flex items-center gap-2 min-w-0">
               <div className="w-6 h-6 rounded-lg bg-[#2e190d] border border-[#7a4e2b] flex items-center justify-center shrink-0 shadow-inner">
@@ -67,13 +47,13 @@ export const GovernmentPlacards: React.FC<GovernmentPlacardsProps> = ({
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="text-[9px] font-mono uppercase tracking-wider text-[#8a725e]">
-                  {isFa ? 'نماینده مستقر در مقام' : 'Sitting Delegate'}
+                  {isFa ? 'رئیس‌جمهور مستقر' : 'Sitting President'}
                 </span>
                 <span className="font-serif font-black text-sm sm:text-base text-[#faecd5] truncate">
                   {presidentName ? (
                     <bdi dir={isFa ? 'rtl' : 'ltr'}>{presidentName}</bdi>
                   ) : (
-                    <span className="text-[#736052] italic">{isFa ? 'در انتظار انتصاب' : 'Vacant Seat'}</span>
+                    <span className="text-[#736052] italic">{isFa ? 'کرسی خالی' : 'Vacant Seat'}</span>
                   )}
                 </span>
               </div>
@@ -81,14 +61,14 @@ export const GovernmentPlacards: React.FC<GovernmentPlacardsProps> = ({
 
             {presidentName && (
               <span className="px-2 py-0.5 rounded bg-[#2b180d] border border-[#8a5d35] text-[10px] font-mono text-[#ecd4ab] shrink-0 font-bold">
-                {isFa ? 'دارای حق وتو/اجرا' : 'In Office'}
+                {isFa ? 'در مسند قدرت' : 'In Office'}
               </span>
             )}
           </div>
         </div>
 
         {/* ========================================================= */}
-        {/* 2. CHANCELLOR PLACARD (DER REICHSKANZLER)                 */}
+        {/* 2. CHANCELLOR PLACARD                                     */}
         {/* ========================================================= */}
         <div
           className={`flex flex-col rounded-2xl overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.6)] border-2 transition-all ${
@@ -97,37 +77,17 @@ export const GovernmentPlacards: React.FC<GovernmentPlacardsProps> = ({
               : 'border-[#4a3930] bg-[#14100e]'
           }`}
         >
-          {/* LAYER 1: Physical Wooden Office Placard (Fixed Title) */}
-          <div className="relative aspect-[10/3.2] w-full overflow-hidden bg-gradient-to-b from-[#241d1a] via-[#1a1412] to-[#100d0b] flex flex-col items-center justify-center px-4 py-2 border-b-2 border-[#382b24]">
-            {/* Subtle Silver/Brass Inlaid Edge */}
-            <div className="absolute inset-1.5 rounded-xl border border-[#d1c2a5]/40 pointer-events-none" />
-            <div className="absolute inset-2 rounded-lg border border-[#d1c2a5]/20 border-dashed pointer-events-none" />
-            
-            {/* Corner Screws */}
-            <div className="absolute top-2.5 left-2.5 w-1.5 h-1.5 rounded-full bg-[#f0e8d8] shadow-sm" />
-            <div className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-[#f0e8d8] shadow-sm" />
-            <div className="absolute bottom-2.5 left-2.5 w-1.5 h-1.5 rounded-full bg-[#f0e8d8] shadow-sm" />
-            <div className="absolute bottom-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-[#f0e8d8] shadow-sm" />
-
-            {/* Official Title Subtext */}
-            <span className="text-[10px] sm:text-[11px] font-serif font-bold text-[#d1c2a5] tracking-[0.25em] uppercase text-center">
-              DER REICHSKANZLER
-            </span>
-
-            {/* Main Historic Title */}
-            <h4 className="text-xl sm:text-2xl font-serif font-black tracking-[0.2em] text-[#faf6ee] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] my-0.5 uppercase">
-              CHANCELLOR
-            </h4>
-
-            {/* Persian Localization Tag */}
-            {isFa && (
-              <span className="text-[11px] font-serif font-bold text-[#b8ada0] tracking-wider">
-                صدراعظم دولت
-              </span>
-            )}
+          {/* LAYER 1: Official SVG Placard (Fixed Title Artwork) */}
+          <div className="relative aspect-[960/340] w-full overflow-hidden bg-[#14100d] border-b-2 border-[#382b24]">
+            <img
+              src="/game-assets/placards/chancellor.svg"
+              alt="Chancellor Placard"
+              className="w-full h-full object-cover pointer-events-none"
+              draggable={false}
+            />
           </div>
 
-          {/* LAYER 2: Dedicated Brass Nameplate Holder (Player Delegate) */}
+          {/* LAYER 2: Separate Semantic Delegate Nameplate Layer */}
           <div className="px-3.5 py-2.5 bg-[#0e0a09] flex items-center justify-between gap-2 border-t border-[#30251f]">
             <div className="flex items-center gap-2 min-w-0">
               <div
@@ -149,7 +109,7 @@ export const GovernmentPlacards: React.FC<GovernmentPlacardsProps> = ({
                   {isNominated
                     ? isFa
                       ? 'نامزد معرفی‌شده برای رأی‌گیری'
-                      : 'Nominee Under Vote'
+                      : 'Nominated Candidate'
                     : isFa
                     ? 'صدراعظم منتخب'
                     : 'Elected Chancellor'}

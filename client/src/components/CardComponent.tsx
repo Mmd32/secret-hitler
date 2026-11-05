@@ -10,7 +10,10 @@ export type CardVariant =
   | 'POLICY_FASCIST'
   | 'BALLOT_JA'
   | 'BALLOT_NEIN'
-  | 'CARD_BACK';
+  | 'CARD_BACK'
+  | 'ROLE_BACK'
+  | 'BALLOT_BACK'
+  | 'MEMBERSHIP_BACK';
 
 interface CardProps {
   variant: CardVariant;
@@ -27,47 +30,44 @@ export const CardComponent: React.FC<CardProps> = ({
   onClick,
   className = '',
 }) => {
-  const isBallot = variant === 'BALLOT_JA' || variant === 'BALLOT_NEIN';
+  // All Asset Kit v1 cards are standard 600:940 aspect ratio (~5:7)
+  const sizeClasses = {
+    sm: 'w-16 h-[100px] sm:w-20 sm:h-32',
+    md: 'w-24 h-[150px] sm:w-28 sm:h-44',
+    lg: 'w-32 h-[200px] sm:w-36 sm:h-56',
+    xl: 'w-44 h-[276px] sm:w-48 sm:h-76',
+  }[size];
 
-  // Ballots are landscape (730:539, ~4:3), while role and policy cards are standard portrait (5:7)
-  const sizeClasses = isBallot
-    ? {
-        sm: 'w-20 h-15 sm:w-24 sm:h-18',
-        md: 'w-28 h-21 sm:w-36 sm:h-27',
-        lg: 'w-36 h-27 sm:w-44 sm:h-33',
-        xl: 'w-48 h-36 sm:w-56 sm:h-42',
-      }[size]
-    : {
-        sm: 'w-16 h-[88px] sm:w-20 sm:h-28',
-        md: 'w-24 h-[134px] sm:w-28 sm:h-40',
-        lg: 'w-32 h-[180px] sm:w-36 sm:h-52',
-        xl: 'w-44 h-[246px] sm:w-48 sm:h-68',
-      }[size];
-
-  // Asset mapping - using authentic official tabletop assets with vector fallbacks
+  // Asset mapping to the approved Tabletop Asset Kit v1
   const getAssetSrc = () => {
     switch (variant) {
       case 'ROLE_LIBERAL':
-        return '/cards/role_liberal.png';
+        return '/game-assets/role/liberal_role.png';
       case 'ROLE_FASCIST':
-        return '/cards/role_fascist.png';
+        return '/game-assets/role/fascist_role.png';
       case 'ROLE_HITLER':
-        return '/cards/role_hitler.png';
+        return '/game-assets/role/hitler_role.png';
       case 'MEMBERSHIP_LIBERAL':
-        return '/cards/official/party-membership-liberal.png';
+        return '/game-assets/membership/liberal_membership.svg';
       case 'MEMBERSHIP_FASCIST':
-        return '/cards/official/party-membership-fascist.png';
+        return '/game-assets/membership/fascist_membership.svg';
       case 'POLICY_LIBERAL':
-        return '/cards/official/policy-liberal.png';
+        return '/game-assets/policy/liberal_policy.svg';
       case 'POLICY_FASCIST':
-        return '/cards/official/policy-fascist.png';
+        return '/game-assets/policy/fascist_policy.svg';
       case 'BALLOT_JA':
-        return '/cards/official/vote-yes.png';
+        return '/game-assets/vote/ja.svg';
       case 'BALLOT_NEIN':
-        return '/cards/official/vote-no.png';
+        return '/game-assets/vote/nein.svg';
+      case 'ROLE_BACK':
+        return '/game-assets/backs/role_back.svg';
+      case 'BALLOT_BACK':
+        return '/game-assets/backs/ballot_back.svg';
+      case 'MEMBERSHIP_BACK':
+        return '/game-assets/backs/membership_back.svg';
       case 'CARD_BACK':
       default:
-        return '/cards/card_back.svg';
+        return '/game-assets/backs/policy_back.svg';
     }
   };
 
@@ -88,11 +88,17 @@ export const CardComponent: React.FC<CardProps> = ({
       case 'POLICY_FASCIST':
         return 'Fascist Article Policy Card';
       case 'BALLOT_JA':
-        return 'Ja! Ballot Card';
+        return 'JA! Approve Ballot';
       case 'BALLOT_NEIN':
-        return 'Nein! Ballot Card';
+        return 'NEIN! Reject Ballot';
+      case 'ROLE_BACK':
+        return 'Classified Role Dossier Back';
+      case 'BALLOT_BACK':
+        return 'Ballot Back';
+      case 'MEMBERSHIP_BACK':
+        return 'Party Membership Back';
       default:
-        return 'Card Back';
+        return 'Policy Card Back';
     }
   };
 
@@ -108,11 +114,11 @@ export const CardComponent: React.FC<CardProps> = ({
       <img
         src={getAssetSrc()}
         alt={getAltText()}
-        className={`w-full h-full rounded-xl ${isBallot ? 'object-contain bg-[#1c120a]' : 'object-cover'}`}
+        className="w-full h-full object-cover rounded-xl"
         loading="lazy"
         draggable={false}
       />
-      {/* Subtle physical card edge highlight */}
+      {/* Physical card edge highlight */}
       <div className="absolute inset-0 rounded-xl border border-white/10 pointer-events-none" />
     </div>
   );

@@ -39,9 +39,16 @@ export const DeckPiles: React.FC<DeckPilesProps> = ({
             </div>
           </div>
         </div>
-        <span className="text-[10px] sm:text-[11px] font-serif font-bold text-stone-300 mt-1">
-          {isFa ? 'دسته کارت‌ها' : 'Draw Deck'}
-        </span>
+        <div className="flex items-center gap-1 mt-1">
+          <img
+            src="/game-assets/markers/draw_pile.svg"
+            alt="Draw Pile Marker"
+            className="w-3.5 h-3.5 opacity-80"
+          />
+          <span className="text-[10px] sm:text-[11px] font-serif font-bold text-stone-300">
+            {isFa ? 'دسته کارت‌ها' : 'Draw Deck'}
+          </span>
+        </div>
       </div>
 
       {/* DISCARD PILE */}
@@ -63,18 +70,24 @@ export const DeckPiles: React.FC<DeckPilesProps> = ({
               </div>
             </div>
           ) : (
-            <div className="w-16 h-[88px] sm:w-20 sm:h-28 rounded-xl border-2 border-dashed border-stone-700/60 bg-stone-900/30 flex flex-col items-center justify-center p-1 text-center">
+            <div className="w-16 h-[100px] sm:w-20 sm:h-32 rounded-xl border-2 border-dashed border-stone-700/60 bg-stone-900/30 flex flex-col items-center justify-center p-1 text-center">
               <span className="text-[10px] font-serif text-stone-500">
                 {isFa ? 'خالی' : 'Empty'}
               </span>
             </div>
           )}
         </div>
-        <span className="text-[10px] sm:text-[11px] font-serif font-bold text-stone-400 mt-1">
-          {isFa ? 'دسته سوخته' : 'Discard Pile'}
-        </span>
+        <div className="flex items-center gap-1 mt-1">
+          <img
+            src="/game-assets/markers/discard_pile.svg"
+            alt="Discard Pile Marker"
+            className="w-3.5 h-3.5 opacity-80"
+          />
+          <span className="text-[10px] sm:text-[11px] font-serif font-bold text-stone-400">
+            {isFa ? 'دسته سوخته' : 'Discard Pile'}
+          </span>
+        </div>
       </div>
     </div>
   );
 };
-
