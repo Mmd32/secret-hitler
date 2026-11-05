@@ -46,8 +46,11 @@ export const SeatingTable: React.FC<SeatingTableProps> = ({
           <Users className="w-4 h-4 text-[#c49b5a]" aria-hidden="true" />
           <span>{isFa ? 'میز هیئت دولت (ترتیب نشستن نمایندگان)' : 'Council Table (Parliament Seating)'}</span>
         </div>
-        <span className="text-[11px] font-mono text-[#8a7664] bg-[#1a0e08] px-2.5 py-0.5 rounded-md border border-[#3d2516]">
-          {players.filter((p) => p.isAlive).length} / {players.length} {isFa ? 'زنده' : 'alive'}
+        <span
+          dir="ltr"
+          className="tabular-nums font-mono text-[11px] text-[#8a7664] bg-[#1a0e08] px-2.5 py-0.5 rounded-md border border-[#3d2516]"
+        >
+          <bdi>{players.filter((p) => p.isAlive).length}</bdi> / {players.length} {isFa ? 'زنده' : 'alive'}
         </span>
       </div>
 
@@ -89,7 +92,10 @@ export const SeatingTable: React.FC<SeatingTableProps> = ({
             >
               {/* Order number & Status Badges */}
               <div className="flex items-center justify-between text-[10px] font-mono mb-1.5">
-                <span className="w-5 h-5 rounded-full bg-[#29170e] text-[#c49b5a] font-bold flex items-center justify-center border border-[#4d2f1b]">
+                <span
+                  dir="ltr"
+                  className="tabular-nums w-5 h-5 rounded-full bg-[#29170e] text-[#c49b5a] font-bold flex items-center justify-center border border-[#4d2f1b]"
+                >
                   {index + 1}
                 </span>
 
@@ -136,7 +142,7 @@ export const SeatingTable: React.FC<SeatingTableProps> = ({
                   )}
                 </span>
                 <span className="font-serif font-black text-[#f7e8ce] text-xs truncate max-w-[95px]">
-                  {player.name}
+                  <bdi dir={isFa ? 'rtl' : 'ltr'}>{player.name}</bdi>
                 </span>
                 {isMe && (
                   <span className="text-[9px] bg-[#c49b5a] text-[#1c100a] font-mono font-black px-1 rounded shrink-0">

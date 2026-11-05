@@ -30,7 +30,10 @@ export const DeckPiles: React.FC<DeckPilesProps> = ({
           <div className="relative">
             <CardComponent variant="CARD_BACK" size="sm" className="shadow-[0_6px_16px_rgba(0,0,0,0.6)]" />
             <div className="absolute inset-x-0 bottom-1 flex justify-center">
-              <span className="bg-[#121c24]/90 border border-[#c49b5a] text-[#f5e2b8] font-mono text-[10px] font-bold px-1.5 py-0.2 rounded shadow">
+              <span
+                dir="ltr"
+                className="tabular-nums bg-[#121c24]/90 border border-[#c49b5a] text-[#f5e2b8] font-mono text-[10px] font-bold px-1.5 py-0.2 rounded shadow"
+              >
                 {drawPileCount}
               </span>
             </div>
@@ -51,7 +54,10 @@ export const DeckPiles: React.FC<DeckPilesProps> = ({
               )}
               <CardComponent variant="CARD_BACK" size="sm" className="shadow-[0_6px_16px_rgba(0,0,0,0.5)] opacity-85" />
               <div className="absolute inset-x-0 bottom-1 flex justify-center">
-                <span className="bg-[#1c120c]/90 border border-stone-600 text-stone-300 font-mono text-[10px] font-bold px-1.5 py-0.2 rounded shadow">
+                <span
+                  dir="ltr"
+                  className="tabular-nums bg-[#1c120c]/90 border border-stone-600 text-stone-300 font-mono text-[10px] font-bold px-1.5 py-0.2 rounded shadow"
+                >
                   {discardPileCount}
                 </span>
               </div>
@@ -71,3 +77,4 @@ export const DeckPiles: React.FC<DeckPilesProps> = ({
     </div>
   );
 };
+

@@ -1,15 +1,9 @@
-import React from 'react';
-import { CardComponent } from './CardComponent.js';
+import React, { useState } from 'react';
 import {
-  Eye,
-  Skull,
-  Scale,
-  Search,
   Vote,
-  Crown,
-  Zap,
-  AlertTriangle,
+  ShieldAlert,
   Landmark,
+  Layers,
 } from 'lucide-react';
 
 interface BoardTracksProps {
@@ -22,6 +16,43 @@ interface BoardTracksProps {
   lang: 'fa' | 'en';
 }
 
+const VIEWBOX_W = 1683;
+const VIEWBOX_H = 650;
+
+function toPercentRect(x: number, y: number, w: number, h: number) {
+  return {
+    left: `${(x / VIEWBOX_W) * 100}%`,
+    top: `${(y / VIEWBOX_H) * 100}%`,
+    width: `${(w / VIEWBOX_W) * 100}%`,
+    height: `${(h / VIEWBOX_H) * 100}%`,
+  };
+}
+
+// Exact pixel coordinates from official Secret Hitler print & play boards
+const LIBERAL_SLOTS = [
+  toPercentRect(285, 182, 194, 268),
+  toPercentRect(515, 182, 194, 268),
+  toPercentRect(745, 182, 194, 268),
+  toPercentRect(975, 182, 194, 268),
+  toPercentRect(1205, 182, 194, 268),
+];
+
+const TRACKER_SLOTS = [
+  toPercentRect(582, 495, 42, 46),
+  toPercentRect(736, 495, 42, 46),
+  toPercentRect(890, 495, 42, 46),
+  toPercentRect(1044, 495, 42, 46),
+];
+
+const FASCIST_SLOTS = [
+  toPercentRect(170, 182, 194.3, 268),
+  toPercentRect(400, 182, 194.3, 268),
+  toPercentRect(630, 182, 194.3, 268),
+  toPercentRect(860, 182, 194.3, 268),
+  toPercentRect(1090, 182, 194.3, 268),
+  toPercentRect(1320, 182, 194.3, 268),
+];
+
 export const BoardTracks: React.FC<BoardTracksProps> = ({
   liberalPoliciesEnacted,
   fascistPoliciesEnacted,
@@ -30,325 +61,239 @@ export const BoardTracks: React.FC<BoardTracksProps> = ({
   lang,
 }) => {
   const isFa = lang === 'fa';
+  const [mobileTab, setMobileTab] = useState<'both' | 'liberal' | 'fascist'>('both');
 
-  // Helper to get executive power description and vector icon per player count
-  const getPowerConfig = (
-    slot: number
-  ): { title: string; desc: string; icon: React.ReactNode } | null => {
-    if (playerCount <= 6) {
-      if (slot === 3)
-        return {
-          title: isFa ? 'نگاه به قوانین' : 'Policy Peek',
-          desc: isFa ? 'مشاهده ۳ کارت بعدی' : 'View top 3 policies',
-          icon: <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-      if (slot === 4)
-        return {
-          title: isFa ? 'اعدام' : 'Execution',
-          desc: isFa ? 'اعدام یک بازیکن' : 'Execute a player',
-          icon: <Skull className="w-4 h-4 sm:w-5 sm:h-5 text-red-300" aria-hidden="true" />,
-        };
-      if (slot === 5)
-        return {
-          title: isFa ? 'اعدام + حق وتو' : 'Execution + Veto',
-          desc: isFa ? 'اعدام + فعال‌سازی وتو' : 'Execute + Veto unlocked',
-          icon: <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-    } else if (playerCount <= 8) {
-      if (slot === 2)
-        return {
-          title: isFa ? 'بررسی وفاداری' : 'Investigate',
-          desc: isFa ? 'مشاهده کارت حزب' : 'Check party loyalty',
-          icon: <Search className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-      if (slot === 3)
-        return {
-          title: isFa ? 'انتخابات ویژه' : 'Special Election',
-          desc: isFa ? 'تعیین رئیس بعدی' : 'Choose next President',
-          icon: <Vote className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-      if (slot === 4)
-        return {
-          title: isFa ? 'اعدام' : 'Execution',
-          desc: isFa ? 'اعدام یک بازیکن' : 'Execute a player',
-          icon: <Skull className="w-4 h-4 sm:w-5 sm:h-5 text-red-300" aria-hidden="true" />,
-        };
-      if (slot === 5)
-        return {
-          title: isFa ? 'اعدام + حق وتو' : 'Execution + Veto',
-          desc: isFa ? 'اعدام + فعال‌سازی وتو' : 'Execute + Veto unlocked',
-          icon: <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-    } else {
-      if (slot === 1)
-        return {
-          title: isFa ? 'بررسی وفاداری' : 'Investigate',
-          desc: isFa ? 'مشاهده کارت حزب' : 'Check party loyalty',
-          icon: <Search className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-      if (slot === 2)
-        return {
-          title: isFa ? 'بررسی وفاداری' : 'Investigate',
-          desc: isFa ? 'مشاهده کارت حزب' : 'Check party loyalty',
-          icon: <Search className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-      if (slot === 3)
-        return {
-          title: isFa ? 'انتخابات ویژه' : 'Special Election',
-          desc: isFa ? 'تعیین رئیس بعدی' : 'Choose next President',
-          icon: <Vote className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-      if (slot === 4)
-        return {
-          title: isFa ? 'اعدام' : 'Execution',
-          desc: isFa ? 'اعدام یک بازیکن' : 'Execute a player',
-          icon: <Skull className="w-4 h-4 sm:w-5 sm:h-5 text-red-300" aria-hidden="true" />,
-        };
-      if (slot === 5)
-        return {
-          title: isFa ? 'اعدام + حق وتو' : 'Execution + Veto',
-          desc: isFa ? 'اعدام + فعال‌سازی وتو' : 'Execute + Veto unlocked',
-          icon: <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-[#eed2a2]" aria-hidden="true" />,
-        };
-    }
-    return null;
+  // Select appropriate Fascist board version according to official rules
+  const getFascistBoardSrc = () => {
+    if (playerCount <= 6) return '/board/official/board-fascist-5-6.png';
+    if (playerCount <= 8) return '/board/official/board-fascist-7-8.png';
+    return '/board/official/board-fascist-9-10.png';
   };
 
+  const fascistBoardSrc = getFascistBoardSrc();
+
   return (
-    <div className="w-full flex flex-col xl:grid xl:grid-cols-2 gap-4 lg:gap-6 select-none my-2">
-      {/* ============================================================ */}
-      {/* 1. LIBERAL POLICY TRACK (Archival Prussian Blue Board) */}
-      {/* ============================================================ */}
-      <div className="w-full rounded-3xl p-3.5 sm:p-5 bg-[#142632] border-2 border-[#2b4c5e] shadow-[0_16px_36px_rgba(0,0,0,0.65)] relative overflow-hidden flex flex-col justify-between">
-        {/* Subtle Archival Linen Texture Overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.035] pointer-events-none"
-          style={{
-            backgroundImage:
-              'radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1px, #142632 1px)',
-            backgroundSize: '16px 16px',
-            backgroundPosition: '0 0, 8px 8px',
-          }}
-        />
-
-        {/* Board Header Bar */}
-        <div>
-          <div className="flex justify-between items-center mb-3 px-1 pb-2 border-b border-[#244252]">
-            <div className="flex items-center gap-2.5">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#499bb8] shadow-[0_0_8px_rgba(73,155,184,0.7)]" />
-              <div className="flex flex-col">
-                <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#73a3b8]">
-                  {isFa ? 'لوح جمهوری و مجلس ملی' : 'DEUTSCHE REPUBLIK · REICHSGESETZBLATT'}
-                </span>
-                <h3 className="font-serif font-black tracking-wider text-[#e6f1f5] text-sm sm:text-base">
-                  {isFa ? 'مسیر قوانین لیبرال' : 'LIBERAL POLICY TRACK'}
-                </h3>
-              </div>
-            </div>
-
-            <span className="text-xs font-mono font-bold text-[#b4d6e4] bg-[#0c181e] px-2.5 py-1 rounded-md border border-[#234252] shadow-inner">
-              {liberalPoliciesEnacted} / 5
-            </span>
-          </div>
-
-          {/* 5 Slots */}
-          <div className="grid grid-cols-5 gap-1.5 sm:gap-2.5 my-2">
-            {[1, 2, 3, 4, 5].map((slot) => {
-              const isEnacted = slot <= liberalPoliciesEnacted;
-              return (
-                <div
-                  key={`lib_${slot}`}
-                  className={`relative aspect-[5/7] rounded-xl flex flex-col items-center justify-center transition-all duration-300 overflow-hidden ${
-                    isEnacted
-                      ? 'border-2 border-[#54a9c7] shadow-[0_8px_20px_rgba(0,0,0,0.6)] transform -translate-y-0.5'
-                      : 'border-2 border-dashed border-[#234252] bg-[#0c181f]/85 shadow-[inset_0_3px_8px_rgba(0,0,0,0.6)]'
-                  }`}
-                >
-                  {isEnacted ? (
-                    <CardComponent
-                      variant="POLICY_LIBERAL"
-                      size="sm"
-                      className="w-full h-full border-0 !rounded-none"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center text-center p-1 w-full h-full">
-                      <span className="text-sm sm:text-lg font-serif font-bold text-[#35586b]">
-                        § {slot}
-                      </span>
-                      {slot === 5 && (
-                        <div className="flex flex-col items-center mt-1">
-                          <Landmark className="w-4 h-4 sm:w-5 sm:h-5 text-[#63abc9] opacity-80" aria-hidden="true" />
-                          <span className="text-[8px] sm:text-[9px] text-[#8bcde8] font-serif font-bold mt-0.5 text-center leading-tight">
-                            {isFa ? 'پیروزی قطعی' : 'LIBERAL WIN'}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ELECTION TRACKER (Part of Liberal Board) */}
-        <div className="mt-3 pt-3 border-t border-[#244252] flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Vote className="w-4 h-4 text-[#e2b76c]" aria-hidden="true" />
-            <div className="flex flex-col">
-              <span className="text-[11px] sm:text-xs font-serif font-bold text-[#d4e1e8]">
-                {isFa ? 'شمارنده ناکامی در انتخابات:' : 'Election Tracker:'}
-              </span>
-              <span className="text-[9px] font-mono text-[#6d8a98]">
-                {isFa
-                  ? '۳ شکست پیاپی = هرج‌ومرج و تصویب فوری کارت بالای دسته'
-                  : '3 consecutive failures = Chaos & top card enacted'}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {[0, 1, 2, 3].map((step) => {
-              const isActive = failedElectionCount === step;
-              const isChaos = step === 3;
-              return (
-                <div
-                  key={`tracker_${step}`}
-                  className={`relative w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-mono font-bold transition-all ${
-                    isActive
-                      ? 'scale-110'
-                      : 'bg-[#0c181f] text-[#4b6a7a] border border-[#234252] shadow-inner'
-                  }`}
-                  title={isChaos ? (isFa ? 'آشوب مجلس!' : 'Reichstag Chaos!') : undefined}
-                >
-                  {isActive ? (
-                    <img
-                      src="/board/tracker_marker.svg"
-                      alt={isChaos ? 'Chaos Marker' : `Step ${step}`}
-                      className="w-full h-full object-contain filter drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
-                    />
-                  ) : isChaos ? (
-                    <Zap className="w-3.5 h-3.5 text-red-500/70" aria-hidden="true" />
-                  ) : (
-                    step
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+    <div className="w-full flex flex-col gap-4 select-none my-2">
+      {/* Mobile Board Switcher Tabs (Visible on mobile/tablet screens) */}
+      <div className="flex xl:hidden items-center justify-center gap-1.5 p-1 rounded-2xl bg-[#140c08] border border-[#3d2314] max-w-md mx-auto w-full">
+        <button
+          onClick={() => setMobileTab('both')}
+          className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-serif font-bold transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'both'
+              ? 'bg-[#2b180e] text-[#f4ecd8] border border-[#7a4925] shadow'
+              : 'text-[#8a725e] hover:text-[#c49b5a]'
+          }`}
+        >
+          <Layers className="w-3.5 h-3.5" />
+          <span>{isFa ? 'هر دو صفحه' : 'Both Boards'}</span>
+        </button>
+        <button
+          onClick={() => setMobileTab('liberal')}
+          className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-serif font-bold transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'liberal'
+              ? 'bg-[#142632] text-[#90d5f2] border border-[#2d5975] shadow'
+              : 'text-[#8a725e] hover:text-[#90d5f2]'
+          }`}
+        >
+          <Landmark className="w-3.5 h-3.5 text-[#54a9c7]" />
+          <span>{isFa ? 'لیبرال' : 'Liberal'}</span>
+          <span dir="ltr" className="tabular-nums font-mono text-[11px] opacity-80">
+            ({liberalPoliciesEnacted}/5)
+          </span>
+        </button>
+        <button
+          onClick={() => setMobileTab('fascist')}
+          className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-serif font-bold transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'fascist'
+              ? 'bg-[#2e0f0f] text-[#ff9999] border border-[#752d2d] shadow'
+              : 'text-[#8a725e] hover:text-[#ff9999]'
+          }`}
+        >
+          <ShieldAlert className="w-3.5 h-3.5 text-red-400" />
+          <span>{isFa ? 'فاشیست' : 'Fascist'}</span>
+          <span dir="ltr" className="tabular-nums font-mono text-[11px] opacity-80">
+            ({fascistPoliciesEnacted}/6)
+          </span>
+        </button>
       </div>
 
-      {/* ============================================================ */}
-      {/* 2. FASCIST POLICY TRACK (Archival Oxblood Board) */}
-      {/* ============================================================ */}
-      <div className="w-full rounded-3xl p-3.5 sm:p-5 bg-[#2c1311] border-2 border-[#5a2522] shadow-[0_16px_36px_rgba(0,0,0,0.65)] relative overflow-hidden flex flex-col justify-between">
-        {/* Archival Grain Texture Overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.035] pointer-events-none"
-          style={{
-            backgroundImage:
-              'radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1px, #2c1311 1px)',
-            backgroundSize: '16px 16px',
-            backgroundPosition: '0 0, 8px 8px',
-          }}
-        />
-
-        {/* Board Header Bar */}
-        <div>
-          <div className="flex justify-between items-center mb-3 px-1 pb-2 border-b border-[#4d1f1c]">
-            <div className="flex items-center gap-2.5">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#c73b32] shadow-[0_0_8px_rgba(199,59,50,0.7)]" />
-              <div className="flex flex-col">
-                <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#b86d68]">
-                  {isFa ? 'فرمان‌های اضطراری و اختیارات ویژه' : 'NOTVERORDNUNG · ERMÄCHTIGUNGSGESETZ'}
+      {/* Main Tabletop Boards Layout (Responsive Grid: 1 col on mobile, 2 cols on wide desktop) */}
+      <div className="w-full grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 items-start">
+        
+        {/* ============================================================ */}
+        {/* 1. LIBERAL BOARD (Archival Prussian Blue Weimar Track)       */}
+        {/* ============================================================ */}
+        {(mobileTab === 'both' || mobileTab === 'liberal') && (
+          <div className="w-full flex flex-col rounded-3xl overflow-hidden bg-[#0c1820] border-2 border-[#204052] shadow-[0_16px_36px_rgba(0,0,0,0.7)] transition-all">
+            {/* Board Header Bar */}
+            <div className="px-3.5 py-2 sm:px-4 sm:py-2.5 bg-[#09141b] border-b border-[#1c3848] flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#54a9c7] shadow-[0_0_8px_rgba(84,169,199,0.8)]" />
+                <span className="font-serif font-black text-xs sm:text-sm text-[#e6f4f8] tracking-wider uppercase">
+                  {isFa ? 'صفحه قوانین لیبرال' : 'LIBERAL POLICY TRACK'}
                 </span>
-                <h3 className="font-serif font-black tracking-wider text-[#f4dedd] text-sm sm:text-base">
-                  {isFa ? 'مسیر قوانین فاشیست' : 'FASCIST POLICY TRACK'}
-                </h3>
+                <span className="hidden sm:inline text-[10px] font-mono text-[#628f9f] uppercase tracking-widest">
+                  · REICHSGESETZBLATT
+                </span>
+              </div>
+              <div
+                dir="ltr"
+                className="tabular-nums font-mono font-bold text-xs sm:text-sm text-[#8cd2ec] bg-[#060e13] px-2.5 py-0.5 rounded-lg border border-[#1b3645] shadow-inner"
+              >
+                <bdi>{liberalPoliciesEnacted}</bdi> / 5
               </div>
             </div>
 
-            <span className="text-xs font-mono font-bold text-[#f0b5b1] bg-[#1a0a09] px-2.5 py-1 rounded-md border border-[#4d1f1c] shadow-inner">
-              {fascistPoliciesEnacted} / 6
-            </span>
-          </div>
+            {/* Board Canvas with Exact 1683:650 Aspect Ratio */}
+            <div className="relative w-full aspect-[1683/650] overflow-hidden bg-[#10202b]">
+              {/* Authentic Print & Play Board Texture */}
+              <img
+                src="/board/official/board-liberal.png"
+                alt="Liberal Board"
+                className="w-full h-full object-fill pointer-events-none"
+                draggable={false}
+              />
 
-          {/* 6 Slots */}
-          <div className="grid grid-cols-6 gap-1 sm:gap-2 my-2">
-            {[1, 2, 3, 4, 5, 6].map((slot) => {
-              const isEnacted = slot <= fascistPoliciesEnacted;
-              const config = getPowerConfig(slot);
-              const isHitlerZone = slot >= 3;
+              {/* 5 Enacted Policy Card Overlays */}
+              {LIBERAL_SLOTS.map((rectStyle, index) => {
+                const isEnacted = index < liberalPoliciesEnacted;
+                return (
+                  <div
+                    key={`lib_slot_${index}`}
+                    style={rectStyle}
+                    className="absolute flex items-center justify-center transition-all duration-300"
+                  >
+                    {isEnacted && (
+                      <img
+                        src="/cards/official/policy-liberal.png"
+                        alt={`Liberal Policy ${index + 1}`}
+                        className="w-full h-full object-fill rounded shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform -translate-y-0.5 animate-fadeIn"
+                        draggable={false}
+                      />
+                    )}
+                  </div>
+                );
+              })}
 
-              return (
+              {/* Election Tracker Moving Wooden Pawn */}
+              {TRACKER_SLOTS[failedElectionCount] && (
                 <div
-                  key={`fas_${slot}`}
-                  className={`relative aspect-[5/7] rounded-xl flex flex-col items-center justify-between p-1 sm:p-1.5 transition-all duration-300 overflow-hidden ${
-                    isEnacted
-                      ? 'border-2 border-[#b8382f] shadow-[0_8px_20px_rgba(0,0,0,0.6)] transform -translate-y-0.5'
-                      : isHitlerZone
-                      ? 'border-2 border-red-700/60 bg-[#1c0a09]/90 shadow-[inset_0_3px_8px_rgba(0,0,0,0.6)]'
-                      : 'border-2 border-dashed border-[#4d1f1c] bg-[#1a0a09]/85 shadow-[inset_0_3px_8px_rgba(0,0,0,0.6)]'
-                  }`}
+                  style={TRACKER_SLOTS[failedElectionCount]}
+                  className="absolute flex items-center justify-center transition-all duration-500 ease-out z-10"
                 >
-                  {isEnacted ? (
-                    <CardComponent
-                      variant="POLICY_FASCIST"
-                      size="sm"
-                      className="w-full h-full border-0 !rounded-none"
-                    />
-                  ) : (
-                    <>
-                      <span className="text-[10px] sm:text-xs font-mono font-bold text-[#7d3b36] self-start">
-                        § {slot}
-                      </span>
-
-                      <div className="flex flex-col items-center text-center my-auto px-0.5">
-                        {slot === 6 ? (
-                          <>
-                            <Crown className="w-5 h-5 text-[#d8a853] animate-pulse" aria-hidden="true" />
-                            <span className="text-[8px] sm:text-[9px] font-serif font-black text-[#f4dedd] leading-tight mt-1">
-                              {isFa ? 'پیروزی' : 'WIN'}
-                            </span>
-                          </>
-                        ) : config ? (
-                          <>
-                            <div className="mb-0.5">{config.icon}</div>
-                            <span className="text-[8px] sm:text-[9px] font-serif font-bold text-[#eed2a2] leading-tight text-center">
-                              {config.title}
-                            </span>
-                          </>
-                        ) : (
-                          <span className="text-[10px] text-[#6d302c] font-mono">—</span>
-                        )}
-                      </div>
-
-                      {slot === 3 && (
-                        <div className="w-full text-center text-[7px] sm:text-[8px] bg-red-950 text-red-300 font-mono font-bold rounded py-0.5 border border-red-800/80 uppercase tracking-tighter">
-                          {isFa ? 'خطر هیتلر' : 'Hitler Zone'}
-                        </div>
-                      )}
-                    </>
-                  )}
+                  <img
+                    src="/board/official/board-tracker.png"
+                    alt={`Election Tracker Position ${failedElectionCount}`}
+                    className="w-full h-full object-contain filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)] animate-pulse"
+                    draggable={false}
+                  />
                 </div>
-              );
-            })}
-          </div>
-        </div>
+              )}
+            </div>
 
-        {/* Hitler Danger Zone Active Warning Banner */}
-        {fascistPoliciesEnacted >= 3 && (
-          <div className="mt-3 p-2.5 rounded-xl bg-[#3f1614] border-2 border-red-600/80 flex items-center gap-2 text-xs text-red-100 shadow-[0_4px_16px_rgba(220,38,38,0.3)] animate-pulse">
-            <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" aria-hidden="true" />
-            <div className="flex flex-col">
-              <span className="font-serif font-black text-red-300 uppercase tracking-wider text-[10px]">
-                {isFa ? 'منطقه خطر هیتلر فعال است' : 'HITLER DANGER ZONE ACTIVE'}
+            {/* Election Tracker Legend / Explanatory Footer */}
+            <div className="px-3.5 py-2 bg-[#081218] border-t border-[#18313e] flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#7ea0af]">
+              <div className="flex items-center gap-1.5">
+                <Vote className="w-3.5 h-3.5 text-[#e2b76c]" />
+                <span className="font-serif font-bold text-[#d2e4ec]">
+                  {isFa ? 'شمارنده ناکامی:' : 'Election Tracker:'}
+                </span>
+                <span dir="ltr" className="tabular-nums font-bold text-[#eed49f]">
+                  {failedElectionCount} / 3
+                </span>
+              </div>
+              <span className="text-[9px] sm:text-[10px] text-[#5b7a88]">
+                {failedElectionCount === 3
+                  ? isFa
+                    ? '⚠️ هرج‌ومرج و تصویب فوری قانون بالا!'
+                    : '⚠️ Chaos! Top policy enacted!'
+                  : isFa
+                  ? '۳ شکست پیاپی = هرج‌ومرج'
+                  : '3 failures = Chaos'}
               </span>
-              <span className="text-[10px] sm:text-[11px] text-red-100/90 leading-tight">
-                {isFa
-                  ? 'اگر هیتلر به صدراعظمی انتخاب شود، فاشیست‌ها بلافاصله پیروز بازی خواهند شد!'
-                  : 'If Hitler is elected Chancellor, Fascists win immediately!'}
+            </div>
+          </div>
+        )}
+
+        {/* ============================================================ */}
+        {/* 2. FASCIST BOARD (Oxblood Red Imperial Track)                */}
+        {/* ============================================================ */}
+        {(mobileTab === 'both' || mobileTab === 'fascist') && (
+          <div className="w-full flex flex-col rounded-3xl overflow-hidden bg-[#1c0808] border-2 border-[#521c1c] shadow-[0_16px_36px_rgba(0,0,0,0.7)] transition-all">
+            {/* Board Header Bar */}
+            <div className="px-3.5 py-2 sm:px-4 sm:py-2.5 bg-[#140505] border-b border-[#381414] flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-600 shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+                <span className="font-serif font-black text-xs sm:text-sm text-[#fbe8e8] tracking-wider uppercase">
+                  {isFa ? 'صفحه قوانین فاشیست' : 'FASCIST POLICY TRACK'}
+                </span>
+                <span className="hidden sm:inline text-[10px] font-mono text-[#9f6262] uppercase tracking-widest">
+                  · {playerCount} {isFa ? 'بازیکن' : 'PLAYERS'}
+                </span>
+              </div>
+              <div
+                dir="ltr"
+                className="tabular-nums font-mono font-bold text-xs sm:text-sm text-[#ff9999] bg-[#0f0404] px-2.5 py-0.5 rounded-lg border border-[#3b1212] shadow-inner"
+              >
+                <bdi>{fascistPoliciesEnacted}</bdi> / 6
+              </div>
+            </div>
+
+            {/* Board Canvas with Exact 1683:650 Aspect Ratio */}
+            <div className="relative w-full aspect-[1683/650] overflow-hidden bg-[#240a0a]">
+              {/* Authentic Print & Play Board Texture */}
+              <img
+                src={fascistBoardSrc}
+                alt={`Fascist Board (${playerCount} Players)`}
+                className="w-full h-full object-fill pointer-events-none"
+                draggable={false}
+              />
+
+              {/* 6 Enacted Policy Card Overlays */}
+              {FASCIST_SLOTS.map((rectStyle, index) => {
+                const isEnacted = index < fascistPoliciesEnacted;
+                return (
+                  <div
+                    key={`fas_slot_${index}`}
+                    style={rectStyle}
+                    className="absolute flex items-center justify-center transition-all duration-300"
+                  >
+                    {isEnacted && (
+                      <img
+                        src="/cards/official/policy-fascist.png"
+                        alt={`Fascist Policy ${index + 1}`}
+                        className="w-full h-full object-fill rounded shadow-[0_4px_12px_rgba(0,0,0,0.8)] transform -translate-y-0.5 animate-fadeIn"
+                        draggable={false}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Hitler Danger Zone & Executive Powers Footer */}
+            <div className="px-3.5 py-2 bg-[#0f0303] border-t border-[#300e0e] flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#aa7979]">
+              <div className="flex items-center gap-1.5">
+                <ShieldAlert className="w-3.5 h-3.5 text-amber-500" />
+                <span className="font-serif font-bold text-[#f5dede]">
+                  {isFa ? 'منطقه خطر هیتلر:' : 'Hitler Danger Zone:'}
+                </span>
+                <span className={fascistPoliciesEnacted >= 3 ? 'text-amber-400 font-bold' : 'text-[#7e5c5c]'}>
+                  {isFa ? 'از قانون ۳ به بعد' : '§ 3+ Enacted'}
+                </span>
+              </div>
+              <span className="text-[9px] sm:text-[10px] text-[#855959]">
+                {fascistPoliciesEnacted >= 5
+                  ? isFa
+                    ? 'وتو فعال + ۱ قانون تا پیروزی فاشیست'
+                    : 'Veto Unlocked + 1 to Win'
+                  : fascistPoliciesEnacted >= 3
+                  ? isFa
+                    ? 'انتخاب هیتلر = پیروزی فاشیست'
+                    : 'Hitler elected = Fascist win'
+                  : isFa
+                  ? '۶ قانون = پیروزی فاشیست'
+                  : '6 policies = Fascist win'}
               </span>
             </div>
           </div>

@@ -24,6 +24,7 @@ import {
   AlertCircle,
   UserPlus,
   LogIn,
+  LogOut,
   Smartphone,
 } from 'lucide-react';
 
@@ -61,6 +62,11 @@ export const App: React.FC = () => {
   const [isPassAndPlayMode, setIsPassAndPlayMode] = useState(false);
 
   const socketRef = useRef<Socket | null>(null);
+  const isPassAndPlayModeRef = useRef(isPassAndPlayMode);
+  isPassAndPlayModeRef.current = isPassAndPlayMode;
+  const isFaRef = useRef(lang === 'fa');
+  isFaRef.current = lang === 'fa';
+
   const t = translations[lang];
   const isFa = lang === 'fa';
 
@@ -73,6 +79,21 @@ export const App: React.FC = () => {
   const toggleSound = () => {
     const nextMuted = sound.toggleMute();
     setIsMuted(nextMuted);
+  };
+
+  // Helper to safely reset online session & return to clean lobby
+  const handleResetSession = () => {
+    localStorage.removeItem('sh_room_code');
+    localStorage.removeItem('sh_player_id');
+    localStorage.removeItem('sh_session_token');
+    setRoomCode('');
+    setSessionToken('');
+    setPlayerId('');
+    setGameState(null);
+    setErrorMessage(null);
+    if (window.location.search) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
   };
 
   // Socket Connection Management
@@ -92,9 +113,12 @@ export const App: React.FC = () => {
 
     socket.on('connect', () => {
       setIsConnected(true);
-      // Auto-reconnect to room if session is stored
-      if (roomCode && sessionToken) {
-        socket.emit('join-room', { roomCode, sessionToken });
+      // Auto-reconnect to room ONLY if session is verified and matches saved room code
+      if (isPassAndPlayModeRef.current) return;
+      const storedRoom = localStorage.getItem('sh_room_code');
+      const storedToken = localStorage.getItem('sh_session_token');
+      if (storedRoom && storedToken && roomCode === storedRoom) {
+        socket.emit('join-room', { roomCode: storedRoom, sessionToken: storedToken });
       }
     });
 
@@ -108,7 +132,25 @@ export const App: React.FC = () => {
     });
 
     socket.on('error-msg', (data: { message: string }) => {
-      setErrorMessage(data.message);
+      // Offline mode must never be interrupted by online socket errors
+      if (isPassAndPlayModeRef.current) return;
+
+      const msg = data?.message || '';
+      if (
+        msg.includes('Invalid session or room') ||
+        msg.includes('Room not found') ||
+        msg.includes('Missing roomCode')
+      ) {
+        // Auto-wipe stale/invalid session so user is never locked in an error loop
+        handleResetSession();
+        setErrorMessage(
+          isFaRef.current
+            ? 'اتاق یا نشست شما منقضی شده است. به صفحه اصلی بازگشتید.'
+            : 'Session or room expired. Returned to lobby.'
+        );
+      } else {
+        setErrorMessage(msg);
+      }
       sound.playAlert();
     });
 
@@ -313,6 +355,18 @@ export const App: React.FC = () => {
             {lang === 'fa' ? 'EN' : 'فا'}
           </button>
 
+          {/* Leave / Exit Game Button */}
+          {(gameState || roomCode) && (
+            <button
+              onClick={handleResetSession}
+              className="p-2 rounded-xl bg-stone-900 border border-stone-700 text-stone-400 hover:text-red-400 hover:border-red-900/60 text-xs transition-all shadow"
+              title={isFa ? 'خروج به لابی اصلی' : 'Exit to Main Lobby'}
+              aria-label={isFa ? 'خروج به لابی اصلی' : 'Exit to Main Lobby'}
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          )}
+
           {/* Connection status indicator */}
           <span
             className={`w-2.5 h-2.5 rounded-full ${
@@ -324,7 +378,7 @@ export const App: React.FC = () => {
       </header>
 
       {/* --- ERROR TOAST NOTIFICATION --- */}
-      {errorMessage && (
+      {errorMessage && !isPassAndPlayMode && (
         <div className="mx-auto my-2 max-w-md px-4 py-2.5 bg-red-950/90 border border-red-500/80 text-red-200 text-xs rounded-2xl flex items-center justify-between shadow-2xl animate-fadeIn">
           <div className="flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />

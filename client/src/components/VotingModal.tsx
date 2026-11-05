@@ -56,7 +56,7 @@ export const VotingModal: React.FC<VotingModalProps> = ({
           <div className="flex items-center gap-2 bg-[#29170e] border border-[#a16f38] px-3.5 py-1.5 rounded-xl shadow-inner">
             <Crown className="w-4 h-4 text-[#e6c687]" aria-hidden="true" />
             <span className="font-serif font-bold text-xs text-[#f5e2b8]">
-              {presidentName}
+              <bdi dir={isFa ? 'rtl' : 'ltr'}>{presidentName}</bdi>
             </span>
             <span className="text-[9px] font-mono text-[#a89280] uppercase">
               ({isFa ? 'رئیس‌جمهور' : 'President'})
@@ -68,7 +68,7 @@ export const VotingModal: React.FC<VotingModalProps> = ({
           <div className="flex items-center gap-2 bg-[#29170e] border border-stone-600 px-3.5 py-1.5 rounded-xl shadow-inner">
             <ScrollText className="w-4 h-4 text-stone-300" aria-hidden="true" />
             <span className="font-serif font-bold text-xs text-[#f5e2b8]">
-              {chancellorName}
+              <bdi dir={isFa ? 'rtl' : 'ltr'}>{chancellorName}</bdi>
             </span>
             <span className="text-[9px] font-mono text-[#a89280] uppercase">
               ({isFa ? 'صدراعظم' : 'Chancellor'})
@@ -106,8 +106,8 @@ export const VotingModal: React.FC<VotingModalProps> = ({
           {/* Progress Indicator */}
           <div className="mt-4 flex items-center gap-2 text-xs font-mono text-[#a89280]">
             <span>{isFa ? 'پیشرفت آرا:' : 'Voting Progress:'}</span>
-            <span className="text-[#c49b5a] font-bold">
-              {votedPlayerCount} / {totalLivingPlayers}
+            <span dir="ltr" className="tabular-nums font-mono text-[#c49b5a] font-bold">
+              <bdi>{votedPlayerCount}</bdi> / {totalLivingPlayers}
             </span>
           </div>
         </div>

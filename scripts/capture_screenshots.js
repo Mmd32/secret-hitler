@@ -137,33 +137,49 @@ async function run() {
   await deskBoardPage.screenshot({ path: path.join(outDir, 'desktop_03_main_board.png'), fullPage: true });
 
   console.log('--- 9. Mobile: Chancellor Nomination & Voting Modal ---');
-  // In nomination, select chancellor candidate
-  const firstEligible = await mobPage.$('div:has-text("مرحله اول: نامزدی صدراعظم") button');
-  if (firstEligible) {
-    await firstEligible.click();
-    await mobPage.waitForTimeout(500);
+  try {
+    // Select first eligible chancellor candidate
+    const candBtn = await mobPage.$('button:has-text("بازیکن ۲")') || (await mobPage.$$('div.grid button'))[0];
+    if (candBtn) {
+      await candBtn.click();
+      await mobPage.waitForTimeout(600);
 
-    // Click secret voting mode
-    const secretVoteBtn = await mobPage.getByText(/رأی‌گیری محرمانه با گوشی/);
-    if (secretVoteBtn) {
-      await secretVoteBtn.click();
-      await mobPage.waitForTimeout(400);
+      const secretVoteBtn = await mobPage.$('button:has-text("رأی‌گیری محرمانه")');
+      if (secretVoteBtn) {
+        await secretVoteBtn.click();
+        await mobPage.waitForTimeout(600);
 
-      // Open ballot envelope
-      const openDocBtn = await mobPage.getByText(/آماده‌ام — باز کردن صفحه/);
-      if (openDocBtn) {
-        await openDocBtn.click();
-        await mobPage.waitForTimeout(400);
-        await mobPage.screenshot({ path: path.join(outDir, 'mobile_06_voting_ballots.png'), fullPage: true });
+        const openDocBtn = await mobPage.$('button:has-text("باز کردن صفحه")');
+        if (openDocBtn) {
+          await openDocBtn.click();
+          await mobPage.waitForTimeout(600);
+          await mobPage.screenshot({ path: path.join(outDir, 'mobile_06_voting_ballots.png'), fullPage: true });
+        }
       }
     }
+  } catch (e) {
+    console.warn('Step 9 non-fatal error:', e.message);
   }
 
   await browser.close();
-  console.log('All screenshots captured successfully in /screenshots!');
+
+  // Copy screenshots to brain artifact directory
+  const brainDir = '/Users/mohammadreza/.gemini/antigravity/brain/2583d445-9b55-4076-b0bf-b62d0ae99176/screenshots';
+  if (!fs.existsSync(brainDir)) {
+    fs.mkdirSync(brainDir, { recursive: true });
+  }
+  const files = fs.readdirSync(outDir);
+  for (const f of files) {
+    if (f.endsWith('.png')) {
+      fs.copyFileSync(path.join(outDir, f), path.join(brainDir, f));
+    }
+  }
+
+  console.log('All screenshots captured and synced to brain artifact directory!');
 }
 
 run().catch((err) => {
   console.error('Error during screenshot capture:', err);
   process.exit(1);
 });
+

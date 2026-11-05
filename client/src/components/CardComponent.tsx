@@ -27,15 +27,24 @@ export const CardComponent: React.FC<CardProps> = ({
   onClick,
   className = '',
 }) => {
-  // Card proportions: standard playing card 2.5 : 3.5 ratio (5:7)
-  const sizeClasses = {
-    sm: 'w-16 h-[88px] sm:w-20 sm:h-28',
-    md: 'w-24 h-[134px] sm:w-28 sm:h-40',
-    lg: 'w-32 h-[180px] sm:w-36 sm:h-52',
-    xl: 'w-44 h-[246px] sm:w-48 sm:h-68',
-  }[size];
+  const isBallot = variant === 'BALLOT_JA' || variant === 'BALLOT_NEIN';
 
-  // Asset mapping
+  // Ballots are landscape (730:539, ~4:3), while role and policy cards are standard portrait (5:7)
+  const sizeClasses = isBallot
+    ? {
+        sm: 'w-20 h-15 sm:w-24 sm:h-18',
+        md: 'w-28 h-21 sm:w-36 sm:h-27',
+        lg: 'w-36 h-27 sm:w-44 sm:h-33',
+        xl: 'w-48 h-36 sm:w-56 sm:h-42',
+      }[size]
+    : {
+        sm: 'w-16 h-[88px] sm:w-20 sm:h-28',
+        md: 'w-24 h-[134px] sm:w-28 sm:h-40',
+        lg: 'w-32 h-[180px] sm:w-36 sm:h-52',
+        xl: 'w-44 h-[246px] sm:w-48 sm:h-68',
+      }[size];
+
+  // Asset mapping - using authentic official tabletop assets with vector fallbacks
   const getAssetSrc = () => {
     switch (variant) {
       case 'ROLE_LIBERAL':
@@ -45,17 +54,17 @@ export const CardComponent: React.FC<CardProps> = ({
       case 'ROLE_HITLER':
         return '/cards/role_hitler.png';
       case 'MEMBERSHIP_LIBERAL':
-        return '/cards/membership_liberal.svg';
+        return '/cards/official/party-membership-liberal.png';
       case 'MEMBERSHIP_FASCIST':
-        return '/cards/membership_fascist.svg';
+        return '/cards/official/party-membership-fascist.png';
       case 'POLICY_LIBERAL':
-        return '/cards/policy_liberal.svg';
+        return '/cards/official/policy-liberal.png';
       case 'POLICY_FASCIST':
-        return '/cards/policy_fascist.svg';
+        return '/cards/official/policy-fascist.png';
       case 'BALLOT_JA':
-        return '/cards/ballot_ja.svg';
+        return '/cards/official/vote-yes.png';
       case 'BALLOT_NEIN':
-        return '/cards/ballot_nein.svg';
+        return '/cards/official/vote-no.png';
       case 'CARD_BACK':
       default:
         return '/cards/card_back.svg';
@@ -79,9 +88,9 @@ export const CardComponent: React.FC<CardProps> = ({
       case 'POLICY_FASCIST':
         return 'Fascist Article Policy Card';
       case 'BALLOT_JA':
-        return 'Ja! Ballot';
+        return 'Ja! Ballot Card';
       case 'BALLOT_NEIN':
-        return 'Nein! Ballot';
+        return 'Nein! Ballot Card';
       default:
         return 'Card Back';
     }
@@ -99,9 +108,12 @@ export const CardComponent: React.FC<CardProps> = ({
       <img
         src={getAssetSrc()}
         alt={getAltText()}
-        className="w-full h-full object-cover rounded-xl pointer-events-none"
+        className={`w-full h-full rounded-xl ${isBallot ? 'object-contain bg-[#1c120a]' : 'object-cover'}`}
         loading="lazy"
+        draggable={false}
       />
+      {/* Subtle physical card edge highlight */}
+      <div className="absolute inset-0 rounded-xl border border-white/10 pointer-events-none" />
     </div>
   );
 };
