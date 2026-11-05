@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 1050" width="100%" height="100%">
+  <defs>
+    <!-- Paper texture filter -->
+    <filter id="paper-texture" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
+      <feDiffuseLighting in="noise" lighting-color="#F2ECD9" surfaceScale="1.5" result="light">
+        <feDistantLight azimuth="60" elevation="50" />
+      </feDiffuseLighting>
+      <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+    </filter>
+  </defs>
+
+  <!-- Parchment Card Base -->
+  <rect x="10" y="10" width="730" height="1030" rx="32" ry="32" fill="#EFE7D3" stroke="#D3C7AB" stroke-width="4" filter="url(#paper-texture)" />
+
+  <!-- Outer Liberal Border -->
+  <rect x="35" y="35" width="680" height="980" rx="24" ry="24" fill="none" stroke="#275E73" stroke-width="14" />
+  <!-- Inner Fine Border -->
+  <rect x="55" y="55" width="640" height="940" rx="16" ry="16" fill="none" stroke="#275E73" stroke-width="3" stroke-dasharray="12 4" />
+
+  <!-- Corner Ornaments -->
+  <g fill="#275E73">
+    <circle cx="55" cy="55" r="8" />
+    <circle cx="695" cy="55" r="8" />
+    <circle cx="55" cy="995" r="8" />
+    <circle cx="695" cy="995" r="8" />
+  </g>
+
+  <!-- Top Header -->
+  <text x="375" y="130" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="bold" letter-spacing="8" fill="#275E73" text-anchor="middle">REICHSGESETZBLATT</text>
+  <line x1="160" y1="150" x2="590" y2="150" stroke="#275E73" stroke-width="2" />
+  <text x="375" y="185" font-family="Georgia, serif" font-size="20" letter-spacing="4" fill="#3D5A6C" text-anchor="middle">PARAGRAPH § 1 — VERFASSUNG</text>
+
+  <!-- Center Artwork: Weimar Republic Dove of Peace / Eagle Crest -->
+  <g transform="translate(375, 470) scale(1.15)">
+    <!-- Outer Seal Ring -->
+    <circle cx="0" cy="0" r="180" fill="none" stroke="#275E73" stroke-width="6" />
+    <circle cx="0" cy="0" r="165" fill="#E6DFC9" stroke="#275E73" stroke-width="2" stroke-dasharray="8 6" />
+    
+    <!-- Stylized Classical Eagle / Bird Motif -->
+    <path d="M0 -110 L25 -40 L90 -70 L60 0 L130 10 L70 50 L90 120 L25 80 L0 140 L-25 80 L-90 120 L-70 50 L-130 10 L-60 0 L-90 -70 L-25 -40 Z" fill="#275E73" />
+    <circle cx="0" cy="-45" r="28" fill="#EFE7D3" stroke="#275E73" stroke-width="4" />
+    <!-- Olive branch ribbon -->
+    <path d="M-80 60 Q0 100 80 60 Q0 80 -80 60" fill="#204E60" />
+  </g>
+
+  <!-- Seal Inscription -->
+  <text x="375" y="730" font-family="'Times New Roman', serif" font-size="22" font-style="italic" fill="#3D5A6C" text-anchor="middle">« Im Namen des Volkes »</text>
+
+  <!-- Bottom Title Banner -->
+  <rect x="90" y="780" width="570" height="110" rx="16" ry="16" fill="#275E73" />
+  <rect x="98" y="788" width="554" height="94" rx="12" ry="12" fill="none" stroke="#EFE7D3" stroke-width="3" />
+  <text x="375" y="848" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="900" letter-spacing="6" fill="#F1E8D5" text-anchor="middle">LIBERAL</text>
+  <text x="375" y="874" font-family="Georgia, serif" font-size="18" font-weight="bold" letter-spacing="8" fill="#99C2D4" text-anchor="middle">ARTICLE</text>
+
+  <!-- Serial footer -->
+  <text x="375" y="960" font-family="Courier, monospace" font-size="18" letter-spacing="4" fill="#6B7C85" text-anchor="middle">SERIES 1932 • DOKUMENT NR. 418</text>
+</svg>
+

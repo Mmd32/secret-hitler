@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 1050" width="100%" height="100%">
+  <defs>
+    <filter id="paper-texture-f" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
+      <feDiffuseLighting in="noise" lighting-color="#F2ECD9" surfaceScale="1.5" result="light">
+        <feDistantLight azimuth="60" elevation="50" />
+      </feDiffuseLighting>
+      <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+    </filter>
+  </defs>
+
+  <!-- Parchment Card Base -->
+  <rect x="10" y="10" width="730" height="1030" rx="32" ry="32" fill="#EFE7D3" stroke="#D3C7AB" stroke-width="4" filter="url(#paper-texture-f)" />
+
+  <!-- Outer Fascist Border -->
+  <rect x="35" y="35" width="680" height="980" rx="24" ry="24" fill="none" stroke="#8B261E" stroke-width="14" />
+  <!-- Inner Fine Border -->
+  <rect x="55" y="55" width="640" height="940" rx="16" ry="16" fill="none" stroke="#8B261E" stroke-width="3" stroke-dasharray="14 4" />
+
+  <!-- Corner Ornaments -->
+  <g fill="#8B261E">
+    <rect x="47" y="47" width="16" height="16" />
+    <rect x="687" y="47" width="16" height="16" />
+    <rect x="47" y="987" width="16" height="16" />
+    <rect x="687" y="987" width="16" height="16" />
+  </g>
+
+  <!-- Top Header -->
+  <text x="375" y="130" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="bold" letter-spacing="8" fill="#8B261E" text-anchor="middle">NOTVERORDNUNG</text>
+  <line x1="160" y1="150" x2="590" y2="150" stroke="#8B261E" stroke-width="2" />
+  <text x="375" y="185" font-family="Georgia, serif" font-size="20" letter-spacing="4" fill="#69221C" text-anchor="middle">PARAGRAPH § 2 — STAATSNOTSTAND</text>
+
+  <!-- Center Artwork: Aggressive Woodcut Eagle with Iron Crest -->
+  <g transform="translate(375, 470) scale(1.15)">
+    <!-- Outer Seal Ring -->
+    <circle cx="0" cy="0" r="180" fill="none" stroke="#8B261E" stroke-width="6" />
+    <circle cx="0" cy="0" r="165" fill="#E8DEC5" stroke="#8B261E" stroke-width="2" stroke-dasharray="8 6" />
+    
+    <!-- Sharp angular predator eagle -->
+    <path d="M0 -120 L35 -70 L120 -85 L80 -20 L150 15 L70 55 L100 130 L30 85 L0 145 L-30 85 L-100 130 L-70 55 L-150 15 L-80 -20 L-120 -85 L-35 -70 Z" fill="#8B261E" />
+    <circle cx="0" cy="-45" r="28" fill="#1C1412" stroke="#8B261E" stroke-width="3" />
+    <!-- Skull silhouette emblem -->
+    <circle cx="0" cy="-46" r="16" fill="#EFE7D3" />
+    <rect x="-8" y="-36" width="16" height="8" rx="2" fill="#EFE7D3" />
+    <circle cx="-5" cy="-48" r="3.5" fill="#1C1412" />
+    <circle cx="5" cy="-48" r="3.5" fill="#1C1412" />
+  </g>
+
+  <!-- Seal Inscription -->
+  <text x="375" y="730" font-family="'Times New Roman', serif" font-size="22" font-style="italic" fill="#69221C" text-anchor="middle">« Gesetz des Stärkeren »</text>
+
+  <!-- Bottom Title Banner -->
+  <rect x="90" y="780" width="570" height="110" rx="16" ry="16" fill="#8B261E" />
+  <rect x="98" y="788" width="554" height="94" rx="12" ry="12" fill="none" stroke="#EFE7D3" stroke-width="3" />
+  <text x="375" y="848" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="900" letter-spacing="6" fill="#F1E8D5" text-anchor="middle">FASCIST</text>
+  <text x="375" y="874" font-family="Georgia, serif" font-size="18" font-weight="bold" letter-spacing="8" fill="#E08C85" text-anchor="middle">ARTICLE</text>
+
+  <!-- Serial footer -->
+  <text x="375" y="960" font-family="Courier, monospace" font-size="18" letter-spacing="4" fill="#7D4E4A" text-anchor="middle">NOTVERORDNUNG DES REICHSPRÄSIDENTEN</text>
+</svg>
+

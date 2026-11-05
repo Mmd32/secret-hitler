@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="100%">
+  <defs>
+    <!-- Wood grain filter -->
+    <filter id="wood-filter" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.08 0.015" numOctaves="3" result="grain" />
+      <feColorMatrix type="matrix" values="0.4 0 0 0 0.15  0 0.25 0 0 0.08  0 0 0.15 0 0.04  0 0 0 1 0" in="grain" result="woodColor" />
+      <feBlend mode="multiply" in="SourceGraphic" in2="woodColor" />
+    </filter>
+  </defs>
+
+  <!-- Heavy Wooden Desk Base -->
+  <rect x="8" y="8" width="784" height="224" rx="16" ry="16" fill="#2E1810" stroke="#170B07" stroke-width="6" filter="url(#wood-filter)" />
+
+  <!-- Gold Inlaid Border -->
+  <rect x="25" y="25" width="750" height="190" rx="10" ry="10" fill="#1C100A" stroke="#C49B5A" stroke-width="4" />
+  <rect x="35" y="35" width="730" height="170" rx="6" ry="6" fill="none" stroke="#C49B5A" stroke-width="1.5" stroke-dasharray="8 4" />
+
+  <!-- Brass Screws in Corners -->
+  <circle cx="45" cy="45" r="5" fill="#E6C687" stroke="#8A6831" stroke-width="1.5" />
+  <circle cx="755" cy="45" r="5" fill="#E6C687" stroke="#8A6831" stroke-width="1.5" />
+  <circle cx="45" cy="195" r="5" fill="#E6C687" stroke="#8A6831" stroke-width="1.5" />
+  <circle cx="755" cy="195" r="5" fill="#E6C687" stroke="#8A6831" stroke-width="1.5" />
+
+  <!-- German Subtitle -->
+  <text x="400" y="75" font-family="Georgia, 'Times New Roman', serif" font-size="16" font-weight="bold" letter-spacing="8" fill="#C49B5A" text-anchor="middle">DER REICHSPRÄSIDENT</text>
+  <line x1="220" y1="90" x2="580" y2="90" stroke="#C49B5A" stroke-width="2" />
+
+  <!-- Main Title -->
+  <text x="400" y="160" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="900" letter-spacing="10" fill="#F1E8D5" text-anchor="middle">PRESIDENT</text>
+</svg>
+
