@@ -28,6 +28,16 @@ import {
   Smartphone,
 } from 'lucide-react';
 
+const getServerUrl = () => {
+  if (import.meta.env.VITE_SERVER_URL) {
+    return import.meta.env.VITE_SERVER_URL;
+  }
+  if (typeof window !== 'undefined' && window.location.port === '5173') {
+    return `${window.location.protocol}//${window.location.hostname}:3001`;
+  }
+  return typeof window !== 'undefined' ? window.location.origin : '';
+};
+
 export const App: React.FC = () => {
   // Locale & Audio preferences
   const [lang, setLang] = useState<Language>(() => {
@@ -98,10 +108,7 @@ export const App: React.FC = () => {
 
   // Socket Connection Management
   useEffect(() => {
-    // In dev, connect to current host:3001 or window.location.origin
-    const serverUrl = window.location.port === '5173'
-      ? `${window.location.protocol}//${window.location.hostname}:3001`
-      : window.location.origin;
+    const serverUrl = getServerUrl();
 
     const socket = io(serverUrl, {
       transports: ['websocket', 'polling'],
@@ -190,9 +197,7 @@ export const App: React.FC = () => {
 
     try {
       sound.playStampThump();
-      const serverUrl = window.location.port === '5173'
-        ? `${window.location.protocol}//${window.location.hostname}:3001`
-        : window.location.origin;
+      const serverUrl = getServerUrl();
 
       const res = await fetch(`${serverUrl}/api/room/create`, {
         method: 'POST',
@@ -217,9 +222,7 @@ export const App: React.FC = () => {
 
     try {
       sound.playStampThump();
-      const serverUrl = window.location.port === '5173'
-        ? `${window.location.protocol}//${window.location.hostname}:3001`
-        : window.location.origin;
+      const serverUrl = getServerUrl();
 
       const res = await fetch(`${serverUrl}/api/room/join`, {
         method: 'POST',
