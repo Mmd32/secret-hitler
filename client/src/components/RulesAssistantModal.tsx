@@ -127,32 +127,32 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/80 backdrop-blur-md animate-fadeIn select-none">
-      <div className="relative w-full max-w-lg rounded-3xl bg-[#1a110a] border-2 border-[#54341c] shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col max-h-[90vh] overflow-hidden text-stone-200">
+      <div className="relative w-full max-w-lg rounded-3xl bg-[#1a110a] border-2 border-[#2c3548] shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col max-h-[90vh] overflow-hidden text-slate-200">
         {/* Top Header */}
-        <div className="flex items-center justify-between p-4 border-b border-[#4d2f1b] bg-[#241710]">
+        <div className="flex items-center justify-between p-4 border-b border-[#2c3548] bg-[#1a202c]">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-[#c49b5a]" />
-            <h3 className="font-serif font-black text-sm sm:text-base text-[#f5e2b8] tracking-wide">
+            <BookOpen className="w-5 h-5 text-[#d9b36a]" />
+            <h3 className="font-serif font-black text-sm sm:text-base text-[#f3dfb0] tracking-wide">
               {isFa ? 'راهنمای قوانین بازی' : 'Official Rules Assistant'}
             </h3>
           </div>
           <button
             onClick={onClose}
             aria-label="Close rules assistant"
-            className="p-1 rounded-lg text-stone-400 hover:text-white hover:bg-stone-800 transition-colors"
+            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-[#4d2f1b] bg-[#1a100a] text-xs font-serif font-bold">
+        <div className="flex border-b border-[#2c3548] bg-[#1a100a] text-xs font-serif font-bold">
           <button
             onClick={() => setActiveTab('PHASE')}
             className={`flex-1 py-2.5 text-center transition-all ${
               activeTab === 'PHASE'
-                ? 'text-[#c49b5a] border-b-2 border-[#c49b5a] bg-[#241710]'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'text-[#d9b36a] border-b-2 border-[#d9b36a] bg-[#1a202c]'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             {isFa ? 'نوبت کنونی' : 'Current Phase'}
@@ -161,8 +161,8 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
             onClick={() => setActiveTab('RULES')}
             className={`flex-1 py-2.5 text-center transition-all ${
               activeTab === 'RULES'
-                ? 'text-[#c49b5a] border-b-2 border-[#c49b5a] bg-[#241710]'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'text-[#d9b36a] border-b-2 border-[#d9b36a] bg-[#1a202c]'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             {isFa ? 'قوانین اساسی' : 'Core Rules'}
@@ -171,8 +171,8 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
             onClick={() => setActiveTab('TUTORIAL')}
             className={`flex-1 py-2.5 text-center transition-all ${
               activeTab === 'TUTORIAL'
-                ? 'text-[#c49b5a] border-b-2 border-[#c49b5a] bg-[#241710]'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'text-[#d9b36a] border-b-2 border-[#d9b36a] bg-[#1a202c]'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             {isFa ? 'آموزش سریع' : 'Quick Tutorial'}
@@ -183,23 +183,23 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
         <div className="p-4 sm:p-6 overflow-y-auto space-y-4 text-xs font-serif leading-relaxed">
           {activeTab === 'PHASE' && (
             <div>
-              <div className="p-3 rounded-2xl bg-[#29170f] border border-[#5c3a21] mb-3">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#c49b5a] block mb-1">
+              <div className="p-3 rounded-2xl bg-[#29170f] border border-[#37425a] mb-3">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#d9b36a] block mb-1">
                   {isFa ? 'وضعیت مجلس' : 'REICHSTAG STATUS'}
                 </span>
-                <h4 className="font-serif font-black text-sm sm:text-base text-[#f5e2b8] mb-1">
+                <h4 className="font-serif font-black text-sm sm:text-base text-[#f3dfb0] mb-1">
                   {currentGuide.title}
                 </h4>
                 <p className="text-[#c7b29f]">{currentGuide.desc}</p>
               </div>
 
               <div className="space-y-2 mt-3">
-                <span className="text-[11px] font-bold text-[#c49b5a] uppercase tracking-wider block">
+                <span className="text-[11px] font-bold text-[#d9b36a] uppercase tracking-wider block">
                   {isFa ? 'نکات مهم این نوبت:' : 'Key Phase Directives:'}
                 </span>
                 {currentGuide.rules.map((rule, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-[#e3d7cd]">
-                    <CheckCircle2 className="w-4 h-4 text-[#c49b5a] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#d9b36a] shrink-0 mt-0.5" />
                     <span>{rule}</span>
                   </div>
                 ))}
@@ -210,9 +210,9 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
           {activeTab === 'RULES' && (
             <div className="space-y-4">
               {/* Victory Conditions */}
-              <div className="p-3 rounded-xl bg-[#241710] border border-[#4d2f1b]">
-                <h4 className="font-bold text-[#e6c687] text-sm mb-2 flex items-center gap-1.5">
-                  <Crown className="w-4 h-4 text-[#c49b5a]" />
+              <div className="p-3 rounded-xl bg-[#1a202c] border border-[#2c3548]">
+                <h4 className="font-bold text-[#ecd08f] text-sm mb-2 flex items-center gap-1.5">
+                  <Crown className="w-4 h-4 text-[#d9b36a]" />
                   <span>{isFa ? 'شرایط پیروزی احزاب' : 'Victory Conditions'}</span>
                 </h4>
                 <div className="space-y-2 text-[#d4c3b4]">
@@ -224,7 +224,7 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
                     <br />
                     {isFa ? '۲. اعدام موفق آدولف هیتلر' : '2. Successfully execute Adolf Hitler'}
                   </div>
-                  <div className="pt-2 border-t border-[#3d2516]">
+                  <div className="pt-2 border-t border-[#262e3f]">
                     <span className="font-bold text-red-300 block">
                       {isFa ? 'پیروزی فاشیست‌ها:' : 'Fascist Victory:'}
                     </span>
@@ -238,12 +238,12 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
               </div>
 
               {/* Roles Matrix */}
-              <div className="p-3 rounded-xl bg-[#241710] border border-[#4d2f1b]">
-                <h4 className="font-bold text-[#e6c687] text-sm mb-2 flex items-center gap-1.5">
-                  <Shield className="w-4 h-4 text-[#c49b5a]" />
+              <div className="p-3 rounded-xl bg-[#1a202c] border border-[#2c3548]">
+                <h4 className="font-bold text-[#ecd08f] text-sm mb-2 flex items-center gap-1.5">
+                  <Shield className="w-4 h-4 text-[#d9b36a]" />
                   <span>{isFa ? 'توزیع نقش‌ها بر اساس تعداد بازیکن' : 'Role Distribution'}</span>
                 </h4>
-                <div className="grid grid-cols-4 gap-1 text-[11px] font-mono text-center border-b border-[#4d2f1b] pb-1 mb-1 font-bold text-[#c49b5a]">
+                <div className="grid grid-cols-4 gap-1 text-[11px] font-mono text-center border-b border-[#2c3548] pb-1 mb-1 font-bold text-[#d9b36a]">
                   <span>{isFa ? 'نفرات' : 'Players'}</span>
                   <span>{isFa ? 'لیبرال' : 'Liberal'}</span>
                   <span>{isFa ? 'فاشیست' : 'Fascist'}</span>
@@ -257,7 +257,7 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
                   { n: 9, l: 5, f: 3, h: 1 },
                   { n: 10, l: 6, f: 3, h: 1 },
                 ].map((row) => (
-                  <div key={row.n} className="grid grid-cols-4 gap-1 text-[11px] font-mono text-center py-0.5 text-stone-300">
+                  <div key={row.n} className="grid grid-cols-4 gap-1 text-[11px] font-mono text-center py-0.5 text-slate-300">
                     <span>{row.n}</span>
                     <span className="text-[#73a3b8]">{row.l}</span>
                     <span className="text-red-300">{row.f}</span>
@@ -270,44 +270,44 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
 
           {activeTab === 'TUTORIAL' && (
             <div className="space-y-3">
-              <div className="p-3 rounded-xl bg-[#241710] border border-[#4d2f1b]">
-                <span className="font-mono text-[#c49b5a] text-[10px] font-bold block mb-0.5">
+              <div className="p-3 rounded-xl bg-[#1a202c] border border-[#2c3548]">
+                <span className="font-mono text-[#d9b36a] text-[10px] font-bold block mb-0.5">
                   {isFa ? 'گام ۱: نامزدی' : 'STEP 1: NOMINATION'}
                 </span>
-                <p className="text-stone-300">
+                <p className="text-slate-300">
                   {isFa
                     ? 'پلاک ریاست‌جمهوری ساعت‌گرد می‌چرخد. رئیس‌جمهور، صدراعظم را نامزد می‌کند.'
                     : 'The Presidency moves clockwise. President nominates an eligible Chancellor.'}
                 </p>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#241710] border border-[#4d2f1b]">
-                <span className="font-mono text-[#c49b5a] text-[10px] font-bold block mb-0.5">
+              <div className="p-3 rounded-xl bg-[#1a202c] border border-[#2c3548]">
+                <span className="font-mono text-[#d9b36a] text-[10px] font-bold block mb-0.5">
                   {isFa ? 'گام ۲: رأی اعتماد' : 'STEP 2: ELECTION'}
                 </span>
-                <p className="text-stone-300">
+                <p className="text-slate-300">
                   {isFa
                     ? 'همه با برگه‌های محرمانه رأی می‌دهند. بیش از ۵۰٪ موافق = شروع جلسه قانون‌گذاری.'
                     : 'Everyone votes Ja! or Nein!. >50% Ja votes confirms the government.'}
                 </p>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#241710] border border-[#4d2f1b]">
-                <span className="font-mono text-[#c49b5a] text-[10px] font-bold block mb-0.5">
+              <div className="p-3 rounded-xl bg-[#1a202c] border border-[#2c3548]">
+                <span className="font-mono text-[#d9b36a] text-[10px] font-bold block mb-0.5">
                   {isFa ? 'گام ۳: قانون‌گذاری' : 'STEP 3: LEGISLATION'}
                 </span>
-                <p className="text-stone-300">
+                <p className="text-slate-300">
                   {isFa
                     ? 'رئیس‌جمهور از بین ۳ کارت، ۱ کارت می‌سوزاند. صدراعظم از ۲ کارت باقی‌مانده، ۱ کارت را تصویب می‌کند.'
                     : 'President discards 1 of 3 cards. Chancellor enacts 1 of 2 cards.'}
                 </p>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#241710] border border-[#4d2f1b]">
-                <span className="font-mono text-[#c49b5a] text-[10px] font-bold block mb-0.5">
+              <div className="p-3 rounded-xl bg-[#1a202c] border border-[#2c3548]">
+                <span className="font-mono text-[#d9b36a] text-[10px] font-bold block mb-0.5">
                   {isFa ? 'گام ۴: اختیارات ویژه' : 'STEP 4: POWERS'}
                 </span>
-                <p className="text-stone-300">
+                <p className="text-slate-300">
                   {isFa
                     ? 'تصویب احکام فاشیستی می‌تواند قدرت‌های ویژه (بازرسی، نگاه به قوانین، انتخابات یا اعدام) اعطا کند.'
                     : 'Fascist policies unlock Executive Actions for the sitting President.'}
@@ -318,10 +318,10 @@ export const RulesAssistantModal: React.FC<RulesAssistantModalProps> = ({
         </div>
 
         {/* Footer Button */}
-        <div className="p-3 border-t border-[#4d2f1b] bg-[#241710] flex justify-end">
+        <div className="p-3 border-t border-[#2c3548] bg-[#1a202c] flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-bold text-xs uppercase tracking-wide transition-all shadow active:scale-95"
+            className="px-5 py-2 rounded-xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-bold text-xs uppercase tracking-wide transition-all shadow active:scale-95"
           >
             {isFa ? 'بستن راهنما' : 'Got It'}
           </button>

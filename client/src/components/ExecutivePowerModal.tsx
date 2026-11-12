@@ -59,14 +59,14 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
 
   if (!isPresident) {
     return (
-      <div className="w-full max-w-sm mx-auto p-5 rounded-3xl bg-[#1c110a] border border-[#4d2f1b] flex flex-col items-center text-center shadow-xl my-2">
-        <ScrollText className="w-7 h-7 text-[#c49b5a] mb-2 animate-pulse" aria-hidden="true" />
-        <h4 className="font-serif font-bold text-[#f7e8ce] text-sm">
+      <div className="w-full p-5 card-surface-strong flex flex-col items-center text-center shadow-xl">
+        <ScrollText className="w-7 h-7 text-[#d9b36a] mb-2 animate-pulse" aria-hidden="true" />
+        <h4 className="font-serif font-bold text-[#eef1f6] text-sm">
           {isFa
             ? `رئیس‌جمهور (${presidentName}) در حال اجرای قدرت ریاست‌جمهوری است...`
             : `President (${presidentName}) is executing a Presidential Power...`}
         </h4>
-        <span className="text-[10px] text-[#a89280] mt-1 font-mono uppercase">
+        <span className="text-[10px] text-[#97a3b8] mt-1 font-mono uppercase">
           {power}
         </span>
       </div>
@@ -76,14 +76,14 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
   // 1. INVESTIGATE LOYALTY
   if (power === 'INVESTIGATE_LOYALTY') {
     return (
-      <div className="w-full max-w-md mx-auto p-5 sm:p-6 bg-[#1c110a] border-2 border-[#54341c] rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.8)] flex flex-col items-center select-none animate-fadeIn my-2">
-        <div className="w-12 h-12 rounded-full border border-[#c49b5a]/60 flex items-center justify-center mb-2 bg-[#29170e] shadow">
-          <Search className="w-6 h-6 text-[#e6c687]" aria-hidden="true" />
+      <div className="w-full p-5 sm:p-6 card-surface-strong flex flex-col items-center select-none animate-fadeIn">
+        <div className="w-12 h-12 rounded-full border border-[#d9b36a]/60 flex items-center justify-center mb-2 bg-[#1b2230] shadow">
+          <Search className="w-6 h-6 text-[#ecd08f]" aria-hidden="true" />
         </div>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-1">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-1">
           {isFa ? 'بررسی وفاداری حزبی' : 'Investigate Loyalty'}
         </h3>
-        <p className="text-xs text-[#a68e79] text-center mb-4 leading-relaxed">
+        <p className="text-xs text-[#97a3b8] text-center mb-4 leading-relaxed">
           {isFa
             ? 'یک بازیکن را جهت مشاهده محرمانه کارت عضویت حزبی او انتخاب کنید (هر بازیکن فقط یک‌بار قابل بررسی است):'
             : 'Select a player to secretly inspect their Party Membership (each player can only be investigated once):'}
@@ -97,12 +97,12 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
               onClick={() => setSelectedTargetId(p.id)}
               className={`flex items-center justify-between p-3 rounded-xl border text-sm font-serif transition-all ${
                 selectedTargetId === p.id
-                  ? 'bg-[#c49b5a] text-[#1c100a] font-bold border-[#e6c687] shadow-md scale-[1.01]'
-                  : 'bg-[#29170e] text-[#f7e8ce] border-[#4d2f1b] hover:bg-[#382013]'
+                  ? 'bg-[#d9b36a] text-[#1c100a] font-bold border-[#ecd08f] shadow-md scale-[1.01]'
+                  : 'bg-[#1b2230] text-[#eef1f6] border-[#2c3548] hover:bg-[#232b3b]'
               }`}
             >
               <span className="flex items-center gap-2">
-                <User className="w-4 h-4 text-[#8a725f]" aria-hidden="true" />
+                <User className="w-4 h-4 text-[#7d8aa0]" aria-hidden="true" />
                 <span>{p.name}</span>
               </span>
               <span className="text-[10px] font-mono opacity-70">
@@ -117,8 +117,8 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
           onClick={handleConfirmAction}
           className={`px-7 py-3 rounded-2xl font-serif font-black text-xs uppercase tracking-wider transition-all shadow-xl ${
             selectedTargetId
-              ? 'bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] active:scale-95'
-              : 'bg-[#2b1a11] text-[#634835] cursor-not-allowed border border-[#3d2516]'
+              ? 'bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] active:scale-95'
+              : 'bg-[#1b2230] text-[#566178] cursor-not-allowed border border-[#262e3f]'
           }`}
         >
           {isFa ? 'مشاهده پرونده حزبی' : 'Inspect Dossier'}
@@ -126,8 +126,8 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
 
         {/* Secret Result display if already received */}
         {investigatedLoyalty && (
-          <div className="mt-4 p-4 rounded-2xl bg-[#24100c] border border-[#a16f38] flex flex-col items-center shadow-2xl">
-            <span className="text-xs text-[#a68e79] mb-2 font-serif font-bold">
+          <div className="mt-4 p-4 rounded-2xl bg-[#24100c] border border-[#8a6f3d] flex flex-col items-center shadow-2xl">
+            <span className="text-xs text-[#97a3b8] mb-2 font-serif font-bold">
               {isFa ? `عضویت حزبی ${investigatedLoyalty.targetName}:` : `Party Membership for ${investigatedLoyalty.targetName}:`}
             </span>
             <CardComponent
@@ -147,14 +147,14 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
   // 2. SPECIAL ELECTION
   if (power === 'SPECIAL_ELECTION') {
     return (
-      <div className="w-full max-w-md mx-auto p-5 sm:p-6 bg-[#1c110a] border-2 border-[#54341c] rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.8)] flex flex-col items-center select-none animate-fadeIn my-2">
-        <div className="w-12 h-12 rounded-full border border-[#c49b5a]/60 flex items-center justify-center mb-2 bg-[#29170e] shadow">
-          <Vote className="w-6 h-6 text-[#e6c687]" aria-hidden="true" />
+      <div className="w-full p-5 sm:p-6 card-surface-strong flex flex-col items-center select-none animate-fadeIn">
+        <div className="w-12 h-12 rounded-full border border-[#d9b36a]/60 flex items-center justify-center mb-2 bg-[#1b2230] shadow">
+          <Vote className="w-6 h-6 text-[#ecd08f]" aria-hidden="true" />
         </div>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-1">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-1">
           {isFa ? 'برگزاری انتخابات ویژه' : 'Call Special Election'}
         </h3>
-        <p className="text-xs text-[#a68e79] text-center mb-4 leading-relaxed">
+        <p className="text-xs text-[#97a3b8] text-center mb-4 leading-relaxed">
           {isFa
             ? 'یک بازیکن زنده را برای ریاست‌جمهوری دور بعد انتخاب کنید. پس از پایان آن دور، نوبت عادی به بازیکن بعد از شما بازمی‌گردد.'
             : 'Select any living player as next Presidential Candidate. Regular turn order resumes afterward.'}
@@ -167,12 +167,12 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
               onClick={() => setSelectedTargetId(p.id)}
               className={`flex items-center justify-between p-3 rounded-xl border text-sm font-serif transition-all ${
                 selectedTargetId === p.id
-                  ? 'bg-[#c49b5a] text-[#1c100a] font-bold border-[#e6c687] shadow-md scale-[1.01]'
-                  : 'bg-[#29170e] text-[#f7e8ce] border-[#4d2f1b] hover:bg-[#382013]'
+                  ? 'bg-[#d9b36a] text-[#1c100a] font-bold border-[#ecd08f] shadow-md scale-[1.01]'
+                  : 'bg-[#1b2230] text-[#eef1f6] border-[#2c3548] hover:bg-[#232b3b]'
               }`}
             >
               <span className="flex items-center gap-2">
-                <Crown className="w-4 h-4 text-[#8a725f]" aria-hidden="true" />
+                <Crown className="w-4 h-4 text-[#7d8aa0]" aria-hidden="true" />
                 <span>{p.name}</span>
               </span>
               <span className="text-[10px] font-mono opacity-70">
@@ -187,8 +187,8 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
           onClick={handleConfirmAction}
           className={`px-7 py-3 rounded-2xl font-serif font-black text-xs uppercase tracking-wider transition-all shadow-xl ${
             selectedTargetId
-              ? 'bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] active:scale-95'
-              : 'bg-[#2b1a11] text-[#634835] cursor-not-allowed border border-[#3d2516]'
+              ? 'bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] active:scale-95'
+              : 'bg-[#1b2230] text-[#566178] cursor-not-allowed border border-[#262e3f]'
           }`}
         >
           {isFa ? 'تأیید انتخابات ویژه' : 'Confirm Special Election'}
@@ -200,14 +200,14 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
   // 3. POLICY PEEK
   if (power === 'POLICY_PEEK') {
     return (
-      <div className="w-full max-w-md mx-auto p-5 sm:p-6 bg-[#1c110a] border-2 border-[#54341c] rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.8)] flex flex-col items-center select-none animate-fadeIn text-center my-2">
-        <div className="w-12 h-12 rounded-full border border-[#c49b5a]/60 flex items-center justify-center mb-2 bg-[#29170e] shadow">
-          <Eye className="w-6 h-6 text-[#e6c687]" aria-hidden="true" />
+      <div className="w-full p-5 sm:p-6 card-surface-strong flex flex-col items-center select-none animate-fadeIn text-center">
+        <div className="w-12 h-12 rounded-full border border-[#d9b36a]/60 flex items-center justify-center mb-2 bg-[#1b2230] shadow">
+          <Eye className="w-6 h-6 text-[#ecd08f]" aria-hidden="true" />
         </div>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-1">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-1">
           {isFa ? 'نگاه به ۳ کارت بالایی قوانین' : 'Policy Peek'}
         </h3>
-        <p className="text-xs text-[#a68e79] mb-4">
+        <p className="text-xs text-[#97a3b8] mb-4">
           {isFa
             ? 'شما ۳ کارت بالایی دسته را بدون تغییر ترتیب مشاهده می‌کنید:'
             : 'You secretly view the top 3 cards without altering their order:'}
@@ -224,14 +224,14 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
             ))}
           </div>
         ) : (
-          <div className="p-4 text-xs font-mono text-[#a89280]">
+          <div className="p-4 text-xs font-mono text-[#97a3b8]">
             {isFa ? 'درحال بارگذاری کارت‌ها...' : 'Loading cards...'}
           </div>
         )}
 
         <button
           onClick={handleConfirmAction}
-          className="mt-4 px-8 py-3 rounded-2xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-black text-xs uppercase tracking-wider shadow-xl active:scale-95"
+          className="mt-4 px-8 py-3 rounded-2xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-black text-xs uppercase tracking-wider shadow-xl active:scale-95"
         >
           {isFa ? 'دیدم — پایان نوبت' : 'Done — End Turn'}
         </button>
@@ -242,7 +242,7 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
   // 4. EXECUTION
   if (power === 'EXECUTION') {
     return (
-      <div className="w-full max-w-md mx-auto p-5 sm:p-6 bg-[#24100e] border-2 border-red-800/80 rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.8)] flex flex-col items-center select-none animate-fadeIn my-2">
+      <div className="w-full p-5 sm:p-6 bg-[#241418] border-2 border-red-800/80 rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.8)] flex flex-col items-center select-none animate-fadeIn">
         <div className="w-14 h-14 rounded-full border-2 border-red-500 flex items-center justify-center mb-2 bg-red-950/70 shadow-lg animate-pulse">
           <Skull className="w-7 h-7 text-red-400" aria-hidden="true" />
         </div>
@@ -266,7 +266,7 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
               className={`flex items-center justify-between p-3 rounded-xl border text-sm font-serif transition-all ${
                 selectedTargetId === p.id
                   ? 'bg-red-700 text-white font-bold border-red-400 shadow-md scale-[1.01]'
-                  : 'bg-[#1a0908] text-[#f7e8ce] border-[#5c1c18] hover:bg-[#2e100e]'
+                  : 'bg-[#1a0908] text-[#eef1f6] border-[#5c1c18] hover:bg-[#2e100e]'
               }`}
             >
               <span className="flex items-center gap-2">
@@ -308,7 +308,7 @@ export const ExecutivePowerModal: React.FC<ExecutivePowerModalProps> = ({
               </button>
               <button
                 onClick={() => setShowConfirm(false)}
-                className="px-5 py-2.5 rounded-xl bg-[#2b180e] text-[#f7e8ce] font-serif text-xs border border-[#4d2f1b] hover:bg-[#382013]"
+                className="px-5 py-2.5 rounded-xl bg-[#1d2433] text-[#eef1f6] font-serif text-xs border border-[#2c3548] hover:bg-[#232b3b]"
               >
                 {isFa ? 'انصراف' : 'Cancel'}
               </button>

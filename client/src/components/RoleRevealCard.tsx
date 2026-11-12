@@ -74,7 +74,7 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
         <h2 className="text-xl sm:text-2xl font-serif font-black text-amber-100">
           {isFa ? 'پرونده هویت و حزب' : 'Secret Dossier & Alignment'}
         </h2>
-        <p className="text-xs text-stone-400 mt-1 max-w-xs mx-auto">
+        <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
           {isFa
             ? 'برای جلوگیری از لو رفتن هویت، کارت را نگه دارید تا ببینید و با رها کردن مخفی شود.'
             : 'Hold the card to peek at your role. Release to conceal immediately.'}
@@ -108,13 +108,13 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
             <span className="font-serif font-bold text-amber-200 text-base mb-2">
               {isFa ? 'انگشت خود را نگه دارید' : 'Press & Hold to Reveal'}
             </span>
-            <div className="w-32 h-1.5 bg-stone-800 rounded-full overflow-hidden mt-2">
+            <div className="w-32 h-1.5 bg-slate-800 rounded-full overflow-hidden mt-2">
               <div
                 className="h-full bg-amber-400 transition-all duration-75"
                 style={{ width: `${holdProgress}%` }}
               />
             </div>
-            <span className="text-[11px] font-mono text-stone-500 mt-3">
+            <span className="text-[11px] font-mono text-slate-500 mt-3">
               {isFa ? 'برای ایمنی در کنار سایر بازیکنان' : 'Concealed for safety'}
             </span>
           </div>
@@ -128,7 +128,7 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
             </div>
 
             {/* Teammate Intelligence Box */}
-            <div className="w-full mt-3 p-3 rounded-2xl bg-stone-900/90 border border-stone-700/60 text-xs shadow-inner">
+            <div className="w-full mt-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-700/60 text-xs shadow-inner">
               {player.role === 'LIBERAL' && (
                 <div className="text-cyan-200 text-center leading-relaxed flex flex-col items-center gap-1">
                   <Shield className="w-4 h-4 text-cyan-400" />
@@ -154,8 +154,8 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
                   )}
                   {player.knownTeam?.allies && player.knownTeam.allies.length > 0 && (
                     <div className="text-[11px]">
-                      <span className="text-stone-400">{isFa ? 'سایر فاشیست‌ها:' : 'Allies:'} </span>
-                      <span className="font-bold text-stone-200">
+                      <span className="text-slate-400">{isFa ? 'سایر فاشیست‌ها:' : 'Allies:'} </span>
+                      <span className="font-bold text-slate-200">
                         {player.knownTeam.allies.map((a) => a.name).join(', ')}
                       </span>
                     </div>
@@ -171,7 +171,7 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
                   </div>
                   {player.knownTeam?.allies && player.knownTeam.allies.length > 0 ? (
                     <div>
-                      <span className="text-stone-400">{isFa ? 'هم‌تیمی فاشیست شما:' : 'Your Fascist ally:'} </span>
+                      <span className="text-slate-400">{isFa ? 'هم‌تیمی فاشیست شما:' : 'Your Fascist ally:'} </span>
                       <span className="font-bold text-red-300">
                         {player.knownTeam.allies.map((a) => a.name).join(', ')}
                       </span>
@@ -194,7 +194,7 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
       {canAdvance && (
         <button
           onClick={onAcknowledge}
-          className="mt-6 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-stone-950 font-serif font-black text-sm uppercase tracking-wider shadow-xl active:scale-95 transition-all flex items-center gap-2"
+          className="mt-6 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-serif font-black text-sm uppercase tracking-wider shadow-xl active:scale-95 transition-all flex items-center gap-2"
         >
           <CheckCircle className="w-4 h-4" />
           <span>{isFa ? 'نقش خود را فهمیدم — شروع بازی' : 'I Understand My Role — Begin'}</span>
