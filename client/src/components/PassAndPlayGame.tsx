@@ -62,6 +62,8 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
     'امیر',
   ]);
   const [customNameInput, setCustomNameInput] = useState('');
+  // When off, role cards hide teammates; fascists identify each other in person (eyes-closed ritual)
+  const [showTeammates, setShowTeammates] = useState(true);
 
   // Game instance ref
   const gameRef = useRef<SecretHitlerGame | null>(null);
@@ -475,6 +477,62 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
           </div>
         </div>
 
+        {/* Teammate reveal option */}
+        <div className="mb-4 w-full rounded-2xl border border-white/10 bg-white/[0.04] p-3.5 text-start">
+          <label className="flex cursor-pointer items-start gap-3">
+            <input
+              type="checkbox"
+              role="switch"
+              checked={showTeammates}
+              onChange={(e) => setShowTeammates(e.target.checked)}
+              className="mt-1 h-5 w-9 shrink-0 cursor-pointer appearance-none rounded-full bg-slate-600 transition-colors checked:bg-[#d9b36a] relative before:absolute before:left-0.5 before:top-0.5 before:h-4 before:w-4 before:rounded-full before:bg-white before:transition-transform checked:before:translate-x-4"
+            />
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm font-extrabold text-white">
+                {isFa ? 'نمایش هم‌تیمی‌ها روی کارت محرمانه' : 'Show teammates on the secret card'}
+              </span>
+              <span className="mt-0.5 block text-[11.5px] leading-6 text-slate-400">
+                {isFa
+                  ? 'روشن: فاشیست‌ها و هیتلر اسم هم‌تیمی‌هایشان را روی گوشی می‌بینند. خاموش: هیچ اسمی نشان داده نمی‌شود و باید مثل بازی رومیزی، با چشم‌های بسته و علامت دست، همدیگر را بشناسند.'
+                  : 'On: Fascists see teammates on the phone. Off: nothing is shown; use the eyes-closed ritual instead.'}
+              </span>
+            </span>
+          </label>
+
+          {!showTeammates && (
+            <details className="mt-3 rounded-xl bg-black/25 p-3 text-[12px] leading-7 text-slate-300" open>
+              <summary className="cursor-pointer font-bold text-[#ecd08f]">
+                {isFa ? 'متن راوی (بعد از دیدن همه‌ی نقش‌ها بخوانید)' : 'Narrator script (read after everyone saw their role)'}
+              </summary>
+              <ol className="mt-2 list-decimal space-y-1 ps-5">
+                {(playerNames.length <= 6
+                  ? isFa
+                    ? [
+                        'همه چشم‌هایشان را ببندند.',
+                        'فاشیست و هیتلر چشم‌هایشان را باز کنند و همدیگر را ببینند.',
+                        '(چند ثانیه مکث)',
+                        'همه چشم‌هایشان را ببندند.',
+                        'همه چشم‌ها را باز کنند. اگر کسی گیج شد یا اشتباهی رخ داد همین حالا بگوید.',
+                      ]
+                    : ['Everyone close your eyes.', 'Fascist and Hitler: open your eyes and acknowledge each other.', '[pause]', 'Everyone close your eyes.', 'Everyone open your eyes.']
+                  : isFa
+                  ? [
+                      'همه چشم‌هایشان را ببندند و مشت‌شان را جلوی خود دراز کنند.',
+                      'فاشیست‌هایی که هیتلر نیستند چشم باز کنند و همدیگر را ببینند.',
+                      'هیتلر چشمش بسته بماند ولی شست خود را بالا بگیرد.',
+                      'فاشیست‌ها ببینند چه کسی شست بالا گرفته؛ او هیتلر است. (چند ثانیه مکث)',
+                      'همه چشم‌هایشان را ببندند و دست‌هایشان را پایین بیاورند.',
+                      'همه چشم‌ها را باز کنند. اگر کسی گیج شد همین حالا بگوید.',
+                    ]
+                  : ['Everyone close eyes, fists out.', 'Non-Hitler Fascists: open eyes, acknowledge each other.', 'Hitler: eyes closed, thumb up.', 'Fascists note the thumb. [pause]', 'Everyone close eyes, hands down.', 'Everyone open eyes.']
+                ).map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+              </ol>
+            </details>
+          )}
+        </div>
+
         {/* Start Game Button */}
         <div className="w-full flex flex-col gap-2.5">
           <button
@@ -632,7 +690,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
         </div>
 
         {/* Knowledge Table (Who are the other fascists/hitler) */}
-        {pView.knownTeam && (
+        {showTeammates && pView.knownTeam && (
           <div className="w-full p-3 rounded-xl bg-[#1d2433] border border-[#37425a] my-3 text-start text-xs font-serif">
             <span className="text-[11px] font-mono text-red-300 font-bold block mb-1">
               👁️ {isFa ? 'اطلاعات محرمانه حزب:' : 'Party Intel:'}
@@ -650,11 +708,19 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
           </div>
         )}
 
-        {isHitler && !pView.knownTeam?.allies?.length && (
+        {showTeammates && isHitler && !pView.knownTeam?.allies?.length && (
           <div className="w-full p-3 rounded-xl bg-[#1d2433] border border-[#37425a] my-3 text-center text-xs font-serif text-[#eef1f6]">
             {isFa
               ? 'در بازی‌های ۷ نفره به بالا، شما هویت فاشیست‌ها را نمی‌دانید؛ اما آنها شما را می‌شناسند!'
               : 'In 7+ player games, you do not know who your fellow Fascists are, but they know you!'}
+          </div>
+        )}
+
+        {!showTeammates && pView.role !== 'LIBERAL' && (
+          <div className="w-full p-3 rounded-xl bg-[#1d2433] border border-[#37425a] my-3 text-center text-xs font-serif text-[#eef1f6] leading-6">
+            {isFa
+              ? 'نمایش هم‌تیمی‌ها خاموش است. بعد از اینکه همه نقششان را دیدند، راوی مراسم «چشم‌بسته» را می‌خواند و هم‌تیمی‌ها همدیگر را می‌شناسند.'
+              : 'Teammate display is off. The narrator will run the eyes-closed ritual once everyone has seen their role.'}
           </div>
         )}
 

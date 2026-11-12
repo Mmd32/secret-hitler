@@ -604,7 +604,7 @@ export class SecretHitlerGame {
         if (targetId === presidentId) throw new Error('Cannot investigate yourself');
         const target = this.players.get(targetId);
         if (!target || !target.isAlive) throw new Error('Target must be a living player');
-        if (target.investigatedBy?.includes(presidentId)) {
+        if (target.investigatedBy && target.investigatedBy.length > 0) {
           throw new Error('Target player has already been investigated');
         }
 
