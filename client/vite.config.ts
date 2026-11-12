@@ -7,7 +7,20 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'cards/*.png'],
+      includeAssets: ['icons/*.png'],
+      workbox: {
+        // Card/board artwork is cached on first use instead of being pre-downloaded at install
+        runtimeCaching: [
+          {
+            urlPattern: /\/game-assets\/.*\.(?:webp|svg|png)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'game-art',
+              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 90 },
+            },
+          },
+        ],
+      },
       manifest: {
         name: 'Secret Hitler — راز هیتلر',
         short_name: 'SecretHitler',
@@ -18,12 +31,12 @@ export default defineConfig({
         orientation: 'portrait',
         icons: [
           {
-            src: '/cards/role_hitler.png',
+            src: '/icons/icon-192.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: '/cards/role_hitler.png',
+            src: '/icons/icon-512.png',
             sizes: '512x512',
             type: 'image/png',
           },

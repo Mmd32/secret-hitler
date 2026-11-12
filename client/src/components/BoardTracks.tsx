@@ -54,7 +54,7 @@ export const BoardTracks: React.FC<BoardTracksProps> = ({
               {liberalBoard.slots.map((slot) => (
                 <div key={`lib_slot_${slot.index}`} style={getSlotStyle(slot, liberalBoard.naturalWidth, liberalBoard.naturalHeight)} className="absolute flex items-center justify-center">
                   {slot.index <= liberalPoliciesEnacted && (
-                    <img src="/game-assets/policy/liberal_policy.png" alt={`Liberal Policy ${slot.index}`} className="h-full w-full -translate-y-0.5 object-contain shadow-[0_6px_16px_rgba(0,0,0,0.8)] animate-fadeIn" draggable={false} />
+                    <img src="/game-assets/policy/liberal_policy.webp" alt={`Liberal Policy ${slot.index}`} className="h-full w-full -translate-y-0.5 object-contain shadow-[0_6px_16px_rgba(0,0,0,0.8)] animate-fadeIn" draggable={false} />
                   )}
                 </div>
               ))}
@@ -80,7 +80,7 @@ export const BoardTracks: React.FC<BoardTracksProps> = ({
               {fascistBoard.slots.map((slot) => (
                 <div key={`fas_slot_${slot.index}`} style={getSlotStyle(slot, fascistBoard.naturalWidth, fascistBoard.naturalHeight)} className="absolute flex items-center justify-center">
                   {slot.index <= fascistPoliciesEnacted && (
-                    <img src="/game-assets/policy/fascist_policy.png" alt={`Fascist Policy ${slot.index}`} className="h-full w-full -translate-y-0.5 object-contain shadow-[0_6px_16px_rgba(0,0,0,0.8)] animate-fadeIn" draggable={false} />
+                    <img src="/game-assets/policy/fascist_policy.webp" alt={`Fascist Policy ${slot.index}`} className="h-full w-full -translate-y-0.5 object-contain shadow-[0_6px_16px_rgba(0,0,0,0.8)] animate-fadeIn" draggable={false} />
                   )}
                 </div>
               ))}

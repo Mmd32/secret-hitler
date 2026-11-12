@@ -42,32 +42,32 @@ export const CardComponent: React.FC<CardProps> = ({
   const getAssetSrc = () => {
     switch (variant) {
       case 'ROLE_LIBERAL':
-        return '/game-assets/role/liberal_role.png';
+        return '/game-assets/role/liberal_role.webp';
       case 'ROLE_FASCIST':
-        return '/game-assets/role/fascist_role.png';
+        return '/game-assets/role/fascist_role.webp';
       case 'ROLE_HITLER':
-        return '/game-assets/role/hitler_role.png';
+        return '/game-assets/role/hitler_role.webp';
       case 'MEMBERSHIP_LIBERAL':
-        return '/game-assets/membership/liberal_membership.png';
+        return '/game-assets/membership/liberal_membership.webp';
       case 'MEMBERSHIP_FASCIST':
-        return '/game-assets/membership/fascist_membership.png';
+        return '/game-assets/membership/fascist_membership.webp';
       case 'POLICY_LIBERAL':
-        return '/game-assets/policy/liberal_policy.png';
+        return '/game-assets/policy/liberal_policy.webp';
       case 'POLICY_FASCIST':
-        return '/game-assets/policy/fascist_policy.png';
+        return '/game-assets/policy/fascist_policy.webp';
       case 'BALLOT_JA':
-        return '/game-assets/vote/ja.png';
+        return '/game-assets/vote/ja.webp';
       case 'BALLOT_NEIN':
-        return '/game-assets/vote/nein.png';
+        return '/game-assets/vote/nein.webp';
       case 'ROLE_BACK':
-        return '/game-assets/backs/role_back.png';
+        return '/game-assets/backs/role_back.webp';
       case 'BALLOT_BACK':
-        return '/game-assets/backs/ballot_back.png';
+        return '/game-assets/backs/ballot_back.webp';
       case 'MEMBERSHIP_BACK':
-        return '/game-assets/backs/membership_back.png';
+        return '/game-assets/backs/membership_back.webp';
       case 'CARD_BACK':
       default:
-        return '/game-assets/backs/policy_back.png';
+        return '/game-assets/backs/policy_back.webp';
     }
   };
 
@@ -116,6 +116,7 @@ export const CardComponent: React.FC<CardProps> = ({
         alt={getAltText()}
         className="w-full h-full object-cover"
         loading="lazy"
+        decoding="async"
         draggable={false}
       />
       {/* Physical card edge highlight */}
