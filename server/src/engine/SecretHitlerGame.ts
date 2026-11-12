@@ -767,6 +767,7 @@ export class SecretHitlerGame {
         isAlive: p.isAlive,
         isReady: p.isReady,
         hasInvestigated: (p.investigatedBy && p.investigatedBy.length > 0) || false,
+        ...(this.phase === 'GAME_OVER' ? { role: p.role } : {}),
       };
     });
 

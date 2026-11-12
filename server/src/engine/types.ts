@@ -48,6 +48,8 @@ export interface PlayerPublicView {
   isAlive: boolean;
   isReady: boolean;
   hasInvestigated?: boolean;
+  /** Only populated once the game is over, so the victory screen can reveal every role. */
+  role?: Role;
 }
 
 export interface PlayerPrivateView {
