@@ -15,6 +15,7 @@ import { PassAndPlayGame } from './components/PassAndPlayGame.js';
 import { RulesAssistantModal } from './components/RulesAssistantModal.js';
 import { DeckPiles } from './components/DeckPiles.js';
 import { Avatar, SectionTitle } from './components/ui.js';
+import { GuideBanner } from './components/GuideBanner.js';
 import {
   Landmark,
   FolderLock,
@@ -642,6 +643,20 @@ export const App: React.FC = () => {
                 }}
                 failedElectionCount={publicState.failedElectionCount}
                 lang={lang}
+              />
+
+              <GuideBanner
+                phase={phase!}
+                lang={lang}
+                isPresident={publicState.presidentId === playerId}
+                isChancellor={publicState.chancellorId === playerId}
+                hasVoted={publicState.votedPlayerIds.includes(playerId)}
+                isAlive={myPlayer?.isAlive ?? true}
+                vetoUnlocked={publicState.vetoUnlocked}
+                power={publicState.pendingExecutivePower}
+                presidentName={nameOf(publicState.presidentId)}
+                chancellorName={nameOf(publicState.chancellorId || publicState.nominatedChancellorId)}
+                role={myPlayer?.role as any}
               />
 
               {/* 1. NOMINATION */}

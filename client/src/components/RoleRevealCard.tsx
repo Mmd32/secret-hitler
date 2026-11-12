@@ -64,7 +64,7 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-4 flex flex-col items-center select-none">
+    <div className="w-full max-w-md mx-auto p-2 sm:p-4 flex flex-col items-center select-none">
       {/* Header Stamp */}
       <div className="mb-4 text-center">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded border border-amber-600/60 bg-amber-950/40 text-amber-300 font-mono text-xs uppercase tracking-widest mb-1 shadow">
@@ -76,12 +76,12 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
         </h2>
         <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
           {isFa
-            ? 'برای جلوگیری از لو رفتن هویت، کارت را نگه دارید تا ببینید و با رها کردن مخفی شود.'
+            ? 'مطمئن شوید کسی صفحه را نمی‌بیند. کارت را نگه دارید تا نقش و هم‌تیمی‌هایتان را ببینید؛ با رها کردن دوباره پنهان می‌شود.'
             : 'Hold the card to peek at your role. Release to conceal immediately.'}
         </p>
       </div>
 
-      {/* Main Touchable Dossier Container */}
+      {/* Touchable card: hold to reveal */}
       <div
         onMouseDown={startHold}
         onMouseUp={endHold}
@@ -89,98 +89,78 @@ export const RoleRevealCard: React.FC<RoleRevealCardProps> = ({
         onTouchStart={startHold}
         onTouchEnd={endHold}
         onTouchCancel={endHold}
-        className="relative w-full max-w-xs aspect-[3/4] rounded-3xl cursor-pointer transition-all duration-300 flex items-center justify-center p-4 bg-gradient-to-b from-[#241c18] to-[#120e0c] border-2 border-amber-900/60 shadow-[0_20px_50px_rgba(0,0,0,0.8)] active:scale-[0.98]"
+        onContextMenu={(e) => e.preventDefault()}
+        className="relative flex w-full cursor-pointer select-none flex-col items-center"
       >
-        {/* Progress ring border while holding */}
-        {!isRevealed && holdProgress > 0 && (
-          <div
-            className="absolute inset-0 rounded-3xl border-4 border-amber-400 transition-all pointer-events-none"
-            style={{ opacity: holdProgress / 100 }}
-          />
-        )}
-
-        {/* Concealed State */}
         {!isRevealed ? (
-          <div className="flex flex-col items-center text-center p-6">
-            <div className="w-20 h-20 rounded-full border-2 border-dashed border-amber-500/50 flex items-center justify-center bg-amber-950/30 mb-4 animate-pulse">
-              <Lock className="w-8 h-8 text-amber-400" />
+          <div className="relative">
+            <CardComponent variant="ROLE_BACK" size="xl" className="!cursor-pointer" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl bg-black/35 backdrop-blur-[1px]">
+              <span className="flex h-16 w-16 animate-pulse items-center justify-center rounded-full border border-[#d9b36a]/60 bg-black/50">
+                <Lock className="h-7 w-7 text-[#ecd08f]" />
+              </span>
+              <span className="rounded-full bg-black/60 px-4 py-1.5 text-sm font-extrabold text-white">
+                {isFa ? 'نگه دارید تا نقشتان را ببینید' : 'Press & hold to reveal'}
+              </span>
+              <div className="h-1.5 w-32 overflow-hidden rounded-full bg-white/20">
+                <div className="h-full bg-[#d9b36a] transition-all duration-75" style={{ width: `${holdProgress}%` }} />
+              </div>
             </div>
-            <span className="font-serif font-bold text-amber-200 text-base mb-2">
-              {isFa ? 'انگشت خود را نگه دارید' : 'Press & Hold to Reveal'}
-            </span>
-            <div className="w-32 h-1.5 bg-slate-800 rounded-full overflow-hidden mt-2">
-              <div
-                className="h-full bg-amber-400 transition-all duration-75"
-                style={{ width: `${holdProgress}%` }}
-              />
-            </div>
-            <span className="text-[11px] font-mono text-slate-500 mt-3">
-              {isFa ? 'برای ایمنی در کنار سایر بازیکنان' : 'Concealed for safety'}
-            </span>
           </div>
         ) : (
-          /* Revealed State */
-          <div className="w-full h-full flex flex-col items-center justify-between animate-fadeIn">
-            {/* The 2 Cards: Role Card and Party Membership Card */}
-            <div className="flex gap-2 items-center justify-center w-full">
-              <CardComponent variant={getRoleVariant()} size="md" />
-              <CardComponent variant={getMembershipVariant()} size="md" />
+          <div className="flex w-full animate-fadeIn flex-col items-center gap-4">
+            <div className="relative flex items-end justify-center">
+              <CardComponent variant={getRoleVariant()} size="xl" className="z-10 !shadow-[0_24px_50px_rgba(0,0,0,0.7)]" />
+              <CardComponent variant={getMembershipVariant()} size="md" className="-ms-12 mb-3 -rotate-6 opacity-95" />
             </div>
 
-            {/* Teammate Intelligence Box */}
-            <div className="w-full mt-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-700/60 text-xs shadow-inner">
+            <div className="w-full rounded-2xl border border-white/10 bg-black/30 p-4 text-[13px] leading-7">
               {player.role === 'LIBERAL' && (
-                <div className="text-cyan-200 text-center leading-relaxed flex flex-col items-center gap-1">
-                  <Shield className="w-4 h-4 text-cyan-400" />
-                  <span>
+                <div className="flex flex-col gap-1.5 text-sky-200">
+                  <div className="flex items-center gap-2 font-extrabold"><Shield className="h-4 w-4 text-sky-400" />{isFa ? 'تو لیبرال هستی' : 'You are a Liberal'}</div>
+                  <p className="text-slate-300">
                     {isFa
-                      ? 'شما لیبرال هستید. شما هیچ‌کس را نمی‌شناسید. ۵ قانون لیبرال تصویب کنید یا هیتلر را اعدام کنید!'
-                      : 'You are a Liberal. You know no one. Enact 5 Liberal policies or execute Hitler!'}
-                  </span>
+                      ? 'هیچ‌کس را نمی‌شناسی؛ باید با بحث و رأی دادن بفهمی چه کسی فاشیست است. برای برد، ۵ قانون لیبرال تصویب کن یا هیتلر را اعدام کن. به هیچ‌کس نشان نده!'
+                      : 'You know no one. Enact 5 Liberal policies or execute Hitler. Do not show anyone!'}
+                  </p>
                 </div>
               )}
-
               {player.role === 'FASCIST' && (
-                <div className="text-red-300 flex flex-col gap-1.5">
-                  <div className="font-bold border-b border-red-800/40 pb-1 flex items-center gap-1.5">
-                    <Skull className="w-4 h-4 text-red-400" />
-                    <span>{isFa ? 'اطلاعات محرمانه فاشیست‌ها:' : 'Fascist Intel:'}</span>
-                  </div>
+                <div className="flex flex-col gap-2 text-red-200">
+                  <div className="flex items-center gap-2 font-extrabold"><Skull className="h-4 w-4 text-red-400" />{isFa ? 'تو فاشیست هستی' : 'You are a Fascist'}</div>
+                  <p className="text-slate-300">
+                    {isFa ? 'هیتلر و هم‌تیمی‌هایت را می‌شناسی. دروغ بگو، قانون فاشیستی تصویب کن و هیتلر را پنهان نگه دار.' : 'You know Hitler and your allies. Lie, pass Fascist laws, protect Hitler.'}
+                  </p>
                   {player.knownTeam?.hitler && (
-                    <div className="flex justify-between items-center bg-red-950/60 p-1.5 rounded-lg border border-red-900/50">
+                    <div className="flex items-center justify-between rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5">
                       <span>{isFa ? 'هیتلر:' : 'Hitler:'}</span>
-                      <span className="font-bold text-red-200">{player.knownTeam.hitler.name}</span>
+                      <span className="font-extrabold text-white">{player.knownTeam.hitler.name}</span>
                     </div>
                   )}
                   {player.knownTeam?.allies && player.knownTeam.allies.length > 0 && (
-                    <div className="text-[11px]">
-                      <span className="text-slate-400">{isFa ? 'سایر فاشیست‌ها:' : 'Allies:'} </span>
-                      <span className="font-bold text-slate-200">
-                        {player.knownTeam.allies.map((a) => a.name).join(', ')}
-                      </span>
+                    <div className="text-[12px]">
+                      <span className="text-slate-400">{isFa ? 'سایر فاشیست‌ها: ' : 'Allies: '}</span>
+                      <span className="font-bold text-slate-100">{player.knownTeam.allies.map((a) => a.name).join('، ')}</span>
                     </div>
                   )}
                 </div>
               )}
-
               {player.role === 'HITLER' && (
-                <div className="text-amber-300 flex flex-col gap-1.5">
-                  <div className="font-bold border-b border-amber-800/40 pb-1 flex items-center gap-1.5">
-                    <Crown className="w-4 h-4 text-amber-400" />
-                    <span>{isFa ? 'اطلاعات محرمانه هیتلر:' : 'Hitler Intel:'}</span>
-                  </div>
+                <div className="flex flex-col gap-2 text-amber-200">
+                  <div className="flex items-center gap-2 font-extrabold"><Crown className="h-4 w-4 text-amber-400" />{isFa ? 'تو هیتلر هستی' : 'You are Hitler'}</div>
+                  <p className="text-slate-300">
+                    {isFa
+                      ? 'خودت را لو نده. اگر بعد از تصویب ۳ قانون فاشیستی صدراعظم شوی، فاشیست‌ها می‌برند. اگر اعدام شوی، لیبرال‌ها می‌برند.'
+                      : 'Stay hidden. If elected Chancellor after 3 Fascist laws, Fascists win. If executed, Liberals win.'}
+                  </p>
                   {player.knownTeam?.allies && player.knownTeam.allies.length > 0 ? (
-                    <div>
-                      <span className="text-slate-400">{isFa ? 'هم‌تیمی فاشیست شما:' : 'Your Fascist ally:'} </span>
-                      <span className="font-bold text-red-300">
-                        {player.knownTeam.allies.map((a) => a.name).join(', ')}
-                      </span>
+                    <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5">
+                      <span className="text-slate-400">{isFa ? 'هم‌تیمی فاشیست: ' : 'Your Fascist ally: '}</span>
+                      <span className="font-extrabold text-white">{player.knownTeam.allies.map((a) => a.name).join('، ')}</span>
                     </div>
                   ) : (
-                    <div className="text-[11px] text-amber-200/80 leading-relaxed">
-                      {isFa
-                        ? 'در بازی‌های ۷ تا ۱۰ نفره شما هویت فاشیست‌ها را نمی‌دانید! آنها شما را می‌شناسند.'
-                        : 'In 7-10 player games, you do not know the fascists. But they know you!'}
+                    <div className="text-[12px] text-amber-100/80">
+                      {isFa ? 'در بازی‌های ۷ تا ۱۰ نفره فاشیست‌ها را نمی‌شناسی، اما آن‌ها تو را می‌شناسند.' : 'In 7–10 player games you do not know the Fascists, but they know you.'}
                     </div>
                   )}
                 </div>
