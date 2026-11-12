@@ -1,4 +1,5 @@
-// Tabletop Board Asset Configurations from asset-manifest.json
+// Board art + exact slot rectangles measured from the final board PNGs (1740×670).
+// Slots are sized to the 600:940 policy-card aspect ratio and centred in each printed frame.
 
 export interface SlotCoordinate {
   index: number;
@@ -17,140 +18,63 @@ export interface BoardConfig {
   slots: SlotCoordinate[];
 }
 
+type Power = SlotCoordinate['power'];
+
+const W = 1740;
+const H = 670;
+
+const LIB_X = [178, 471, 765, 1058, 1351];
+const FAS_X = [152, 408, 659, 911, 1163, 1414];
+
+const liberalSlots = (): SlotCoordinate[] =>
+  LIB_X.map((x, i) => ({ index: i + 1, x, y: 259, width: 210, height: 330, power: i === 4 ? 'WIN' : null }));
+
+const fascistSlots = (powers: Power[]): SlotCoordinate[] =>
+  FAS_X.map((x, i) => ({ index: i + 1, x, y: 247, width: 174, height: 272, power: powers[i] }));
+
 export const LIBERAL_DESKTOP: BoardConfig = {
   id: 'liberal_desktop',
-  asset: '/game-assets/boards/liberal_desktop.svg',
-  naturalWidth: 1740,
-  naturalHeight: 670,
-  slots: [
-    { index: 1, x: 162, y: 239, width: 268, height: 345, power: null },
-    { index: 2, x: 449, y: 239, width: 268, height: 345, power: null },
-    { index: 3, x: 736, y: 239, width: 268, height: 345, power: null },
-    { index: 4, x: 1023, y: 239, width: 268, height: 345, power: null },
-    { index: 5, x: 1310, y: 239, width: 268, height: 345, power: 'WIN' },
-  ],
-};
-
-export const LIBERAL_MOBILE: BoardConfig = {
-  id: 'liberal_mobile',
-  asset: '/game-assets/boards/liberal_mobile.svg',
-  naturalWidth: 800,
-  naturalHeight: 1550,
-  slots: [
-    { index: 1, x: 139, y: 248, width: 246, height: 378, power: null },
-    { index: 2, x: 415, y: 248, width: 246, height: 378, power: null },
-    { index: 3, x: 139, y: 671, width: 246, height: 378, power: null },
-    { index: 4, x: 415, y: 671, width: 246, height: 378, power: null },
-    { index: 5, x: 277, y: 1094, width: 246, height: 378, power: 'WIN' },
-  ],
+  asset: '/game-assets/boards/liberal_desktop.png',
+  naturalWidth: W,
+  naturalHeight: H,
+  slots: liberalSlots(),
 };
 
 export const FASCIST_5_6_DESKTOP: BoardConfig = {
   id: 'fascist_5_6_desktop',
-  asset: '/game-assets/boards/fascist_5_6_desktop.svg',
-  naturalWidth: 1740,
-  naturalHeight: 670,
-  slots: [
-    { index: 1, x: 144, y: 239, width: 226, height: 345, power: null },
-    { index: 2, x: 389, y: 239, width: 226, height: 345, power: null },
-    { index: 3, x: 634, y: 239, width: 226, height: 345, power: 'PEEK' },
-    { index: 4, x: 879, y: 239, width: 226, height: 345, power: 'EXECUTION' },
-    { index: 5, x: 1124, y: 239, width: 226, height: 345, power: 'EXECUTION' },
-    { index: 6, x: 1369, y: 239, width: 226, height: 345, power: 'WIN' },
-  ],
-};
-
-export const FASCIST_5_6_MOBILE: BoardConfig = {
-  id: 'fascist_5_6_mobile',
-  asset: '/game-assets/boards/fascist_5_6_mobile.svg',
-  naturalWidth: 800,
-  naturalHeight: 1550,
-  slots: [
-    { index: 1, x: 139, y: 248, width: 246, height: 378, power: null },
-    { index: 2, x: 415, y: 248, width: 246, height: 378, power: null },
-    { index: 3, x: 139, y: 671, width: 246, height: 378, power: 'PEEK' },
-    { index: 4, x: 415, y: 671, width: 246, height: 378, power: 'EXECUTION' },
-    { index: 5, x: 139, y: 1094, width: 246, height: 378, power: 'EXECUTION' },
-    { index: 6, x: 415, y: 1094, width: 246, height: 378, power: 'WIN' },
-  ],
+  asset: '/game-assets/boards/fascist_5_6_desktop.png',
+  naturalWidth: W,
+  naturalHeight: H,
+  slots: fascistSlots([null, null, 'PEEK', 'EXECUTION', 'EXECUTION', 'WIN']),
 };
 
 export const FASCIST_7_8_DESKTOP: BoardConfig = {
   id: 'fascist_7_8_desktop',
-  asset: '/game-assets/boards/fascist_7_8_desktop.svg',
-  naturalWidth: 1740,
-  naturalHeight: 670,
-  slots: [
-    { index: 1, x: 144, y: 239, width: 226, height: 345, power: null },
-    { index: 2, x: 389, y: 239, width: 226, height: 345, power: 'INVESTIGATE' },
-    { index: 3, x: 634, y: 239, width: 226, height: 345, power: 'SPECIAL' },
-    { index: 4, x: 879, y: 239, width: 226, height: 345, power: 'EXECUTION' },
-    { index: 5, x: 1124, y: 239, width: 226, height: 345, power: 'EXECUTION' },
-    { index: 6, x: 1369, y: 239, width: 226, height: 345, power: 'WIN' },
-  ],
-};
-
-export const FASCIST_7_8_MOBILE: BoardConfig = {
-  id: 'fascist_7_8_mobile',
-  asset: '/game-assets/boards/fascist_7_8_mobile.svg',
-  naturalWidth: 800,
-  naturalHeight: 1550,
-  slots: [
-    { index: 1, x: 139, y: 248, width: 246, height: 378, power: null },
-    { index: 2, x: 415, y: 248, width: 246, height: 378, power: 'INVESTIGATE' },
-    { index: 3, x: 139, y: 671, width: 246, height: 378, power: 'SPECIAL' },
-    { index: 4, x: 415, y: 671, width: 246, height: 378, power: 'EXECUTION' },
-    { index: 5, x: 139, y: 1094, width: 246, height: 378, power: 'EXECUTION' },
-    { index: 6, x: 415, y: 1094, width: 246, height: 378, power: 'WIN' },
-  ],
+  asset: '/game-assets/boards/fascist_7_8_desktop.png',
+  naturalWidth: W,
+  naturalHeight: H,
+  slots: fascistSlots([null, 'INVESTIGATE', 'SPECIAL', 'EXECUTION', 'EXECUTION', 'WIN']),
 };
 
 export const FASCIST_9_10_DESKTOP: BoardConfig = {
   id: 'fascist_9_10_desktop',
-  asset: '/game-assets/boards/fascist_9_10_desktop.svg',
-  naturalWidth: 1740,
-  naturalHeight: 670,
-  slots: [
-    { index: 1, x: 144, y: 239, width: 226, height: 345, power: 'INVESTIGATE' },
-    { index: 2, x: 389, y: 239, width: 226, height: 345, power: 'INVESTIGATE' },
-    { index: 3, x: 634, y: 239, width: 226, height: 345, power: 'SPECIAL' },
-    { index: 4, x: 879, y: 239, width: 226, height: 345, power: 'EXECUTION' },
-    { index: 5, x: 1124, y: 239, width: 226, height: 345, power: 'EXECUTION' },
-    { index: 6, x: 1369, y: 239, width: 226, height: 345, power: 'WIN' },
-  ],
+  asset: '/game-assets/boards/fascist_9_10_desktop.png',
+  naturalWidth: W,
+  naturalHeight: H,
+  slots: fascistSlots(['INVESTIGATE', 'INVESTIGATE', 'SPECIAL', 'EXECUTION', 'EXECUTION', 'WIN']),
 };
 
-export const FASCIST_9_10_MOBILE: BoardConfig = {
-  id: 'fascist_9_10_mobile',
-  asset: '/game-assets/boards/fascist_9_10_mobile.svg',
-  naturalWidth: 800,
-  naturalHeight: 1550,
-  slots: [
-    { index: 1, x: 139, y: 248, width: 246, height: 378, power: 'INVESTIGATE' },
-    { index: 2, x: 415, y: 248, width: 246, height: 378, power: 'INVESTIGATE' },
-    { index: 3, x: 139, y: 671, width: 246, height: 378, power: 'SPECIAL' },
-    { index: 4, x: 415, y: 671, width: 246, height: 378, power: 'EXECUTION' },
-    { index: 5, x: 139, y: 1094, width: 246, height: 378, power: 'EXECUTION' },
-    { index: 6, x: 415, y: 1094, width: 246, height: 378, power: 'WIN' },
-  ],
-};
+// The final asset kit ships one wide board per track; it scales to any screen width,
+// so the mobile flag is accepted for API compatibility but no longer changes the artwork.
+export const LIBERAL_MOBILE = LIBERAL_DESKTOP;
 
-/**
- * Returns the exact Fascist board configuration based on initial player count and device format
- */
-export function getFascistBoardConfig(playerCount: number, isMobile: boolean): BoardConfig {
-  if (playerCount <= 6) {
-    return isMobile ? FASCIST_5_6_MOBILE : FASCIST_5_6_DESKTOP;
-  }
-  if (playerCount <= 8) {
-    return isMobile ? FASCIST_7_8_MOBILE : FASCIST_7_8_DESKTOP;
-  }
-  return isMobile ? FASCIST_9_10_MOBILE : FASCIST_9_10_DESKTOP;
+export function getFascistBoardConfig(playerCount: number, _isMobile = false): BoardConfig {
+  if (playerCount <= 6) return FASCIST_5_6_DESKTOP;
+  if (playerCount <= 8) return FASCIST_7_8_DESKTOP;
+  return FASCIST_9_10_DESKTOP;
 }
 
-/**
- * Helper to compute percentage CSS styles for any slot rectangle
- */
+/** Helper to compute percentage CSS styles for any slot rectangle */
 export function getSlotStyle(slot: SlotCoordinate, naturalWidth: number, naturalHeight: number) {
   return {
     left: `${(slot.x / naturalWidth) * 100}%`,
@@ -159,4 +83,3 @@ export function getSlotStyle(slot: SlotCoordinate, naturalWidth: number, natural
     height: `${(slot.height / naturalHeight) * 100}%`,
   };
 }
-

@@ -12,8 +12,8 @@ export default defineConfig({
         name: 'Secret Hitler — راز هیتلر',
         short_name: 'SecretHitler',
         description: 'Official Multiplayer Secret Hitler Web Game',
-        theme_color: '#101419',
-        background_color: '#101419',
+        theme_color: '#0a0d13',
+        background_color: '#0a0d13',
         display: 'standalone',
         orientation: 'portrait',
         icons: [

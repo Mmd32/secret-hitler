@@ -54,7 +54,7 @@ export const VictoryScreen: React.FC<VictoryScreenProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/95 backdrop-blur-xl flex flex-col items-center justify-start p-4 sm:p-8 select-none animate-fadeIn">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/95 backdrop-blur-xl flex flex-col items-center justify-start p-4 sm:p-8 select-none animate-fadeIn">
       {/* Top Banner */}
       <div className="text-center my-6 max-w-lg">
         <div
@@ -75,14 +75,14 @@ export const VictoryScreen: React.FC<VictoryScreenProps> = ({
             ? isFa ? 'پیروزی لیبرال‌ها!' : 'LIBERAL VICTORY!'
             : isFa ? 'پیروزی فاشیست‌ها!' : 'FASCIST VICTORY!'}
         </h1>
-        <p className="text-sm sm:text-base font-serif text-stone-300 leading-relaxed max-w-md mx-auto">
+        <p className="text-sm sm:text-base font-serif text-slate-300 leading-relaxed max-w-md mx-auto">
           {getReasonText()}
         </p>
       </div>
 
       {/* Roster Reveal: True Identities */}
-      <div className="w-full max-w-2xl bg-stone-900/90 border border-stone-700/80 rounded-3xl p-4 sm:p-6 shadow-2xl mb-8">
-        <h3 className="font-serif font-bold text-amber-200 text-base sm:text-lg mb-4 text-center border-b border-stone-800 pb-2">
+      <div className="w-full max-w-2xl bg-slate-900/90 border border-slate-700/80 rounded-3xl p-4 sm:p-6 shadow-2xl mb-8">
+        <h3 className="font-serif font-bold text-amber-200 text-base sm:text-lg mb-4 text-center border-b border-slate-800 pb-2">
           {isFa ? 'افشای پرونده‌های محرمانه و نقش واقعی تمام بازیکنان' : 'Classified Files: True Roles & Alliances'}
         </h3>
 
@@ -100,7 +100,7 @@ export const VictoryScreen: React.FC<VictoryScreenProps> = ({
             return (
               <div
                 key={p.id}
-                className="flex flex-col items-center p-2 rounded-xl bg-stone-950/80 border border-stone-800 text-center"
+                className="flex flex-col items-center p-2 rounded-xl bg-slate-950/80 border border-slate-800 text-center"
               >
                 <div className="relative mb-2">
                   <CardComponent variant={cardVariant} size="sm" />
@@ -110,7 +110,7 @@ export const VictoryScreen: React.FC<VictoryScreenProps> = ({
                     </div>
                   )}
                 </div>
-                <span className="font-serif font-bold text-stone-200 text-xs truncate max-w-[100px]">
+                <span className="font-serif font-bold text-slate-200 text-xs truncate max-w-[100px]">
                   {p.name}
                 </span>
                 <span
@@ -143,19 +143,19 @@ export const VictoryScreen: React.FC<VictoryScreenProps> = ({
               sound.playStampThump();
               onPlayAgain();
             }}
-            className="px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-stone-950 font-serif font-black text-sm uppercase tracking-wider shadow-2xl active:scale-95 transition-all"
+            className="px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-serif font-black text-sm uppercase tracking-wider shadow-2xl active:scale-95 transition-all"
           >
             {isFa ? 'شروع بازی مجدد در همین اتاق' : 'Play Again in this Room'}
           </button>
         ) : (
-          <div className="text-xs font-mono text-stone-400">
+          <div className="text-xs font-mono text-slate-400">
             {isFa ? 'در انتظار شروع بازی مجدد توسط میزبان...' : 'Waiting for host to restart game...'}
           </div>
         )}
 
         <button
           onClick={onExit}
-          className="px-6 py-3 rounded-2xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-serif text-sm border border-stone-700 shadow active:scale-95 transition-all"
+          className="px-6 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-serif text-sm border border-slate-700 shadow active:scale-95 transition-all"
         >
           {isFa ? 'خروج به منوی اصلی' : 'Exit to Main Menu'}
         </button>

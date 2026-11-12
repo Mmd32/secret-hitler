@@ -394,18 +394,18 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
   // -------------------------------------------------------------
   if (currentStep === 'SETUP') {
     return (
-      <div className="w-full max-w-lg mx-auto p-4 sm:p-6 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center select-none animate-fadeIn">
-        <div className="w-12 h-12 rounded-full bg-[#3b2212] border border-[#a16f38] flex items-center justify-center mb-3 shadow">
-          <Users className="w-6 h-6 text-[#e6c687]" />
+      <div className="w-full max-w-lg mx-auto p-4 sm:p-6 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center select-none animate-fadeIn">
+        <div className="w-12 h-12 rounded-full bg-[#232b3b] border border-[#8a6f3d] flex items-center justify-center mb-3 shadow">
+          <Users className="w-6 h-6 text-[#ecd08f]" />
         </div>
 
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
           {isFa ? 'بازی دورهمی با یک گوشی' : 'PASS & PLAY TABLETOP MODE'}
         </span>
-        <h2 className="text-xl sm:text-2xl font-serif font-black text-[#f7e8ce] text-center mb-2">
+        <h2 className="text-xl sm:text-2xl font-serif font-black text-[#eef1f6] text-center mb-2">
           {isFa ? 'تنظیم بازیکنان دور میز' : 'Setup Seat Assignments'}
         </h2>
-        <p className="text-xs text-[#a68e79] text-center mb-5 max-w-sm">
+        <p className="text-xs text-[#97a3b8] text-center mb-5 max-w-sm">
           {isFa
             ? 'نام ۵ تا ۱۰ بازیکن را وارد کنید. بازی به نوبت گوشی را بین بازیکنان دست‌به‌دست می‌کند.'
             : 'Enter 5 to 10 player names. The phone will be passed secretly between turns.'}
@@ -420,12 +420,12 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
             onKeyDown={(e) => e.key === 'Enter' && handleAddPlayer()}
             placeholder={isFa ? 'نام بازیکن جدید...' : 'Enter player name...'}
             maxLength={18}
-            className="flex-1 px-4 py-2.5 rounded-xl bg-[#26170f] border border-[#5c3a21] text-[#f7e8ce] text-sm placeholder:text-[#6e4e34] focus:outline-none focus:border-[#c49b5a]"
+            className="flex-1 px-4 py-2.5 rounded-xl bg-[#26170f] border border-[#37425a] text-[#eef1f6] text-sm placeholder:text-[#6e4e34] focus:outline-none focus:border-[#d9b36a]"
           />
           <button
             onClick={handleAddPlayer}
             disabled={playerNames.length >= 10 || !customNameInput.trim()}
-            className="px-4 py-2.5 rounded-xl bg-[#8c5828] hover:bg-[#a66a32] text-[#f7e8ce] font-serif font-bold text-xs uppercase disabled:opacity-40 transition-all flex items-center gap-1.5 shadow"
+            className="px-4 py-2.5 rounded-xl bg-[#8c5828] hover:bg-[#a66a32] text-[#eef1f6] font-serif font-bold text-xs uppercase disabled:opacity-40 transition-all flex items-center gap-1.5 shadow"
           >
             <UserPlus className="w-4 h-4" />
             <span>{isFa ? 'افزودن' : 'Add'}</span>
@@ -434,11 +434,11 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
 
         {/* Players List */}
         <div className="w-full flex flex-col gap-2 mb-5">
-          <div className="flex justify-between items-center text-xs font-serif font-bold text-[#c49b5a] px-1">
+          <div className="flex justify-between items-center text-xs font-serif font-bold text-[#d9b36a] px-1">
             <span>
               {isFa ? 'ترتیب نشستن دور میز' : 'Seating Order'} ({playerNames.length}/10)
             </span>
-            <span className="font-mono text-[11px] text-[#8a725f]">
+            <span className="font-mono text-[11px] text-[#7d8aa0]">
               {playerNames.length < 5
                 ? isFa
                   ? 'حداقل ۵ نفر لازم است'
@@ -453,13 +453,13 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
             {playerNames.map((name, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between p-2.5 rounded-xl bg-[#2b1a11] border border-[#4d2f1b] text-xs font-serif shadow-sm"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-[#1b2230] border border-[#2c3548] text-xs font-serif shadow-sm"
               >
                 <div className="flex items-center gap-2">
-                  <span className="w-5 h-5 rounded-full bg-[#1b100a] text-[#c49b5a] font-mono flex items-center justify-center text-[10px] font-bold border border-[#4a2e1b]">
+                  <span className="w-5 h-5 rounded-full bg-[#1b100a] text-[#d9b36a] font-mono flex items-center justify-center text-[10px] font-bold border border-[#4a2e1b]">
                     {idx + 1}
                   </span>
-                  <span className="font-bold text-[#f7e8ce]">{name}</span>
+                  <span className="font-bold text-[#eef1f6]">{name}</span>
                 </div>
                 {playerNames.length > 5 && (
                   <button
@@ -482,8 +482,8 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
             disabled={playerNames.length < 5 || playerNames.length > 10}
             className={`w-full py-3.5 rounded-xl font-serif font-black text-sm uppercase tracking-wider transition-all shadow-xl flex items-center justify-center gap-2 ${
               playerNames.length >= 5 && playerNames.length <= 10
-                ? 'bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] active:scale-98 ring-4 ring-[#c49b5a]/30'
-                : 'bg-[#2b1a11] text-[#634835] cursor-not-allowed border border-[#3d2516]'
+                ? 'bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] active:scale-98 ring-4 ring-[#d9b36a]/30'
+                : 'bg-[#1b2230] text-[#566178] cursor-not-allowed border border-[#262e3f]'
             }`}
           >
             <Play className="w-4 h-4 fill-current" />
@@ -494,7 +494,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
 
           <button
             onClick={onExit}
-            className="w-full py-2.5 rounded-xl text-xs font-serif text-[#8f7560] hover:text-[#d9beaa]"
+            className="w-full py-2.5 rounded-xl text-xs font-serif text-[#7d8aa0] hover:text-[#d9beaa]"
           >
             ← {isFa ? 'بازگشت به منوی اصلی' : 'Back to Main Menu'}
           </button>
@@ -512,7 +512,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
     onOpen: () => void,
     isHeldToView = false
   ) => (
-    <div className="w-full max-w-md mx-auto p-4 sm:p-6 rounded-3xl bg-[#1e110a] border-2 border-[#54341c] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col items-center select-none text-center animate-fadeIn">
+    <div className="w-full max-w-md mx-auto p-4 sm:p-6 rounded-3xl bg-[#1e110a] border-2 border-[#2c3548] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col items-center select-none text-center animate-fadeIn">
       {/* Archival Wax Seal Graphic */}
       <div className="relative my-4 flex items-center justify-center">
         <div className="w-24 h-24 rounded-full bg-[#7a1818] border-4 border-[#9c2424] shadow-[0_8px_25px_rgba(156,36,36,0.6)] flex flex-col items-center justify-center text-amber-200">
@@ -526,15 +526,15 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
         </div>
       </div>
 
-      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
         {isFa ? 'پاکت اسناد محرمانه کشور' : 'CONFIDENTIAL DIPLOMATIC POUCH'}
       </span>
 
-      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#f7e8ce] mt-1 mb-2">
+      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#eef1f6] mt-1 mb-2">
         {isFa ? `گوشی را به «${recipientName}» تحویل دهید` : `Pass Phone to "${recipientName}"`}
       </h3>
 
-      <p className="text-xs text-[#a68e79] mb-6 max-w-xs leading-relaxed">{actionPrompt}</p>
+      <p className="text-xs text-[#97a3b8] mb-6 max-w-xs leading-relaxed">{actionPrompt}</p>
 
       {/* Touchable Action Button */}
       {isHeldToView ? (
@@ -544,15 +544,15 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
           onMouseLeave={endEnvelopeHold}
           onTouchStart={startEnvelopeHold}
           onTouchEnd={endEnvelopeHold}
-          className="relative w-full py-4 rounded-2xl bg-[#361e12] border-2 border-[#a16f38] text-[#f7e8ce] font-serif font-bold text-sm cursor-pointer shadow-lg active:scale-98 overflow-hidden"
+          className="relative w-full py-4 rounded-2xl bg-[#232b3b] border-2 border-[#8a6f3d] text-[#eef1f6] font-serif font-bold text-sm cursor-pointer shadow-lg active:scale-98 overflow-hidden"
         >
           {/* Progress bar */}
           <div
-            className="absolute inset-y-0 start-0 bg-[#c49b5a]/30 transition-all duration-75 pointer-events-none"
+            className="absolute inset-y-0 start-0 bg-[#d9b36a]/30 transition-all duration-75 pointer-events-none"
             style={{ width: `${envelopeHoldProgress}%` }}
           />
           <span className="relative z-10 flex items-center justify-center gap-2">
-            <Lock className="w-4 h-4 text-[#e6c687]" />
+            <Lock className="w-4 h-4 text-[#ecd08f]" />
             <span>
               {isFa
                 ? 'برای باز کردن پاکت لمس کنید و نگه دارید'
@@ -563,7 +563,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
       ) : (
         <button
           onClick={onOpen}
-          className="w-full py-3.5 rounded-2xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-black text-sm uppercase tracking-wider shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2"
+          className="w-full py-3.5 rounded-2xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-black text-sm uppercase tracking-wider shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2"
         >
           <ArrowRight className="w-4 h-4" />
           <span>{isFa ? 'آماده‌ام — باز کردن صفحه' : 'Ready — Open Document'}</span>
@@ -593,11 +593,11 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
     const isHitler = pView.role === 'HITLER';
 
     return (
-      <div className="w-full max-w-md mx-auto p-4 sm:p-6 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+      <div className="w-full max-w-md mx-auto p-4 sm:p-6 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
           {isFa ? `پرونده محرمانه: ${pView.name}` : `CONFIDENTIAL DOSSIER: ${pView.name}`}
         </span>
-        <h2 className="text-xl sm:text-2xl font-serif font-black text-[#f7e8ce] mb-4">
+        <h2 className="text-xl sm:text-2xl font-serif font-black text-[#eef1f6] mb-4">
           {pView.role === 'LIBERAL'
             ? isFa
               ? 'شما لیبرال هستید'
@@ -633,12 +633,12 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
 
         {/* Knowledge Table (Who are the other fascists/hitler) */}
         {pView.knownTeam && (
-          <div className="w-full p-3 rounded-xl bg-[#2e1810] border border-[#6b3e24] my-3 text-start text-xs font-serif">
+          <div className="w-full p-3 rounded-xl bg-[#1d2433] border border-[#37425a] my-3 text-start text-xs font-serif">
             <span className="text-[11px] font-mono text-red-300 font-bold block mb-1">
               👁️ {isFa ? 'اطلاعات محرمانه حزب:' : 'Party Intel:'}
             </span>
             {pView.knownTeam.allies?.map((ally) => (
-              <div key={ally.id} className="text-[#f7e8ce]">
+              <div key={ally.id} className="text-[#eef1f6]">
                 • <span className="font-bold">{ally.name}</span>: {isFa ? 'فاشیست' : 'Fascist'}
               </div>
             ))}
@@ -651,7 +651,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
         )}
 
         {isHitler && !pView.knownTeam?.allies?.length && (
-          <div className="w-full p-3 rounded-xl bg-[#2e1810] border border-[#6b3e24] my-3 text-center text-xs font-serif text-[#f7e8ce]">
+          <div className="w-full p-3 rounded-xl bg-[#1d2433] border border-[#37425a] my-3 text-center text-xs font-serif text-[#eef1f6]">
             {isFa
               ? 'در بازی‌های ۷ نفره به بالا، شما هویت فاشیست‌ها را نمی‌دانید؛ اما آنها شما را می‌شناسند!'
               : 'In 7+ player games, you do not know who your fellow Fascists are, but they know you!'}
@@ -660,7 +660,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
 
         <button
           onClick={handleNextRoleReveal}
-          className="w-full mt-4 py-3.5 rounded-2xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-black text-sm uppercase tracking-wider shadow-xl active:scale-95 transition-all"
+          className="w-full mt-4 py-3.5 rounded-2xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-black text-sm uppercase tracking-wider shadow-xl active:scale-95 transition-all"
         >
           {activePlayerIndex + 1 < (gameRef.current?.seatingOrder.length || 0)
             ? isFa
@@ -734,16 +734,16 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
       <div className="w-full flex flex-col gap-4 select-none animate-fadeIn">
         {renderGameHeader()}
 
-        <div className="w-full p-4 sm:p-5 rounded-2xl bg-[#241710] border-2 border-[#5c3a21] shadow-xl text-center flex flex-col items-center">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+        <div className="w-full p-4 sm:p-5 rounded-2xl bg-[#1a202c] border-2 border-[#37425a] shadow-xl text-center flex flex-col items-center">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
             {isFa ? 'مرحله اول: نامزدی صدراعظم' : 'PHASE 1: CHANCELLOR NOMINATION'}
           </span>
-          <h3 className="text-base sm:text-lg font-serif font-black text-[#f7e8ce] mb-1">
+          <h3 className="text-base sm:text-lg font-serif font-black text-[#eef1f6] mb-1">
             {isFa
               ? `رئیس‌جمهور «${presidentPlayer?.name}» باید صدراعظم پیشنهادی خود را انتخاب کند`
               : `President "${presidentPlayer?.name}" must nominate a Chancellor`}
           </h3>
-          <p className="text-xs text-[#a68e79] mb-4">
+          <p className="text-xs text-[#97a3b8] mb-4">
             {isFa
               ? 'بازیکنان دارای محدودیت دور قبل نمی‌توانند انتخاب شوند.'
               : 'Term-limited players cannot be nominated.'}
@@ -754,9 +754,9 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
               <button
                 key={p.id}
                 onClick={() => handleNominateChancellor(p.id)}
-                className="py-3 px-2 rounded-xl bg-[#361e12] hover:bg-[#4d2c1c] border border-[#7a4c2b] text-[#f7e8ce] font-serif font-bold text-xs uppercase shadow transition-all active:scale-95 flex items-center justify-center gap-1.5"
+                className="py-3 px-2 rounded-xl bg-[#232b3b] hover:bg-[#2c3548] border border-[#7a4c2b] text-[#eef1f6] font-serif font-bold text-xs uppercase shadow transition-all active:scale-95 flex items-center justify-center gap-1.5"
               >
-                <Crown className="w-3.5 h-3.5 text-[#e6c687]" />
+                <Crown className="w-3.5 h-3.5 text-[#ecd08f]" />
                 <span className="truncate">{p.name}</span>
               </button>
             ))}
@@ -774,16 +774,16 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
       <div className="w-full flex flex-col gap-4 select-none animate-fadeIn">
         {renderGameHeader()}
 
-        <div className="w-full max-w-md mx-auto p-5 rounded-2xl bg-[#241710] border-2 border-[#5c3a21] shadow-xl text-center flex flex-col items-center">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+        <div className="w-full max-w-md mx-auto p-5 rounded-2xl bg-[#1a202c] border-2 border-[#37425a] shadow-xl text-center flex flex-col items-center">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
             {isFa ? 'مرحله دوم: رأی اعتماد به دولت' : 'PHASE 2: CONFIDENCE VOTE'}
           </span>
-          <h3 className="text-base sm:text-lg font-serif font-black text-[#f7e8ce] mb-3">
+          <h3 className="text-base sm:text-lg font-serif font-black text-[#eef1f6] mb-3">
             {isFa
               ? `دولت پیشنهادی: ${presidentPlayer?.name} و ${chancellorPlayer?.name}`
               : `Proposed Government: ${presidentPlayer?.name} & ${chancellorPlayer?.name}`}
           </h3>
-          <p className="text-xs text-[#a68e79] mb-5">
+          <p className="text-xs text-[#97a3b8] mb-5">
             {isFa
               ? 'چگونه می‌خواهید رأی‌گیری را انجام دهید؟'
               : 'How would you like to conduct the vote?'}
@@ -792,7 +792,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
           <div className="w-full flex flex-col gap-3">
             <button
               onClick={handleStartSecretVoting}
-              className="w-full py-3.5 rounded-xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-black text-xs uppercase tracking-wider shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-black text-xs uppercase tracking-wider shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2"
             >
               <Lock className="w-4 h-4" />
               <span>
@@ -803,11 +803,11 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
             </button>
 
             <div className="relative flex py-1 items-center">
-              <div className="flex-grow border-t border-[#4d2f1b]"></div>
-              <span className="flex-shrink mx-3 text-[10px] font-mono text-[#8a725f] uppercase">
+              <div className="flex-grow border-t border-[#2c3548]"></div>
+              <span className="flex-shrink mx-3 text-[10px] font-mono text-[#7d8aa0] uppercase">
                 {isFa ? 'یا رأی‌گیری حضوری' : 'or Show of Hands'}
               </span>
-              <div className="flex-grow border-t border-[#4d2f1b]"></div>
+              <div className="flex-grow border-t border-[#2c3548]"></div>
             </div>
 
             <div className="flex gap-2 w-full">
@@ -847,16 +847,16 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
 
   if (currentStep === 'VOTE_CAST') {
     return (
-      <div className="w-full max-w-md mx-auto p-5 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+      <div className="w-full max-w-md mx-auto p-5 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
           {isFa ? `برگه رأی: ${activePlayer?.name}` : `BALLOT: ${activePlayer?.name}`}
         </span>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-1">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-1">
           {isFa
             ? `آیا به دولت ${presidentPlayer?.name} و ${chancellorPlayer?.name} رأی می‌دهید؟`
             : `Confirm Government: ${presidentPlayer?.name} & ${chancellorPlayer?.name}?`}
         </h3>
-        <p className="text-xs text-[#a68e79] mb-5">
+        <p className="text-xs text-[#97a3b8] mb-5">
           {isFa
             ? 'روی کارت موافق (JA) یا مخالف (NEIN) ضربه بزنید:'
             : 'Tap Ja! or Nein! ballot to cast:'}
@@ -893,7 +893,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
       <div className="w-full flex flex-col gap-4 select-none animate-fadeIn">
         {renderGameHeader()}
 
-        <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center text-center">
+        <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center text-center">
           <div
             className={`w-14 h-14 rounded-full flex items-center justify-center mb-3 shadow-lg border-2 ${
               passed
@@ -904,7 +904,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
             {passed ? <CheckCircle2 className="w-8 h-8" /> : <XCircle className="w-8 h-8" />}
           </div>
 
-          <h3 className="text-xl font-serif font-black text-[#f7e8ce] mb-1">
+          <h3 className="text-xl font-serif font-black text-[#eef1f6] mb-1">
             {passed
               ? isFa
                 ? 'رأی اعتماد تصویب شد!'
@@ -914,7 +914,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
               : 'Election Failed!'}
           </h3>
 
-          <div className="text-xs font-mono font-bold text-[#c49b5a] mb-4 bg-[#180e08] px-3 py-1 rounded-full border border-[#3d2516]">
+          <div className="text-xs font-mono font-bold text-[#d9b36a] mb-4 bg-[#10141c] px-3 py-1 rounded-full border border-[#262e3f]">
             {lastRec?.jaCount || 0} JA — {lastRec?.neinCount || 0} NEIN
           </div>
 
@@ -940,7 +940,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
 
           <button
             onClick={handleAcknowledgeVoteResults}
-            className="w-full mt-4 py-3.5 rounded-2xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-black text-xs uppercase tracking-wider shadow-xl active:scale-95 transition-all"
+            className="w-full mt-4 py-3.5 rounded-2xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-black text-xs uppercase tracking-wider shadow-xl active:scale-95 transition-all"
           >
             {isFa ? 'ادامه بازی' : 'Proceed'}
           </button>
@@ -966,14 +966,14 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
     const drawn = gameRef.current?.presidentDrawnPolicies || [];
 
     return (
-      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
           {isFa ? 'جلسه قانون‌گذاری — رئیس‌جمهور' : 'LEGISLATIVE SESSION — PRESIDENT'}
         </span>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-1">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-1">
           {isFa ? 'یک کارت را برای سوزاندن انتخاب کنید' : 'Select 1 Policy to Discard'}
         </h3>
-        <p className="text-xs text-[#a68e79] mb-4">
+        <p className="text-xs text-[#97a3b8] mb-4">
           {isFa
             ? 'کارت انتخاب‌شده دور انداخته می‌شود و دو کارت دیگر به صدراعظم داده خواهد شد.'
             : 'The chosen policy will be discarded; the other two pass to the Chancellor.'}
@@ -1004,8 +1004,8 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
           }}
           className={`w-full py-3.5 rounded-2xl font-serif font-black text-xs uppercase tracking-wider transition-all shadow-xl ${
             selectedDiscardIndex !== null
-              ? 'bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] active:scale-95'
-              : 'bg-[#2b1a11] text-[#634835] cursor-not-allowed border border-[#3d2516]'
+              ? 'bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] active:scale-95'
+              : 'bg-[#1b2230] text-[#566178] cursor-not-allowed border border-[#262e3f]'
           }`}
         >
           {isFa ? 'تأیید سوزاندن کارت و ارسال به صدراعظم' : 'Confirm Discard & Pass to Chancellor'}
@@ -1028,14 +1028,14 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
     const drawn = gameRef.current?.chancellorDrawnPolicies || [];
 
     return (
-      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
           {isFa ? 'جلسه قانون‌گذاری — صدراعظم' : 'LEGISLATIVE SESSION — CHANCELLOR'}
         </span>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-1">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-1">
           {isFa ? 'یک کارت را برای سوزاندن انتخاب کنید' : 'Select 1 Policy to Discard'}
         </h3>
-        <p className="text-xs text-[#a68e79] mb-4">
+        <p className="text-xs text-[#97a3b8] mb-4">
           {isFa
             ? 'کارت انتخاب‌نشده تصویب خواهد شد و بر روی لوح بازی قرار می‌گیرد!'
             : 'The other policy will be officially enacted onto the board!'}
@@ -1066,8 +1066,8 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
           }}
           className={`w-full py-3.5 rounded-2xl font-serif font-black text-xs uppercase tracking-wider transition-all shadow-xl ${
             selectedDiscardIndex !== null
-              ? 'bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] active:scale-95'
-              : 'bg-[#2b1a11] text-[#634835] cursor-not-allowed border border-[#3d2516]'
+              ? 'bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] active:scale-95'
+              : 'bg-[#1b2230] text-[#566178] cursor-not-allowed border border-[#262e3f]'
           }`}
         >
           {isFa ? 'تصویب قانون نهایی' : 'Enact Final Policy'}
@@ -1097,11 +1097,11 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
       ) || [];
 
     return (
-      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
           {isFa ? 'اختیارات ویژه ریاست‌جمهوری' : 'EXECUTIVE ACTION'}
         </span>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-2">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-2">
           {power === 'POLICY_PEEK'
             ? isFa
               ? 'مشاهده ۳ کارت بعدی قوانین'
@@ -1122,13 +1122,13 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
         {power === 'POLICY_PEEK' ? (
           <button
             onClick={() => handleExecutePower('POLICY_PEEK')}
-            className="w-full mt-4 py-3.5 rounded-2xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-black text-xs uppercase shadow-xl"
+            className="w-full mt-4 py-3.5 rounded-2xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-black text-xs uppercase shadow-xl"
           >
             {isFa ? 'مشاهده کارت‌ها' : 'Peek at Cards'}
           </button>
         ) : (
           <div className="w-full flex flex-col gap-3 my-3">
-            <p className="text-xs text-[#a68e79]">
+            <p className="text-xs text-[#97a3b8]">
               {isFa ? 'یک بازیکن هدف را انتخاب کنید:' : 'Select a target player:'}
             </p>
             <div className="grid grid-cols-2 gap-2">
@@ -1138,8 +1138,8 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
                   onClick={() => setExecutiveTargetId(p.id)}
                   className={`p-3 rounded-xl border text-xs font-serif font-bold transition-all ${
                     executiveTargetId === p.id
-                      ? 'bg-[#c49b5a] text-[#1c100a] border-[#e6c687] shadow-lg'
-                      : 'bg-[#2b1a11] text-[#f7e8ce] border-[#4d2f1b] hover:bg-[#3d2516]'
+                      ? 'bg-[#d9b36a] text-[#1c100a] border-[#ecd08f] shadow-lg'
+                      : 'bg-[#1b2230] text-[#eef1f6] border-[#2c3548] hover:bg-[#262e3f]'
                   }`}
                 >
                   {p.name}
@@ -1157,7 +1157,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
               className={`w-full mt-3 py-3.5 rounded-2xl font-serif font-black text-xs uppercase tracking-wider transition-all shadow-xl ${
                 executiveTargetId
                   ? 'bg-red-700 hover:bg-red-600 text-white active:scale-95'
-                  : 'bg-[#2b1a11] text-[#634835] cursor-not-allowed border border-[#3d2516]'
+                  : 'bg-[#1b2230] text-[#566178] cursor-not-allowed border border-[#262e3f]'
               }`}
             >
               {isFa ? 'اعمال قدرت' : 'Execute Power'}
@@ -1170,11 +1170,11 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
 
   if (currentStep === 'EXECUTIVE_PEEK_VIEW') {
     return (
-      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
           {isFa ? 'نتیجه نگاه به قوانین' : 'POLICY PEEK RESULT'}
         </span>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-3">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-3">
           {isFa ? '۳ کارت بالای دسته به ترتیب:' : 'Top 3 cards in order:'}
         </h3>
 
@@ -1194,7 +1194,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
             setActivePlayerId(gameRef.current?.presidentId!);
             setCurrentStep('BOARD_NOMINATION');
           }}
-          className="w-full mt-4 py-3.5 rounded-2xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-black text-xs uppercase shadow-xl"
+          className="w-full mt-4 py-3.5 rounded-2xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-black text-xs uppercase shadow-xl"
         >
           {isFa ? 'پایان مشاهده و بازگشت به میز' : 'Done — Return to Table'}
         </button>
@@ -1208,11 +1208,11 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
       : '';
 
     return (
-      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#1c120c] border-2 border-[#54341c] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c49b5a] mb-1">
+      <div className="w-full max-w-lg mx-auto p-5 rounded-3xl bg-[#141923] border-2 border-[#2c3548] shadow-2xl flex flex-col items-center select-none text-center animate-fadeIn">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d9b36a] mb-1">
           {isFa ? 'نتیجه بررسی وفاداری' : 'INVESTIGATION RESULT'}
         </span>
-        <h3 className="text-lg font-serif font-black text-[#f7e8ce] mb-2">
+        <h3 className="text-lg font-serif font-black text-[#eef1f6] mb-2">
           {isFa ? `عضویت حزبی «${targetName}»:` : `Party Alignment of "${targetName}":`}
         </h3>
 
@@ -1225,7 +1225,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
           />
         </div>
 
-        <p className="text-xs text-[#a68e79] mb-4 max-w-xs">
+        <p className="text-xs text-[#97a3b8] mb-4 max-w-xs">
           {isFa
             ? 'توجه: این کارت فقط حزب (لیبرال یا فاشیست) را نشان می‌دهد و هویت ویژه هیتلر را فاش نمی‌کند.'
             : 'Note: This shows party membership only, not whether the player is Hitler.'}
@@ -1237,7 +1237,7 @@ export const PassAndPlayGame: React.FC<PassAndPlayGameProps> = ({ onExit, lang }
             setActivePlayerId(gameRef.current?.presidentId!);
             setCurrentStep('BOARD_NOMINATION');
           }}
-          className="w-full mt-2 py-3.5 rounded-2xl bg-[#c49b5a] hover:bg-[#dbb069] text-[#1c100a] font-serif font-black text-xs uppercase shadow-xl"
+          className="w-full mt-2 py-3.5 rounded-2xl bg-[#d9b36a] hover:bg-[#e6bf78] text-[#1c100a] font-serif font-black text-xs uppercase shadow-xl"
         >
           {isFa ? 'پایان بررسی و بازگشت به میز' : 'Done — Return to Table'}
         </button>
