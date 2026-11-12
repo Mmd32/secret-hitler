@@ -34,7 +34,7 @@ const fascistSlots = (powers: Power[]): SlotCoordinate[] =>
 
 export const LIBERAL_DESKTOP: BoardConfig = {
   id: 'liberal_desktop',
-  asset: '/game-assets/boards/liberal_desktop.png',
+  asset: '/game-assets/boards/liberal_desktop.webp',
   naturalWidth: W,
   naturalHeight: H,
   slots: liberalSlots(),
@@ -42,7 +42,7 @@ export const LIBERAL_DESKTOP: BoardConfig = {
 
 export const FASCIST_5_6_DESKTOP: BoardConfig = {
   id: 'fascist_5_6_desktop',
-  asset: '/game-assets/boards/fascist_5_6_desktop.png',
+  asset: '/game-assets/boards/fascist_5_6_desktop.webp',
   naturalWidth: W,
   naturalHeight: H,
   slots: fascistSlots([null, null, 'PEEK', 'EXECUTION', 'EXECUTION', 'WIN']),
@@ -50,7 +50,7 @@ export const FASCIST_5_6_DESKTOP: BoardConfig = {
 
 export const FASCIST_7_8_DESKTOP: BoardConfig = {
   id: 'fascist_7_8_desktop',
-  asset: '/game-assets/boards/fascist_7_8_desktop.png',
+  asset: '/game-assets/boards/fascist_7_8_desktop.webp',
   naturalWidth: W,
   naturalHeight: H,
   slots: fascistSlots([null, 'INVESTIGATE', 'SPECIAL', 'EXECUTION', 'EXECUTION', 'WIN']),
@@ -58,7 +58,7 @@ export const FASCIST_7_8_DESKTOP: BoardConfig = {
 
 export const FASCIST_9_10_DESKTOP: BoardConfig = {
   id: 'fascist_9_10_desktop',
-  asset: '/game-assets/boards/fascist_9_10_desktop.png',
+  asset: '/game-assets/boards/fascist_9_10_desktop.webp',
   naturalWidth: W,
   naturalHeight: H,
   slots: fascistSlots(['INVESTIGATE', 'INVESTIGATE', 'SPECIAL', 'EXECUTION', 'EXECUTION', 'WIN']),
