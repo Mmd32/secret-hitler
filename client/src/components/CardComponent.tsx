@@ -48,26 +48,26 @@ export const CardComponent: React.FC<CardProps> = ({
       case 'ROLE_HITLER':
         return '/game-assets/role/hitler_role.png';
       case 'MEMBERSHIP_LIBERAL':
-        return '/game-assets/membership/liberal_membership.svg';
+        return '/game-assets/membership/liberal_membership.png';
       case 'MEMBERSHIP_FASCIST':
-        return '/game-assets/membership/fascist_membership.svg';
+        return '/game-assets/membership/fascist_membership.png';
       case 'POLICY_LIBERAL':
-        return '/game-assets/policy/liberal_policy.svg';
+        return '/game-assets/policy/liberal_policy.png';
       case 'POLICY_FASCIST':
-        return '/game-assets/policy/fascist_policy.svg';
+        return '/game-assets/policy/fascist_policy.png';
       case 'BALLOT_JA':
-        return '/game-assets/vote/ja.svg';
+        return '/game-assets/vote/ja.png';
       case 'BALLOT_NEIN':
-        return '/game-assets/vote/nein.svg';
+        return '/game-assets/vote/nein.png';
       case 'ROLE_BACK':
-        return '/game-assets/backs/role_back.svg';
+        return '/game-assets/backs/role_back.png';
       case 'BALLOT_BACK':
-        return '/game-assets/backs/ballot_back.svg';
+        return '/game-assets/backs/ballot_back.png';
       case 'MEMBERSHIP_BACK':
-        return '/game-assets/backs/membership_back.svg';
+        return '/game-assets/backs/membership_back.png';
       case 'CARD_BACK':
       default:
-        return '/game-assets/backs/policy_back.svg';
+        return '/game-assets/backs/policy_back.png';
     }
   };
 

@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   ShieldAlert,
   Landmark,
-  Layers,
   Scale,
 } from 'lucide-react';
 import {
   LIBERAL_DESKTOP,
-  LIBERAL_MOBILE,
   getFascistBoardConfig,
   getSlotStyle,
   BoardConfig,
@@ -30,60 +28,14 @@ export const BoardTracks: React.FC<BoardTracksProps> = ({
   lang,
 }) => {
   const isFa = lang === 'fa';
-  const [mobileTab, setMobileTab] = useState<'both' | 'liberal' | 'fascist'>('both');
-  const [isMobileScreen, setIsMobileScreen] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < 1024;
-    }
-    return false;
-  });
+  const liberalBoard: BoardConfig = LIBERAL_DESKTOP;
+  const fascistBoard: BoardConfig = getFascistBoardConfig(playerCount);
 
-  // Track responsive screen width for dedicated mobile vs desktop board SVG selection
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const mq = window.matchMedia('(max-width: 1023px)');
-    const handleResize = () => {
-      setIsMobileScreen(window.innerWidth < 1024);
-    };
-
-    mq.addEventListener('change', handleResize);
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      mq.removeEventListener('change', handleResize);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  // Select board configurations according to asset-manifest.json rules
-  const liberalBoard: BoardConfig = isMobileScreen ? LIBERAL_MOBILE : LIBERAL_DESKTOP;
-  const fascistBoard: BoardConfig = getFascistBoardConfig(playerCount, isMobileScreen);
-
-  const showLib = mobileTab === 'both' || mobileTab === 'liberal' || !isMobileScreen;
-  const showFas = mobileTab === 'both' || mobileTab === 'fascist' || !isMobileScreen;
-
-  const tab = (id: 'both' | 'liberal' | 'fascist', label: React.ReactNode, active: string) => (
-    <button
-      onClick={() => setMobileTab(id)}
-      aria-pressed={mobileTab === id}
-      className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-xs font-bold transition-all ${
-        mobileTab === id ? active : 'text-slate-400 hover:text-slate-200'
-      }`}
-    >
-      {label}
-    </button>
-  );
+  const showLib = true;
+  const showFas = true;
 
   return (
     <div className="flex w-full select-none flex-col gap-4">
-      {/* Mobile switcher */}
-      <div className="mx-auto flex w-full max-w-md gap-1 rounded-xl border border-white/10 bg-black/30 p-1 lg:hidden">
-        {tab('both', <><Layers className="h-3.5 w-3.5" />{isFa ? 'هر دو' : 'Both'}</>, 'bg-white/10 text-white shadow')}
-        {tab('liberal', <><Landmark className="h-3.5 w-3.5 text-[#4aa3c7]" />{isFa ? 'لیبرال' : 'Liberal'}<span dir="ltr" className="tabular-nums opacity-70">{liberalPoliciesEnacted}/5</span></>, 'bg-[#4aa3c7]/20 text-[#9bd8ef] shadow')}
-        {tab('fascist', <><ShieldAlert className="h-3.5 w-3.5 text-[#e5534b]" />{isFa ? 'فاشیست' : 'Fascist'}<span dir="ltr" className="tabular-nums opacity-70">{fascistPoliciesEnacted}/6</span></>, 'bg-[#e5534b]/20 text-[#ffaaa4] shadow')}
-      </div>
-
       <div className="grid w-full grid-cols-1 items-start gap-4 xl:grid-cols-1">
         {/* LIBERAL */}
         {showLib && (
@@ -102,7 +54,7 @@ export const BoardTracks: React.FC<BoardTracksProps> = ({
               {liberalBoard.slots.map((slot) => (
                 <div key={`lib_slot_${slot.index}`} style={getSlotStyle(slot, liberalBoard.naturalWidth, liberalBoard.naturalHeight)} className="absolute flex items-center justify-center">
                   {slot.index <= liberalPoliciesEnacted && (
-                    <img src="/game-assets/policy/liberal_policy.svg" alt={`Liberal Policy ${slot.index}`} className="h-full w-full -translate-y-0.5 rounded object-fill shadow-[0_6px_16px_rgba(0,0,0,0.8)] animate-fadeIn" draggable={false} />
+                    <img src="/game-assets/policy/liberal_policy.png" alt={`Liberal Policy ${slot.index}`} className="h-full w-full -translate-y-0.5 object-contain shadow-[0_6px_16px_rgba(0,0,0,0.8)] animate-fadeIn" draggable={false} />
                   )}
                 </div>
               ))}
@@ -128,7 +80,7 @@ export const BoardTracks: React.FC<BoardTracksProps> = ({
               {fascistBoard.slots.map((slot) => (
                 <div key={`fas_slot_${slot.index}`} style={getSlotStyle(slot, fascistBoard.naturalWidth, fascistBoard.naturalHeight)} className="absolute flex items-center justify-center">
                   {slot.index <= fascistPoliciesEnacted && (
-                    <img src="/game-assets/policy/fascist_policy.svg" alt={`Fascist Policy ${slot.index}`} className="h-full w-full -translate-y-0.5 rounded object-fill shadow-[0_6px_16px_rgba(0,0,0,0.8)] animate-fadeIn" draggable={false} />
+                    <img src="/game-assets/policy/fascist_policy.png" alt={`Fascist Policy ${slot.index}`} className="h-full w-full -translate-y-0.5 object-contain shadow-[0_6px_16px_rgba(0,0,0,0.8)] animate-fadeIn" draggable={false} />
                   )}
                 </div>
               ))}
