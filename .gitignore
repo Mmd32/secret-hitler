@@ -5,3 +5,4 @@ dist/
 data/
 extracted_assets/
 
+.vercel
