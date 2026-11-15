@@ -16,7 +16,7 @@ import { RulesAssistantModal } from './components/RulesAssistantModal.js';
 import { DeckPiles } from './components/DeckPiles.js';
 import { Avatar, SectionTitle } from './components/ui.js';
 import { GuideBanner } from './components/GuideBanner.js';
-import { AUTHOR_SITE } from './constants/site.js';
+import { AUTHOR } from './constants/site.js';
 import {
   FolderLock,
   Volume2,
@@ -38,7 +38,10 @@ import {
   ChevronLeft,
   Hourglass,
   ScrollText,
-  ExternalLink,
+  Heart,
+  Twitter,
+  Instagram,
+  Globe,
 } from 'lucide-react';
 
 const getServerUrl = () => {
@@ -878,19 +881,29 @@ export const App: React.FC = () => {
 
       <RulesAssistantModal phase={phase || 'LOBBY'} isOpen={showRulesModal} onClose={() => setShowRulesModal(false)} lang={lang} />
 
-      <footer className="flex flex-col items-center gap-1.5 py-4 text-center text-[11px] text-slate-600">
-        <span>Secret Hitler · Digital Edition</span>
-        {AUTHOR_SITE.url && (
-          <a
-            href={AUTHOR_SITE.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-bold text-[#d9b36a] transition-colors hover:bg-white/[0.09]"
-          >
-            <ExternalLink className="h-3.5 w-3.5" />
-            {isFa ? AUTHOR_SITE.label.fa : AUTHOR_SITE.label.en}
-          </a>
-        )}
+      <footer className="flex flex-col items-center gap-2.5 px-4 py-5 text-center">
+        <p className="flex items-center gap-1.5 text-[13px] font-semibold text-slate-400">
+          <span>{isFa ? 'ساخته شده با' : 'Made with'}</span>
+          <Heart className="h-4 w-4 fill-red-500 text-red-500" aria-label={isFa ? 'عشق' : 'love'} />
+          <span>{isFa ? 'توسط' : 'by'}</span>
+          <span className="font-extrabold text-[#d9b36a]">{isFa ? AUTHOR.name.fa : AUTHOR.name.en}</span>
+        </p>
+        <nav className="flex flex-wrap items-center justify-center gap-2" aria-label="links">
+          {AUTHOR.links
+            .filter((l) => l.url)
+            .map((l) => (
+              <a
+                key={l.id}
+                href={l.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-bold text-slate-200 transition-colors hover:border-[#d9b36a]/50 hover:text-[#ecd08f]"
+              >
+                {l.id === 'twitter' ? <Twitter className="h-3.5 w-3.5" /> : l.id === 'instagram' ? <Instagram className="h-3.5 w-3.5" /> : <Globe className="h-3.5 w-3.5" />}
+                {isFa ? l.label.fa : l.label.en}
+              </a>
+            ))}
+        </nav>
       </footer>
     </div>
   );

@@ -1,6 +1,9 @@
-// Link to the author's website, shown on the welcome screen and in the footer.
-// Set `url` to the full address (e.g. "https://example.com"); while it is empty the link is hidden.
-export const AUTHOR_SITE = {
-  url: 'https://mohamadreza-rokni.vercel.app/',
-  label: { fa: 'وب‌سایت من', en: 'My website' },
-};
+// Author credit shown in the footer. A link is hidden while its `url` is empty.
+export const AUTHOR = {
+  name: { fa: 'پسر استیو', en: 'Pesar-e Steve' },
+  links: [
+    { id: 'site', url: 'https://mohamadreza-rokni.vercel.app/', label: { fa: 'وب‌سایت', en: 'Website' } },
+    { id: 'twitter', url: 'https://x.com/son_of_jobs', label: { fa: 'توییتر', en: 'Twitter / X' } },
+    { id: 'instagram', url: 'https://instagram.com/son_of_jobs', label: { fa: 'اینستاگرام', en: 'Instagram' } },
+  ],
+} as const;
