@@ -3,7 +3,7 @@ export const AUTHOR = {
   name: { fa: 'پسر استیو', en: 'Pesar-e Steve' },
   links: [
     { id: 'site', url: 'https://mohamadreza-rokni.vercel.app/', label: { fa: 'وب‌سایت', en: 'Website' } },
-    { id: 'twitter', url: '', label: { fa: 'توییتر', en: 'Twitter / X' } },
-    { id: 'instagram', url: '', label: { fa: 'اینستاگرام', en: 'Instagram' } },
+    { id: 'twitter', url: 'https://x.com/son_of_jobs', label: { fa: 'توییتر', en: 'Twitter / X' } },
+    { id: 'instagram', url: 'https://instagram.com/son_of_jobs', label: { fa: 'اینستاگرام', en: 'Instagram' } },
   ],
 } as const;
