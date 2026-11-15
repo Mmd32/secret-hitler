@@ -16,8 +16,8 @@ import { RulesAssistantModal } from './components/RulesAssistantModal.js';
 import { DeckPiles } from './components/DeckPiles.js';
 import { Avatar, SectionTitle } from './components/ui.js';
 import { GuideBanner } from './components/GuideBanner.js';
+import { AUTHOR_SITE } from './constants/site.js';
 import {
-  Landmark,
   FolderLock,
   Volume2,
   VolumeX,
@@ -38,6 +38,7 @@ import {
   ChevronLeft,
   Hourglass,
   ScrollText,
+  ExternalLink,
 } from 'lucide-react';
 
 const getServerUrl = () => {
@@ -319,15 +320,13 @@ export const App: React.FC = () => {
       <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-[#0a0d13]/75 backdrop-blur-xl">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-3 px-3 sm:px-6">
           <div className="flex min-w-0 items-center gap-3">
-            <div
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
-              style={{
-                background: 'linear-gradient(160deg,#ecc97c,#b8913f)',
-                boxShadow: '0 8px 20px -8px rgba(217,179,106,.7), 0 1px 0 rgba(255,255,255,.4) inset',
-              }}
-            >
-              <Landmark className="h-[18px] w-[18px] text-[#1b1407]" />
-            </div>
+            <img
+              src="/icons/logo-small.webp"
+              alt={t.gameTitle}
+              width={36}
+              height={36}
+              className="h-9 w-9 shrink-0 rounded-xl object-cover shadow-[0_8px_20px_-8px_rgba(217,179,106,.7)] ring-1 ring-[#d9b36a]/40"
+            />
             <div className="min-w-0 leading-tight">
               <h1 className="truncate text-[15px] font-extrabold text-white">{t.gameTitle}</h1>
               {publicState && (
@@ -398,6 +397,14 @@ export const App: React.FC = () => {
           <div className="my-auto grid w-full max-w-5xl items-center gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
             {/* Brand / pitch */}
             <section className="animate-fadeIn text-center lg:text-start">
+              <img
+                src="/icons/logo.webp"
+                alt={t.gameTitle}
+                width={640}
+                height={640}
+                fetchPriority="high"
+                className="mx-auto mb-6 h-44 w-44 rounded-[28px] object-cover shadow-[0_30px_80px_-20px_rgba(217,179,106,.45)] ring-1 ring-[#d9b36a]/40 sm:h-52 sm:w-52 lg:mx-0"
+              />
               <span className="chip mb-5 border-[#d9b36a]/30 bg-[#d9b36a]/10 text-[#ecd08f]">
                 <Sparkles className="h-3.5 w-3.5" />
                 {isFa ? '۵ تا ۱۰ بازیکن · آنلاین و حضوری' : '5–10 players · online & in person'}
@@ -871,7 +878,20 @@ export const App: React.FC = () => {
 
       <RulesAssistantModal phase={phase || 'LOBBY'} isOpen={showRulesModal} onClose={() => setShowRulesModal(false)} lang={lang} />
 
-      <footer className="py-4 text-center text-[11px] text-slate-600">Secret Hitler · Digital Edition</footer>
+      <footer className="flex flex-col items-center gap-1.5 py-4 text-center text-[11px] text-slate-600">
+        <span>Secret Hitler · Digital Edition</span>
+        {AUTHOR_SITE.url && (
+          <a
+            href={AUTHOR_SITE.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-bold text-[#d9b36a] transition-colors hover:bg-white/[0.09]"
+          >
+            <ExternalLink className="h-3.5 w-3.5" />
+            {isFa ? AUTHOR_SITE.label.fa : AUTHOR_SITE.label.en}
+          </a>
+        )}
+      </footer>
     </div>
   );
 };
